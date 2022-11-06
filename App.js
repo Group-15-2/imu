@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>api dn Mk</Text>
+      <Text>mukuth ne</Text>
       <StatusBar style="auto" />
     </View>
   );
