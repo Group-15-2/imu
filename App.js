@@ -4,11 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 export default function App() {
   return (
     <View style={styles.container}>
-<<<<<<< HEAD
-      <Text>mukuth ne</Text>
-=======
-      <Text>Good Morning</Text>
->>>>>>> origin/Test
+      <Text>Expo Stuff</Text>
       <StatusBar style="auto" />
     </View>
   );
