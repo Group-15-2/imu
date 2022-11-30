@@ -2,6 +2,8 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useFonts } from 'expo-font';
+
 
 import homeScreen from './Screens/Home'
 import settingsScreen from './Screens/Settings'
@@ -13,7 +15,7 @@ function MyTabs() {
     <Tab.Navigator
     screenOptions={({ route }) => ({
       headerShown: false,
-     tabBarIcon: ({ focused, color, size }) => {
+      tabBarIcon: ({ focused, color, size }) => {
         let iconName;
 
         if (route.name === 'Home') {
@@ -49,6 +51,13 @@ function MyTabs() {
 }
 
 export default function App() {
+  const [loaded] = useFonts({
+    Jakarta: require('./assets/fonts/PlusJakartaSans-VariableFont_wght.ttf'),
+  });
+
+  if (!loaded) {
+    return null;
+  }
   return (
     <NavigationContainer>
       <MyTabs />
