@@ -4,15 +4,15 @@ import { StyleSheet, Text, View } from "react-native";
 
 export default function Card() {
     return (
-        <View style={ styles.card }>
+        <View style={styles.card}>
             <Image source={require('../assets/test_profile_image.jpg')} style={cardStyles.profile_image}></Image>
             <Text style={cardStyles.name}>Dimuthu Munaweera</Text>
-            <Text style={cardStyles.mood}>Happy</Text>
+            <Text style={cardStyles.mood}>Happpy</Text>
         </View>
 
     );
-  };
-  
+};
+
 const styles = StyleSheet.create({
     card: {
         backgroundColor: "#fff",
