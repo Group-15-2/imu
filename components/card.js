@@ -4,7 +4,7 @@ import React from 'react'
 export default function Card() {
     return (
         <View>
-            <Text style={{ fontFamily: 'Jakarta', fontSize: 27 }}>card text</Text>
+            <Text style={{ fontFamily: 'Jakarta',}}>casdasard text</Text>
         </View>
     );
 }

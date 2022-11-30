@@ -15,6 +15,7 @@ function MyTabs() {
     <Tab.Navigator
     screenOptions={({ route }) => ({
       headerShown: false,
+      tabBarShowLabel: false,
       tabBarIcon: ({ focused, color, size }) => {
         let iconName;
 
