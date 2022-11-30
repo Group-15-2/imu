@@ -4,7 +4,7 @@ import React from 'react'
 export default function Card() {
     return (
         <View>
-            <Text>card</Text>
+            <Text>card text</Text>
         </View>
     );
 }

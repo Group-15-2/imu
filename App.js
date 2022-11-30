@@ -2,6 +2,8 @@ import * as React from 'react';
 import { Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import homeScreen from './Screens/Home'
 import settingsScreen from './Screens/Settings'
@@ -10,12 +12,40 @@ const Tab = createBottomTabNavigator();
 
 function MyTabs() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+    screenOptions={({ route }) => ({
+      headerShown: false,
+     tabBarIcon: ({ focused, color, size }) => {
+        let iconName;
+
+        if (route.name === 'Home') {
+          iconName = focused ? 'home-outline' : 'home-outline';
+        } 
+        else if (route.name === 'Profile') {
+          iconName = focused ? 'account-outline' : 'account-outline';
+        }
+        else if (route.name === 'Messages') {
+          iconName = focused ? 'message-text-outline' : 'message-text-outline';
+        }
+        else if (route.name === 'Thoughts') {
+          iconName = focused ? 'thought-bubble-outline' : 'thought-bubble-outline';
+        }
+        else if (route.name === 'Addpost') {
+          iconName = focused ? 'plus-circle' : 'plus-circle';
+        }
+
+        // You can return any component that you like here!
+        return <MaterialCommunityIcons name={iconName} size={size} color={color} />
+      },
+      tabBarActiveTintColor: '#1877F2',
+      tabBarInactiveTintColor: 'gray',
+    })}
+  >
       <Tab.Screen name="Home" component={homeScreen} />
       <Tab.Screen name="Messages" component={settingsScreen} />
-      <Tab.Screen name="+" component={settingsScreen} />
+      <Tab.Screen name="Addpost" component={settingsScreen} options={{showLabel: false,}} />
       <Tab.Screen name="Thoughts" component={settingsScreen} />
-      <Tab.Screen name="Settings" component={settingsScreen} />
+      <Tab.Screen name="Profile" component={settingsScreen} />
     </Tab.Navigator>
   );
 }
