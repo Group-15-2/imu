@@ -31,7 +31,7 @@ function MyTabs() {
         else if (route.name === 'Thoughts') {
           iconName = focused ? 'thought-bubble-outline' : 'thought-bubble-outline';
         }
-        else if (route.name === ' ') {
+        else if (route.name === 'AddPost') {
           iconName = focused ? 'plus-circle' : 'plus-circle';
         }
 
@@ -44,7 +44,7 @@ function MyTabs() {
   >
       <Tab.Screen name="Home" component={homeScreen} />
       <Tab.Screen name="Messages" component={homeScreen} />
-      <Tab.Screen name=" " component={homeScreen} options={{showLabel: false,}} />
+      <Tab.Screen name="AddPost" component={homeScreen} options={{showLabel: false,}} />
       <Tab.Screen name="Thoughts" component={homeScreen} />
       <Tab.Screen name="Profile" component={settingsScreen} />
     </Tab.Navigator>
