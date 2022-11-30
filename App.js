@@ -1,9 +1,9 @@
 import * as React from 'react';
+import { Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useFonts } from 'expo-font';
-
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import homeScreen from './Screens/Home'
 import profile from './Screens/Profile'
@@ -69,13 +69,6 @@ function MyTabs() {
 }
 
 export default function App() {
-  const [loaded] = useFonts({
-    Jakarta: require('./assets/fonts/PlusJakartaSans-VariableFont_wght.ttf'),
-  });
-
-  if (!loaded) {
-    return null;
-  }
   return (
     <NavigationContainer>
       <MyTabs />
