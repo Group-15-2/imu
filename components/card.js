@@ -1,12 +1,18 @@
-import { Text, View, StyleSheet } from 'react-native'
 import React from 'react'
+import { StyleSheet, Text, View } from "react-native";
 
 export default function Card() {
     return (
-        <View>
-            <Text style={{ fontFamily: 'Jakarta',}}>casdasard text</Text>
-        </View>
+        <View style={ styles.card }></View>
+
     );
-}
-
-
+  };
+  
+const styles = StyleSheet.create({
+    card: {
+        backgroundColor: "#fff",
+        margin: 16,
+        borderRadius: 10,
+        height: 400
+    }
+})
