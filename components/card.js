@@ -5,7 +5,6 @@ export default function Card() {
     return (
         <View>
             <Image source={require('../assets/test_profile_image.jpg')} style={cardStyles.profile_image}></Image>
-            {/* <Image source={require('')} style={cardStyles.moodlet}></Image> */}
             <Text style={cardStyles.name}>Dimuthu Munaweera</Text>
             <Text style={cardStyles.mood}>Happy</Text>
         </View>
