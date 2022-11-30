@@ -2,7 +2,6 @@ import * as React from 'react';
 import { SectionList, Text, View } from 'react-native';
 import setstyles from '../styles/SettingsStyles';
 
-<<<<<<< HEAD
 export default function Settings() {
   return (
     <View style={setstyles.container}>
@@ -16,12 +15,6 @@ export default function Settings() {
         renderSectionHeader={({section}) => <Text style={setstyles.sectionHeader}>{section.title}</Text>}
         keyExtractor={(item, index) => `basicListEntry-${item.title}`}
       />
-=======
-
-export default function Settings() {  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>This is the profile screen</Text>
->>>>>>> 5a2284bcbea746c628edbfcaed75eaf8a88b1527
-    </View>
+    </View>  
   );
-}
+}      
