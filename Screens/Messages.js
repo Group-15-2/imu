@@ -7,7 +7,7 @@ import { SearchBar } from 'react-native';
 export default function Messages() {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>
+      <Text style={{ fontFamily: 'Jakarta', }}>
         This is the Messages Screen
       </Text>
     </View>

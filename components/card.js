@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Image } from "react-native";
 
 export default function Card() {
     return (
-        <View style={cardStyles.card}>
+        <View style={cardStyles.card }>
             <Image source={require('../assets/test_profile_image.jpg')} style={cardStyles.profile_image}></Image>
             <Image source={require('../assets/moodlets/happy.png')} style={cardStyles.moodlet}></Image>
             <Text style={cardStyles.name}>Dimuthu Munaweera</Text>
