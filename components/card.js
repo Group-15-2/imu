@@ -1,19 +1,19 @@
-import { Text, View, StyleSheet, Image } from 'react-native'
 import React from 'react'
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 
 export default function Card() {
     return (
-        <View style={styles.card}>
+        <View style={cardStyles.card}>
             <Image source={require('../assets/test_profile_image.jpg')} style={cardStyles.profile_image}></Image>
+            <Image source={require('../assets/moodlets/happy.png')} style={cardStyles.moodlet}></Image>
             <Text style={cardStyles.name}>Dimuthu Munaweera</Text>
-            <Text style={cardStyles.mood}>Happpy</Text>
+            <Text style={cardStyles.mood}>Happy</Text>
         </View>
 
     );
 };
 
-const styles = StyleSheet.create({
+const cardStyles = StyleSheet.create({
     card: {
         backgroundColor: "#fff",
         margin: 16,
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
         color: "#242323",
     },
     mood: {
-        fontSize: 12,
+        fontSize: 10,
         fontWeight: "600",
         color: "#504F4F",
     },
