@@ -6,7 +6,7 @@ import { useFonts } from 'expo-font';
 
 
 import homeScreen from './Screens/Home'
-import settingsScreen from './Screens/Settings'
+import profile from './Screens/Profile'
 
 const Tab = createBottomTabNavigator();
 
@@ -46,7 +46,7 @@ function MyTabs() {
       <Tab.Screen name="Messages" component={homeScreen} />
       <Tab.Screen name=" " component={homeScreen} options={{showLabel: false,}} />
       <Tab.Screen name="Thoughts" component={homeScreen} />
-      <Tab.Screen name="Profile" component={settingsScreen} />
+      <Tab.Screen name="Profile" component={profile} />
     </Tab.Navigator>
   );
 }

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { SectionList, Text, View } from 'react-native';
 import setstyles from '../styles/SettingsStyles';
 
-export default function Settings() {
+export default function Profile() {
   return (
     <View style={setstyles.container}>
       <SectionList
