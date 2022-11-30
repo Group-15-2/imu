@@ -1,17 +1,25 @@
 import { Text, View, StyleSheet, Image } from 'react-native'
 import React from 'react'
+import { StyleSheet, Text, View } from "react-native";
 
 export default function Card() {
     return (
-        <View>
+        <View style={ styles.card }>
             <Image source={require('../assets/test_profile_image.jpg')} style={cardStyles.profile_image}></Image>
             <Text style={cardStyles.name}>Dimuthu Munaweera</Text>
             <Text style={cardStyles.mood}>Happy</Text>
         </View>
-    );
-}
 
-const cardStyles = StyleSheet.create({
+    );
+  };
+  
+const styles = StyleSheet.create({
+    card: {
+        backgroundColor: "#fff",
+        margin: 16,
+        borderRadius: 10,
+        height: 400
+    },
     profile_image: {
         width: 40,
         height: 40,
