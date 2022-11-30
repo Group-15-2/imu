@@ -1,9 +1,7 @@
 import * as React from 'react';
-import { Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import homeScreen from './Screens/Home'
 import settingsScreen from './Screens/Settings'
@@ -30,7 +28,7 @@ function MyTabs() {
         else if (route.name === 'Thoughts') {
           iconName = focused ? 'thought-bubble-outline' : 'thought-bubble-outline';
         }
-        else if (route.name === 'Addpost') {
+        else if (route.name === ' ') {
           iconName = focused ? 'plus-circle' : 'plus-circle';
         }
 
@@ -43,7 +41,7 @@ function MyTabs() {
   >
       <Tab.Screen name="Home" component={homeScreen} />
       <Tab.Screen name="Messages" component={settingsScreen} />
-      <Tab.Screen name="Addpost" component={settingsScreen} options={{showLabel: false,}} />
+      <Tab.Screen name=" " component={settingsScreen} options={{showLabel: false,}} />
       <Tab.Screen name="Thoughts" component={settingsScreen} />
       <Tab.Screen name="Profile" component={settingsScreen} />
     </Tab.Navigator>
