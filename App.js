@@ -42,9 +42,9 @@ function MyTabs() {
     })}
   >
       <Tab.Screen name="Home" component={homeScreen} />
-      <Tab.Screen name="Messages" component={settingsScreen} />
-      <Tab.Screen name=" " component={settingsScreen} options={{showLabel: false,}} />
-      <Tab.Screen name="Thoughts" component={settingsScreen} />
+      <Tab.Screen name="Messages" component={homeScreen} />
+      <Tab.Screen name=" " component={homeScreen} options={{showLabel: false,}} />
+      <Tab.Screen name="Thoughts" component={homeScreen} />
       <Tab.Screen name="Profile" component={settingsScreen} />
     </Tab.Navigator>
   );
