@@ -29,6 +29,9 @@ function MyTabs() {
         else if (route.name === 'Thoughts') {
           iconName = focused ? 'star' : 'star-outline';
         }
+        else if (route.name === ' ') {
+          iconName = focused ? 'ios-add-circle' : 'ios-add-circle-outline';
+        }
 
         // You can return any component that you like here!
         return <Ionicons name={iconName} size={size} color={color} />;
@@ -39,7 +42,7 @@ function MyTabs() {
   >
       <Tab.Screen name="Home" component={homeScreen} />
       <Tab.Screen name="Messages" component={settingsScreen} />
-      <Tab.Screen name="+" component={settingsScreen} />
+      <Tab.Screen name=" " component={settingsScreen} />
       <Tab.Screen name="Thoughts" component={settingsScreen} />
       <Tab.Screen name="Settings" component={settingsScreen} />
     </Tab.Navigator>
