@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, Divider } from "react-native";
 import Icon from 'react-native-vector-icons/Ionicons';
 
 export default function Card() {
@@ -15,9 +15,10 @@ export default function Card() {
             </View>
             <Text style={{marginLeft:10}}>This is Post</Text>
             <Image source={require('../assets/4.jpg')} style={cardStyles.image}></Image>
-            <View style={cardStyles.interact}>
+            <View style={cardStyles.divider}></View>
+            <View style={cardStyles.interact} >
                 <View style={cardStyles.inttab}>
-                    <Icon name='thumbs-up-outline' size={25}/>
+                    <Icon name='thumbs-up-outline' size={25} />
                     <Text style={cardStyles.inttext}>Like</Text>
                 </View>
                 <View style={cardStyles.inttab}>
@@ -34,7 +35,7 @@ const cardStyles = StyleSheet.create({
         backgroundColor: "#fff",
         margin: 16,
         borderRadius: 10,
-        height: 600
+        height: 450
     },
 
     profile_image: {
@@ -69,7 +70,7 @@ const cardStyles = StyleSheet.create({
     interact: {
         flexDirection:'row',
         justifyContent:'space-around',
-        padding:'15px'
+        padding:'15px',
     },
     inttab: {
         flexDirection:'row',
@@ -83,5 +84,12 @@ const cardStyles = StyleSheet.create({
         color:'#333',
         marginTop:'5px',
         marginLeft:'5px'
+    },
+    divider: {
+        borderBottomColor:'#333',
+        borderBottomWidth:'1px',
+        width: '100% ',
+        alignSelf:'center',
+        marginTop:'15px'
     }
 })
