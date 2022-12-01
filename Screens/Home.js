@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Text, View, SafeAreaView, Button } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-// import Card from '../components/Card';
+import Card from '../components/Card';
 
 
 
@@ -17,7 +17,7 @@ export default function Home() {
         <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 16, paddingTop: 10, color: '#1877F2' }}>
           How Are You Feeling Today ?
         </Text>
-        <Button style={{ marginLeft: "auto", backgroundColor: '#add8e6', borderColor: '#fff', borderTopLeftRadius: 20, borderBottomLeftRadius: 20 }} title="dfs">
+        <Button style={{ fle, backgroundColor: '#add8e6', borderColor: '#fff', borderTopLeftRadius: 20, borderBottomLeftRadius: 20 }} title="dfs">
           <Icon
             name='add-circle-outline'
             size={35}
@@ -25,7 +25,7 @@ export default function Home() {
             style={{ height: 25, width: 25 }} />
         </Button>
       </View>
-      {/* <Card /> */}
+      <Card />
     </SafeAreaView>
 
   );
