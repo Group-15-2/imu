@@ -52,7 +52,7 @@ const cardStyles = StyleSheet.create({
     name: {
         // fontFamily: "Jakartha",
         fontSize: 14,
-        // fontWeight: 800,
+        fontWeight: '800',
         color: "#242323",
     },
     sub: {
@@ -61,7 +61,7 @@ const cardStyles = StyleSheet.create({
     },
     mood: {
         fontSize: 10,
-        // fontWeight: 600,
+        fontWeight: '600',
         color: "#504F4F",
     },
     image: {
@@ -78,11 +78,11 @@ const cardStyles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         borderRadius: 5,
-        // padding: '2px 5px'
+        padding: 2,
     },
     inttext: {
         fontSize: 14,
-        // fontWeight: 'bold',
+        fontWeight: 'bold',
         color: '#333',
         marginTop: 5,
         marginLeft: 5
