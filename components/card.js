@@ -1,18 +1,33 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 // import { Button } from 'react-native-web';
 
 
 export default function Card() {
-    var postTextOriginal = "Hi Guy!";
+    var postTextOriginal = "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ffffffffffffffffffffffffffffff";
     var postTextProcessed;
+    var TouchableOpacityValue;
+    // var postHeight = 290;
+
 
     if (postTextOriginal.length > 100) {
         postTextProcessed = postTextOriginal.slice(0, 100) + '....';
+        TouchableOpacityValue = 0.6;
+
     } else {
         postTextProcessed = postTextOriginal;
+        TouchableOpacityValue = 1;
     }
+
+    const viewFullPost = () => {
+        if (isShowing == false) { setPostTextProcessed(postTextOriginal); setIsShowing(true); }
+        else { setPostTextProcessed(postTextProcessed); setIsShowing(false); }
+    };
+    const [fullPost, setPostTextProcessed] = useState(postTextProcessed);
+    const [isShowing, setIsShowing] = useState(false);
+
+
     return (
         <View style={cardStyles.card}>
             <View style={cardStyles.cardHead}>
@@ -31,9 +46,9 @@ export default function Card() {
                 <MaterialCommunityIcons name="message-text-outline" color={'#1877F2'} size={42} />
             </View>
 
-            <TouchableOpacity>
-                <View style={{ backgroundColor: '#8EDD81', width: '100%', height: 290, }}>
-                    <Text style={cardStyles.post_text}>{postTextProcessed}</Text>
+            <TouchableOpacity activeOpacity={TouchableOpacityValue} onPress={viewFullPost}>
+                <View style={{ backgroundColor: '#8EDD81', width: '100%', minHeight: 290 }}>
+                    <Text style={cardStyles.post_text}>{fullPost}</Text>
                 </View>
             </TouchableOpacity>
 
