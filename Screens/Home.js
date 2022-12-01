@@ -17,7 +17,7 @@ export default function Home() {
         <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 16, paddingTop: 10, color: '#1877F2' }}>
           How Are You Feeling Today ?
         </Text>
-        <Button style={{ fle, backgroundColor: '#add8e6', borderColor: '#fff', borderTopLeftRadius: 20, borderBottomLeftRadius: 20 }} title="dfs">
+        <Button style={{ backgroundColor: '#add8e6', borderColor: '#fff', borderTopLeftRadius: 20, borderBottomLeftRadius: 20 }} title="dfs">
           <Icon
             name='add-circle-outline'
             size={35}

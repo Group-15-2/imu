@@ -78,7 +78,7 @@ const cardStyles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         borderRadius: 5,
-        // padding: '2px 5px'
+        padding: '2px 5px'
     },
     inttext: {
         fontSize: 14,
