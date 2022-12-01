@@ -1,33 +1,34 @@
 import React from 'react'
 import { StyleSheet, Text, View, Image, } from "react-native";
-import Icon from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 // import { Button } from 'react-native-web';
 
 
 export default function Card() {
+    var postTextOriginal = "jfgsjdkfhkdsjhfkseheukfhsukdjfshdfk dksjfhskeuhkdudjfkskbfjdskjfhdskjf skjdhfkseuhfkesudkhjfhdkjsheufhskdjfhskjdfhs skdjfhesuk ksjhfksdjfhseuksudoifjslejfskjdh skjdhfkseuhfkesudkhjfhdkjsheufhskdjfhskjdfhs";
+    var seeMore;
+    var postTextProcessed;
+
+    if (postTextOriginal.length > 20) {
+        postTextProcessed = "sg" + " see more....";
+    } else {
+        seeMore = "";
+    }
     return (
         <View style={cardStyles.card}>
-            <View style={{ flexDirection: 'row', padding: 10 }}>
+            <View style={cardStyles.card_head}>
                 <Image source={require('../assets/test_profile_image.jpg')} style={cardStyles.profile_image}></Image>
-                <View style={{ flexDirection: 'column', marginTop: 10 }}>
-                    <Text style={cardStyles.name}>Malindu Wasalamudali</Text>
-                    <Text style={cardStyles.sub}>4 min ago</Text>
-                    <Image source={require('../assets/moodlets/happy.png')} style={cardStyles.moodlet}></Image>
-                </View>
+                <Text style={cardStyles.name}>Malindu Wasalamudali</Text>
+                <Text style={cardStyles.mood}>Happy</Text>
+                <Image source={require('../assets/moodlets/happy.png')} style={cardStyles.moodlet}></Image>
+                <MaterialCommunityIcons name="message-text-outline" color={'#1877F2'} size={42} />
             </View>
-            <Text style={{ marginLeft: 10 }}>This is Post</Text>
-            <Image source={require('../assets/4.jpg')} style={cardStyles.image}></Image>
-            <View style={cardStyles.divider}></View>
-            <View style={cardStyles.interact} >
-                <View style={cardStyles.inttab} >
-                    <Icon name='thumbs-up-outline' size={25} />
-                    <Text style={cardStyles.inttext}>Like</Text>
-                </View>
-                <View style={cardStyles.inttab}>
-                    <Icon name='ios-chatbubble-ellipses-outline' size={25} />
-                    <Text style={cardStyles.inttext}>Comment</Text>
-                </View>
+
+            <View style={{ backgroundColor: '#8EDD81', width: '100%', height: 290, }}>
+                <Text style={cardStyles.post_text}>{postTextProcessed}</Text>
+                <Text>{seeMore}</Text>
             </View>
+
         </View>
     );
 };
@@ -38,6 +39,11 @@ const cardStyles = StyleSheet.create({
         margin: 16,
         borderRadius: 10,
         height: 450,
+    },
+
+    card_head: {
+        flexDirection: 'column',
+        marginTop: 10,
     },
 
     profile_image: {
@@ -55,57 +61,20 @@ const cardStyles = StyleSheet.create({
         fontWeight: '800',
         color: "#242323",
     },
-    sub: {
-        fontSize: 10,
-        color: "#000",
-    },
     mood: {
         fontSize: 10,
         fontWeight: '600',
         color: "#504F4F",
     },
-    image: {
-        width: '100%',
-        height: 250,
-        marginTop: 15,
-    },
-    interact: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        padding: 15,
-    },
-    inttab: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        borderRadius: 5,
-        padding: 2,
-    },
-    inttext: {
-        fontSize: 14,
+    post_text: {
+        textAlignVertical: 'center',
+        textAlign: 'center',
+        fontSize: 32,
         fontWeight: 'bold',
-        color: '#333',
-        marginTop: 5,
-        marginLeft: 5
-    },
-    divider: {
-        borderBottomColor: '#333',
-        borderBottomWidth: 1,
-        width: '100%',
-        alignSelf: 'center',
-        marginTop: 15
+        color: '#FFFFFF',
+        height: 290,
 
-    },
-    btnClickContain: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'stretch',
-        alignSelf: 'stretch',
-        backgroundColor: '#009D6E',
-        borderRadius: 5,
-        padding: 5,
-        marginTop: 5,
-        marginBottom: 5,
-    },
 
+
+    }
 })
