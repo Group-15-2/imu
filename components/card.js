@@ -7,11 +7,19 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 export default function Card() {
     return (
         <View style={cardStyles.card}>
-            <View style={cardStyles.card_head}>
-                <Image source={require('../assets/test_profile_image.jpg')} style={cardStyles.profile_image}></Image>
-                <Text style={cardStyles.name}>Malindu Wasalamudali</Text>
-                <Text style={cardStyles.mood}>Happy</Text>
-                <Image source={require('../assets/moodlets/happy.png')} style={cardStyles.moodlet}></Image>
+            <View style={cardStyles.cardHead}>
+                <View style={cardStyles.namePicContainer}>
+                    <View style={cardStyles.pfp}>
+                        <Image source={require('../assets/test_profile_image.jpg')} style={cardStyles.profile_image}></Image>
+                        <Image source={require('../assets/moodlets/happy.png')} style={cardStyles.moodlet}></Image>
+                    </View>
+
+                    <View>                
+                        <Text style={cardStyles.name}>Confused Unga Bunga</Text>
+                        <Text style={cardStyles.mood}>Happy</Text>
+                    </View>
+                </View>
+
                 <MaterialCommunityIcons name="message-text-outline" color={'#1877F2'} size={42} />
             </View>
 
@@ -24,6 +32,21 @@ export default function Card() {
 };
 
 const cardStyles = StyleSheet.create({
+
+    cardHead: {
+        padding: 8,
+        display:'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+    },
+
+    namePicContainer: {
+        display:'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+
     card: {
         backgroundColor: "#fff",
         margin: 16,
@@ -31,9 +54,16 @@ const cardStyles = StyleSheet.create({
         height: 450,
     },
 
-    card_head: {
-        flexDirection: 'column',
-        marginTop: 10,
+    pfp: {
+        display: "flex",
+        flexDirection: "row",
+    },
+
+    moodlet: {
+        right: 10,
+        bottom: 0,
+        width: 12,
+        height: 12,
     },
 
     profile_image: {
@@ -41,10 +71,7 @@ const cardStyles = StyleSheet.create({
         height: 60,
         borderRadius: 30,
     },
-    moodlet: {
-        width: 12,
-        height: 12,
-    },
+
     name: {
         // fontFamily: "Jakartha",
         fontSize: 14,
