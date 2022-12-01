@@ -1,28 +1,40 @@
 import React, { useState } from 'react'
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-// import { Button } from 'react-native-web';
 
 
 export default function Card() {
+
+    //postTextOriginal stores the raw string of post
+    //postTextProcessed stores the max characters of the post text
+    //TouchableOpacityValue holds the opacity value of TouchableOpacity Element
+
     var postTextOriginal = "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ffffffffffffffffffffffffffffff";
     var postTextProcessed;
     var TouchableOpacityValue;
 
-
+    //Process the max characters of the original post text to show in the post
+    //If characters are larger than 100, postTextOriginal slices to first 100 characters with '...' string
+    //TouchableOpacityValue sets to 0.6
     if (postTextOriginal.length > 100) {
         postTextProcessed = postTextOriginal.slice(0, 100) + '....';
         TouchableOpacityValue = 0.6;
+    }
 
-    } else {
+    //Show postTextOriginal else
+    //TouchableOpacityValue sets to 1
+    else {
         postTextProcessed = postTextOriginal;
         TouchableOpacityValue = 1;
     }
 
+    //This function makes post to touch and expand to view full text of the post
     const viewFullPost = () => {
         if (isShowing == false) { setPostTextProcessed(postTextOriginal); setIsShowing(true); }
         else { setPostTextProcessed(postTextProcessed); setIsShowing(false); }
     };
+
+    //update real-time isShowing state and fullPost text to show
     const [fullPost, setPostTextProcessed] = useState(postTextProcessed);
     const [isShowing, setIsShowing] = useState(false);
 
