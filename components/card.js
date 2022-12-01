@@ -15,7 +15,7 @@ export default function Card() {
                 <MaterialCommunityIcons name="message-text-outline" color={'#1877F2'} size={42} />
             </View>
 
-            <View style={{ backgroundColor: '#8EDD81', minWidth: 328, minHeight: 290 }}>
+            <View style={{ backgroundColor: '#8EDD81', width: '100%', height: 290, }}>
                 <Text style={cardStyles.post_text}>dsfsudh skjdhfksjhfkjs skdjhfksjdhfkjsdh ksjdhkfsjdh</Text>
             </View>
 
@@ -58,7 +58,6 @@ const cardStyles = StyleSheet.create({
     },
     post_text: {
         textAlign: 'center',
-        justifyContent: 'center',
         fontSize: 32,
         fontWeight: 'bold',
         color: '#FFFFFF'
