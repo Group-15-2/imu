@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Text, View, SafeAreaView, Button } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import Card from '../components/Card';
+//import Card from '../components/Card';
 
 
 
@@ -10,9 +10,9 @@ export default function Home() {
     <SafeAreaView>
       <View style={{
         backgroundColor: "#fff",
-        margin: 10,
+        margin: 10,marginTop:30,
         borderRadius: 10,
-        height: 50, flexDirection: 'row'
+        height: 50, flexDirection: 'row',
       }}>
         <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 16, paddingTop: 10, color: '#1877F2' }}>
           How Are You Feeling Today ?
@@ -25,7 +25,6 @@ export default function Home() {
             style={{ height: 25, width: 25 }} />
         </Button>
       </View>
-      <Card />
     </SafeAreaView>
 
   );
