@@ -17,7 +17,7 @@ export default function Home() {
           How are you Feeling today?
         </Text>
         <TouchableOpacity style={styles.button}>
-          <Icon name="plus" size={16} style={styles.buttonInner} />
+         <Icon name="plus" size={16} style={styles.buttonInner}/>
         </TouchableOpacity>
       </View>
 
