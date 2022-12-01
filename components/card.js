@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View, Image, User } from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 
 export default function Card() {
     return (
@@ -13,7 +13,15 @@ export default function Card() {
             </View>
             </View>
             <Text style={{marginLeft:10}}>This is Post</Text>
-            <Image source={require('../assets/test_profile_image.jpg')} style={cardStyles.image}></Image>
+            <Image source={require('../assets/4.jpg')} style={cardStyles.image}></Image>
+            <View style={cardStyles.interact}>
+                <View style={cardStyles.inttab}>
+                    <Text>Like</Text>
+                </View>
+                <View style={cardStyles.inttab}>
+                    <Text>Comment</Text>
+                </View>
+            </View>
         </View>
 
     );
@@ -24,7 +32,7 @@ const cardStyles = StyleSheet.create({
         backgroundColor: "#fff",
         margin: 16,
         borderRadius: 10,
-        height: 400
+        height: 600
     },
 
     profile_image: {
@@ -55,5 +63,16 @@ const cardStyles = StyleSheet.create({
         width:'100%',
         height:'250px',
         marginTop:'15px',
+    },
+    interact: {
+        flexDirection:'row',
+        justifyContent:'space-around',
+        padding:'15px'
+    },
+    inttab: {
+        flexDirection:'row',
+        justifyContent:'center',
+        borderRadius:'5px',
+        padding:'2px 5px'
     }
 })
