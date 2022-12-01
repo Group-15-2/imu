@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Text, View, SafeAreaView, StyleSheet, TouchableOpacity} from 'react-native';
-import Card from '../components/card';
+import { Text, View, SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
+import Card from '../components/Card';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useFonts } from 'expo-font';
 
@@ -16,13 +16,9 @@ export default function Home() {
         <Text style={styles.heading}>
           How are you Feeling today?
         </Text>
-        <Button style={{ backgroundColor: '#add8e6', borderColor: '#fff', borderTopLeftRadius: 20, borderBottomLeftRadius: 20 }} title="dfs">
-          <Icon
-            name='add-circle-outline'
-            size={35}
-            color='#black'
-            style={{ height: 25, width: 25 }} />
-        </Button>
+        <TouchableOpacity style={styles.button}>
+         <Icon name="plus" size={16} style={styles.buttonInner}/>
+        </TouchableOpacity>
       </View>
 
       <Card />
@@ -35,36 +31,36 @@ export default function Home() {
 const styles = StyleSheet.create({
 
   topSelector: {
-    fontFamily: 'Jakarta',
+    // fontFamily: 'Jakarta',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginTop: 32,
-},
+  },
 
   heading: {
-    fontSize: 24, 
+    fontSize: 24,
     fontWeight: 'bold',
     lineHeight: 30.24,
     marginLeft: 16,
     paddingTop: 10,
     color: '#1877F2'
-},
+  },
 
   button: {
     alignItems: "center",
     padding: 16,
-    backgroundColor:'#C3E2FF',
+    backgroundColor: '#C3E2FF',
     borderBottomLeftRadius: 50,
     borderTopLeftRadius: 50,
-},
+  },
 
-buttonInner: {
-  alignItems: "center",
-  backgroundColor:'#fff',
-  borderRadius: 50,
-  padding: 8,
-},
+  buttonInner: {
+    alignItems: "center",
+    backgroundColor: '#fff',
+    borderRadius: 50,
+    padding: 8,
+  },
 
 })
