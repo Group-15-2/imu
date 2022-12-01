@@ -17,13 +17,13 @@ export default function Home() {
         <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 16, paddingTop: 10, color: '#1877F2' }}>
           How Are You Feeling Today ?
         </Text>
-        <button style={{ marginLeft: "auto", backgroundColor: '#add8e6', borderColor: '#fff', borderTopLeftRadius: 20, borderBottomLeftRadius: 20 }} title="dfs">
+        <Button style={{ marginLeft: "auto", backgroundColor: '#add8e6', borderColor: '#fff', borderTopLeftRadius: 20, borderBottomLeftRadius: 20 }} title="dfs">
           <Icon
             name='add-circle-outline'
             size={35}
             color='#black'
             style={{ height: 25, width: 25 }} />
-        </button>
+        </Button>
       </View>
       {/* <Card /> */}
     </SafeAreaView>
