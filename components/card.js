@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View, Image } from "react-native";
+import Icon from 'react-native-vector-icons/Ionicons';
 
 export default function Card() {
     return (
@@ -16,10 +17,12 @@ export default function Card() {
             <Image source={require('../assets/4.jpg')} style={cardStyles.image}></Image>
             <View style={cardStyles.interact}>
                 <View style={cardStyles.inttab}>
-                    <Text>Like</Text>
+                    <Icon name='thumbs-up-outline' size={25}/>
+                    <Text style={cardStyles.inttext}>Like</Text>
                 </View>
                 <View style={cardStyles.inttab}>
-                    <Text>Comment</Text>
+                    <Icon name='ios-chatbubble-ellipses-outline' size={25}/>
+                    <Text style={cardStyles.inttext}>Comment</Text>
                 </View>
             </View>
         </View>
@@ -74,5 +77,12 @@ const cardStyles = StyleSheet.create({
         justifyContent:'center',
         borderRadius:'5px',
         padding:'2px 5px'
+    },
+    inttext: {
+        fontSize:'14px',
+        fontWeight:'bold',
+        color:'#333',
+        marginTop:'5px',
+        marginLeft:'5px'
     }
 })
