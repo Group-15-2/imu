@@ -4,16 +4,18 @@ import { StyleSheet, Text, View, Image, User } from "react-native";
 export default function Card() {
     return (
         <View style={cardStyles.card }>
-            <View style={{flexDirection:'row'}}>
+            <View style={{flexDirection:'row', padding:'10px'}}>
             <Image source={require('../assets/test_profile_image.jpg')} style={cardStyles.profile_image}></Image>
-            <View style={{flexDirection:'column', marginTop:10}}>
+            <View style={{flexDirection:'column',marginTop:10}}>
                 <Text style={cardStyles.name}>Malindu Wasalamudali</Text>
                 <Text style={cardStyles.sub}>4 min ago</Text>
                 <Image source={require('../assets/moodlets/happy.png')} style={cardStyles.moodlet}></Image>
             </View>
             </View>
+            <Text style={{marginLeft:10}}>This is Post</Text>
+            <Image source={require('../assets/test_profile_image.jpg')} style={cardStyles.image}></Image>
         </View>
-        
+
     );
 };
 
@@ -49,4 +51,9 @@ const cardStyles = StyleSheet.create({
         fontWeight: "600",
         color: "#504F4F",
     },
+    image: {
+        width:'100%',
+        height:'250px',
+        marginTop:'15px',
+    }
 })
