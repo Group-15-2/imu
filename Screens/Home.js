@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Text, View, SafeAreaView, Button } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import Card from '../components/Card';
+// import Card from '../components/Card';
 
 
 
@@ -25,7 +25,7 @@ export default function Home() {
             style={{ height: 25, width: 25 }} />
         </button>
       </View>
-      <Card />
+      {/* <Card /> */}
     </SafeAreaView>
 
   );
