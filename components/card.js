@@ -1,6 +1,8 @@
 import React from 'react'
 import { StyleSheet, Text, View, Image, Divider } from "react-native";
 import Icon from 'react-native-vector-icons/Ionicons';
+import { Button } from 'react-native-web';
+
 
 export default function Card() {
     return (
@@ -17,7 +19,7 @@ export default function Card() {
             <Image source={require('../assets/4.jpg')} style={cardStyles.image}></Image>
             <View style={cardStyles.divider}></View>
             <View style={cardStyles.interact} >
-                <View style={cardStyles.inttab}>
+                <View style={cardStyles.inttab} >
                     <Icon name='thumbs-up-outline' size={25} />
                     <Text style={cardStyles.inttext}>Like</Text>
                 </View>
@@ -35,7 +37,7 @@ const cardStyles = StyleSheet.create({
         backgroundColor: "#fff",
         margin: 16,
         borderRadius: 10,
-        height: 450
+        height: 450,
     },
 
     profile_image: {
@@ -91,5 +93,19 @@ const cardStyles = StyleSheet.create({
         width: '100% ',
         alignSelf:'center',
         marginTop:'15px'
-    }
+
+    },
+    btnClickContain: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'stretch',
+        alignSelf: 'stretch',
+        backgroundColor: '#009D6E',
+        borderRadius: 5,
+        padding: 5,
+        marginTop: 5,
+        marginBottom: 5,
+    },
+
 })
