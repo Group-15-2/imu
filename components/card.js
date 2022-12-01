@@ -8,7 +8,6 @@ export default function Card() {
     var postTextOriginal = "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ffffffffffffffffffffffffffffff";
     var postTextProcessed;
     var TouchableOpacityValue;
-    // var postHeight = 290;
 
 
     if (postTextOriginal.length > 100) {
@@ -114,7 +113,7 @@ const cardStyles = StyleSheet.create({
         fontSize: 32,
         fontWeight: 'bold',
         color: '#FFFFFF',
-        height: 290,
+        minHeight: 290,
         paddingHorizontal: 5,
 
 
