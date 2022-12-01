@@ -6,7 +6,7 @@ export default function Card() {
         <View style={cardStyles.card }>
             <View style={{flexDirection:'row'}}>
             <Image source={require('../assets/test_profile_image.jpg')} style={cardStyles.profile_image}></Image>
-            <View style={{flexDirection:'column'}}>
+            <View style={{flexDirection:'column', marginTop:10}}>
                 <Text style={cardStyles.name}>Malindu Wasalamudali</Text>
                 <Text style={cardStyles.sub}>4 min ago</Text>
                 <Image source={require('../assets/moodlets/happy.png')} style={cardStyles.moodlet}></Image>
@@ -26,15 +26,16 @@ const cardStyles = StyleSheet.create({
     },
 
     profile_image: {
-        width: '50px',
-        height: '50px',
-        borderRadius: '25px',
+        width: '60px',
+        height: '60px',
+        borderRadius: '30px',
     },
     moodlet: {
         width: 12,
         height: 12,
     },
     name: {
+        fontFamily: "Jakartha",
         fontSize: 14,
         fontWeight: "800",
         color: "#242323",
