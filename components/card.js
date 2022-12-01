@@ -1,12 +1,11 @@
 import React from 'react'
-import { StyleSheet, Text, View, Image, } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 // import { Button } from 'react-native-web';
 
 
 export default function Card() {
-    var postTextOriginal = "Hi Guys!";
-    var seeMore;
+    var postTextOriginal = "Hi Guy!";
     var postTextProcessed;
 
     if (postTextOriginal.length > 100) {
@@ -23,7 +22,7 @@ export default function Card() {
                         <Image source={require('../assets/moodlets/happy.png')} style={cardStyles.moodlet}></Image>
                     </View>
 
-                    <View>                
+                    <View>
                         <Text style={cardStyles.name}>Confused Unga Bunga</Text>
                         <Text style={cardStyles.mood}>Happy</Text>
                     </View>
@@ -32,10 +31,11 @@ export default function Card() {
                 <MaterialCommunityIcons name="message-text-outline" color={'#1877F2'} size={42} />
             </View>
 
-            <View style={{ backgroundColor: '#8EDD81', width: '100%', height: 290, }}>
-                <Text style={cardStyles.post_text}>{postTextProcessed}</Text>
-                <Text>{seeMore}</Text>
-            </View>
+            <TouchableOpacity>
+                <View style={{ backgroundColor: '#8EDD81', width: '100%', height: 290, }}>
+                    <Text style={cardStyles.post_text}>{postTextProcessed}</Text>
+                </View>
+            </TouchableOpacity>
 
         </View>
     );
@@ -45,14 +45,14 @@ const cardStyles = StyleSheet.create({
 
     cardHead: {
         padding: 8,
-        display:'flex',
+        display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
     },
 
     namePicContainer: {
-        display:'flex',
+        display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
     },
