@@ -5,14 +5,14 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 
 export default function Card() {
-    var postTextOriginal = "jfgsjdkfhkdsjhfkseheukfhsukdjfshdfk dksjfhskeuhkdudjfkskbfjdskjfhdskjf skjdhfkseuhfkesudkhjfhdkjsheufhskdjfhskjdfhs skdjfhesuk ksjhfksdjfhseuksudoifjslejfskjdh skjdhfkseuhfkesudkhjfhdkjsheufhskdjfhskjdfhs";
+    var postTextOriginal = "Hi Guys!";
     var seeMore;
     var postTextProcessed;
 
-    if (postTextOriginal.length > 20) {
-        postTextProcessed = "sg" + " see more....";
+    if (postTextOriginal.length > 100) {
+        postTextProcessed = postTextOriginal.slice(0, 100) + '....';
     } else {
-        seeMore = "";
+        postTextProcessed = postTextOriginal;
     }
     return (
         <View style={cardStyles.card}>
@@ -73,7 +73,7 @@ const cardStyles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#FFFFFF',
         height: 290,
-
+        paddingHorizontal: 5,
 
 
     }
