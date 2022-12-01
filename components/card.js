@@ -1,13 +1,17 @@
 import React from 'react'
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, User } from "react-native";
 
 export default function Card() {
     return (
         <View style={cardStyles.card }>
+            <View style={{flexDirection:'row'}}>
             <Image source={require('../assets/test_profile_image.jpg')} style={cardStyles.profile_image}></Image>
-            <Image source={require('../assets/moodlets/happy.png')} style={cardStyles.moodlet}></Image>
-            <Text style={cardStyles.name}>Dimuthu Munaweera</Text>
-            <Text style={cardStyles.mood}>Happy</Text>
+            <View style={{flexDirection:'column'}}>
+                <Text style={cardStyles.name}>Malindu Wasalamudali</Text>
+                <Text style={cardStyles.sub}>4 min ago</Text>
+                <Image source={require('../assets/moodlets/happy.png')} style={cardStyles.moodlet}></Image>
+            </View>
+            </View>
         </View>
 
     );
@@ -20,10 +24,11 @@ const cardStyles = StyleSheet.create({
         borderRadius: 10,
         height: 400
     },
+
     profile_image: {
-        width: 40,
-        height: 40,
-        borderRadius: 50,
+        width: '50px',
+        height: '50px',
+        borderRadius: '25px',
     },
     moodlet: {
         width: 12,
@@ -33,6 +38,10 @@ const cardStyles = StyleSheet.create({
         fontSize: 14,
         fontWeight: "800",
         color: "#242323",
+    },
+    sub: {
+        fontSize:10,
+        color:"#000",
     },
     mood: {
         fontSize: 10,

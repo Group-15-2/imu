@@ -24,7 +24,6 @@ export default function Home() {
       </button>
       </View>
       <Card />
-      <Card />
     </SafeAreaView>
 
   );

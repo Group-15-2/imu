@@ -4,9 +4,9 @@ import { Text, View } from 'react-native';
 
 export default function Thoughts() {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text style={{ fontFamily: 'Jakarta', }}>
-        This is the Thoughts Screen
+    <View >
+      <Text style={{ fontSize: 20, fontWeight: 'bold',  marginLeft: 16, paddingTop: 10, color: '#1877F2' }}>
+          Thought Space
       </Text>
     </View>
   );
