@@ -13,7 +13,7 @@ export default function Card() {
             </View>
             </View>
         </View>
-
+        
     );
 };
 
