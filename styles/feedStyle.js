@@ -45,7 +45,7 @@ const styled = StyleSheet.create({
     },
     btn: {
         bottom:90,
-        right:10
+        right:15
     }
 })
 
