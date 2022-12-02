@@ -1,5 +1,5 @@
 import  React,{ useState } from 'react';
-import { Text, View, Image, SafeAreaView, Switch, TouchableOpacity  } from 'react-native';
+import { Text, View, Image, SafeAreaView, Switch, TouchableOpacity, TextInput  } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {styled} from '../styles/feedStyle'
 
@@ -42,6 +42,18 @@ export default function Profile() {
           <Icon name= 'refresh' size={20} />
           <Text style={styled.refresh}>Generate New Identity</Text>
         </TouchableOpacity>
+        <View style={styled.details}>
+          <Text style={styled.userd}>Your Name</Text>
+          <TextInput style={styled.txtint} placeholder="Type here to translate!"/>
+        </View>
+        <View style={styled.details}>
+          <Text style={styled.userd}>Your Email</Text>
+          <TextInput style={styled.txtint} placeholder="Type here to translate!"/>
+        </View>
+        <View style={styled.details}>
+          <Text style={styled.userd}>Phone Number</Text>
+          <TextInput style={styled.txtint} placeholder="Type here to translate!"/>
+        </View>
       </View>
     </SafeAreaView >
   );

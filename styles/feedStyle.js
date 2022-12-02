@@ -52,6 +52,20 @@ const styled = StyleSheet.create({
     },
     refresh: {
         fontSize:18
+    },
+    details: {
+        margin: 10,
+    },
+    userd: {
+        color: '#6C6C6C',
+        fontSize: 12,
+        fontWeight: '500',
+    },
+    txtint: {
+        backgroundColor: '#ECECEC',
+        height: 40,
+        borderRadius: 30,
+        paddingLeft: 10
     }
 })
 
