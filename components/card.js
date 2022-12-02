@@ -44,18 +44,19 @@ export default function Card() {
         <View style={cardStyles.card}>
 
             <View style={cardStyles.cardHead}>
+                <TouchableOpacity>
+                    <View style={cardStyles.namePicContainer}>
+                        <View>
+                            <Image source={require('../assets/test_profile_image.jpg')} style={globalStyles.userimg} />
+                            <Image source={require('../assets/moodlets/happy.png')} style={globalStyles.moodlet} />
+                        </View>
 
-                <View style={cardStyles.namePicContainer}>
-                    <View>
-                        <Image source={require('../assets/test_profile_image.jpg')} style={globalStyles.userimg} />
-                        <Image source={require('../assets/moodlets/happy.png')} style={globalStyles.moodlet} />
+                        <View>
+                            <Text style={cardStyles.name}>Confused Unga Bunga</Text>
+                            <Text style={cardStyles.mood}>Happy</Text>
+                        </View>
                     </View>
-
-                    <View>
-                        <Text style={cardStyles.name}>Confused Unga Bunga</Text>
-                        <Text style={cardStyles.mood}>Happy</Text>
-                    </View>
-                </View>
+                </TouchableOpacity>
 
                 <TouchableOpacity>
                     <MaterialCommunityIcons name="message-text-outline" color={'#1877F2'} size={42} />
