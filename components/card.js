@@ -41,7 +41,9 @@ export default function Card() {
 
     return (
         <View style={cardStyles.card}>
+
             <View style={cardStyles.cardHead}>
+
                 <View style={cardStyles.namePicContainer}>
                     <View style={cardStyles.pfp}>
                         <Image source={require('../assets/test_profile_image.jpg')} style={cardStyles.profile_image}></Image>
@@ -63,13 +65,44 @@ export default function Card() {
                 </View>
             </TouchableOpacity>
 
+            <View style={cardStyles.cardBottom}>
+
+                <View style={cardStyles.picCommentContainer}>
+
+                    <View style={cardStyles.pfp}>
+                        <Image source={require('../assets/test_profile_image.jpg')} style={cardStyles.commenter_profile_image}></Image>
+                        <Image source={require('../assets/moodlets/happy.png')} style={cardStyles.moodlet}></Image>
+                    </View>
+
+                    <View style={cardStyles.commentBox}>
+                        <Text>Your Thoughts ?</Text>
+                    </View>
+                </View>
+
+            </View>
+
         </View>
     );
 };
 
 const cardStyles = StyleSheet.create({
 
+    commentBox: {
+        flex: 1,
+        backgroundColor: '#ECECEC',
+        padding: 10,
+        borderRadius: 50
+    },
+
     cardHead: {
+        padding: 8,
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+    },
+
+    cardBottom: {
         padding: 8,
         display: 'flex',
         flexDirection: 'row',
@@ -83,11 +116,16 @@ const cardStyles = StyleSheet.create({
         alignItems: 'center',
     },
 
+    picCommentContainer: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+
     card: {
         backgroundColor: "#fff",
         margin: 16,
         borderRadius: 10,
-        height: 450,
     },
 
     pfp: {
@@ -105,6 +143,12 @@ const cardStyles = StyleSheet.create({
     profile_image: {
         width: 60,
         height: 60,
+        borderRadius: 30,
+    },
+
+    commenter_profile_image: {
+        width: 40,
+        height: 40,
         borderRadius: 30,
     },
 
