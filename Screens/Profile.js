@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Text, View, Image } from 'react-native';
-//import fStyles from '../styles/feedStyle';
+import styled from '../styles/feedStyle'
 
 export default function Profile() {
   return (
@@ -8,6 +8,9 @@ export default function Profile() {
       <Text style={{ fontSize: 30, fontWeight: 'bold',  marginLeft: 16, paddingTop: 30, color: '#1877F2' }}>
           Profile
       </Text>
+      <Title style={styled.title}>
+        <Text>MMMMMM</Text>
+      </Title>
     </View>
   );
 }      
