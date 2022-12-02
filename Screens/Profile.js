@@ -48,17 +48,16 @@ export default function Profile() {
           <Icon
             name='square-edit-outline'
             color='#000'
-            size={14}
+            size={18}
           />
           </TextInput>
         </View>
         <View style={styled.details}>
           <Text style={styled.userd}>Your Email</Text>
           <TextInput style={styled.txtint} placeholder="Type here to translate!">
-          <Icon
-            name='square-edit-outline'
+          <Icon  name='square-edit-outline'
             color='#000'
-            size={14}
+            size={18}
           />
           </TextInput>
         </View>
@@ -68,7 +67,7 @@ export default function Profile() {
           <Icon
             name='square-edit-outline'
             color='#000'
-            size={14}
+            size={18}
           />
           </TextInput>
         </View>

@@ -66,6 +66,9 @@ const styled = StyleSheet.create({
         height: 40,
         borderRadius: 30,
         paddingLeft: 10
+    },
+    editbtn: {
+        
     }
 })
 
