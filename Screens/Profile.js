@@ -1,5 +1,6 @@
 import  React,{ useState } from 'react';
-import { Text, View, Image, SafeAreaView, Switch  } from 'react-native';
+import { Text, View, Image, SafeAreaView, Switch, TouchableOpacity  } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {styled} from '../styles/feedStyle'
 
 export default function Profile() {
@@ -12,27 +13,35 @@ export default function Profile() {
           Profile
       </Text>
       <View style={styled.card}>
-        <View style={styled.userinfo}>
-            <View>
-              <Image source={require('../assets/test_profile_image.jpg')} style={styled.userimg}/>
-              <Image source={require('../assets/moodlets/happy.png')} style={styled.moodlet}/>
+        <View style={{flexDirection:"row"}}>
+          <View style={{width:'73%'}}>
+            <View style={styled.userinfo}>
+                <View>
+                  <Image source={require('../assets/test_profile_image.jpg')} style={styled.userimg}/>
+                  <Image source={require('../assets/moodlets/happy.png')} style={styled.moodlet}/>
+                </View>
+                <View style={styled.v}>
+                  <Text style={styled.name}>Chamra Atapattu</Text> 
+                  <Text style={styled.id}>ID = DAf345h5G5</Text>
+                </View> 
             </View>
-            <View style={styled.v}>
-              <Text style={styled.name}>Chamra Atapattu</Text> 
-              <Text style={styled.id}>ID = DAf345h5G5</Text>
-            </View> 
-        </View>
-        <View>
-          <Text style={styled.anonymity}>Anonymity</Text>
-          <Switch
-            style={styled.btn}
-            trackColor={{ false: "#767577", true: "#81b0ff" }}
-            thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
-            ios_backgroundColor="#3e3e3e"
-            onValueChange={toggleSwitch}
-            value={isEnabled}
-          />
-        </View>
+          </View>  
+          <View style={{width:'27%'}}>
+            <Text style={styled.anonymity}>Anonymity</Text>
+            <Switch
+              style={styled.btn}
+              trackColor={{ false: "#767577", true: "#81b0ff" }}
+              thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+              ios_backgroundColor="#3e3e3e"
+              onValueChange={toggleSwitch}
+              value={isEnabled}
+            />
+          </View>
+        </View> 
+        <TouchableOpacity style={styled.button}>
+          <Icon name= 'refresh' size={20} />
+          <Text style={styled.refresh}>Generate New Identity</Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView >
   );

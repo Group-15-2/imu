@@ -40,12 +40,18 @@ const styled = StyleSheet.create({
         fontSize: 10,
         fontWeight: '500',
         color: "#504F4F",
-        left:250,
-        bottom:80
+        padding: 20
     },
     btn: {
-        bottom:90,
-        right:10
+        right:20,
+        bottom: 30
+    },
+    button: {
+        flexDirection:'row',
+        marginLeft: 10,
+    },
+    refresh: {
+        fontSize:18
     }
 })
 
