@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput } from "react-native";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {globalStyles} from '../styles/global';
+import { globalStyles } from '../styles/global';
 
 
 export default function Card() {
@@ -47,8 +47,8 @@ export default function Card() {
 
                 <View style={cardStyles.namePicContainer}>
                     <View>
-                        <Image source={require('../assets/test_profile_image.jpg')} style={globalStyles.userimg}/>
-                        <Image source={require('../assets/moodlets/happy.png')} style={globalStyles.moodlet}/>
+                        <Image source={require('../assets/test_profile_image.jpg')} style={globalStyles.userimg} />
+                        <Image source={require('../assets/moodlets/happy.png')} style={globalStyles.moodlet} />
                     </View>
 
                     <View>
@@ -57,7 +57,9 @@ export default function Card() {
                     </View>
                 </View>
 
-                <MaterialCommunityIcons name="message-text-outline" color={'#1877F2'} size={42} />
+                <TouchableOpacity>
+                    <MaterialCommunityIcons name="message-text-outline" color={'#1877F2'} size={42} />
+                </TouchableOpacity>
             </View>
 
             <TouchableOpacity activeOpacity={TouchableOpacityValue} onPress={viewFullPost}>
@@ -71,14 +73,14 @@ export default function Card() {
                 <View style={cardStyles.picCommentContainer}>
 
                     <View>
-                        <Image source={require('../assets/test_profile_image.jpg')} style={globalStyles.userimg}/>
-                        <Image source={require('../assets/moodlets/happy.png')} style={globalStyles.moodlet}/>
+                        <Image source={require('../assets/test_profile_image.jpg')} style={globalStyles.userimg} />
+                        <Image source={require('../assets/moodlets/happy.png')} style={globalStyles.moodlet} />
                     </View>
 
-                        <TextInput
-                            placeholder="Your Thoughts ?"
-                            style={cardStyles.commentBox}
-                        />
+                    <TextInput
+                        placeholder="Your Thoughts ?"
+                        style={cardStyles.commentBox}
+                    />
                 </View>
 
             </View>

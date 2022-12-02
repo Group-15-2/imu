@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Text, View, SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useFonts } from 'expo-font';
-import Card from '../components/card';
+import Card from '../components/Card';
 
 
 export default function Home() {
@@ -17,11 +17,11 @@ export default function Home() {
           How are you Feeling today?
         </Text>
         <TouchableOpacity style={styles.button}>
-         <Icon name="plus" size={16} style={styles.buttonInner}/>
+          <Icon name="plus" size={16} style={styles.buttonInner} />
         </TouchableOpacity>
       </View>
-      <Card/>
-      
+      <Card />
+
     </SafeAreaView>
 
   );
