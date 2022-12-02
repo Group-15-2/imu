@@ -34,7 +34,18 @@ const styled = StyleSheet.create({
         color: "#504F4F",
     },
     v: {
-        paddingTop: 15
+        paddingTop: 15,
+    },
+    anonymity: {
+        fontSize: 10,
+        fontWeight: '500',
+        color: "#504F4F",
+        left:250,
+        bottom:80
+    },
+    btn: {
+        bottom:90,
+        right:10
     }
 })
 
