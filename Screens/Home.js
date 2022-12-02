@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Text, View, SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
-//import Card from '../components/Card';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useFonts } from 'expo-font';
+import Card from '../components/card';
 
 
 export default function Home() {
@@ -20,7 +20,7 @@ export default function Home() {
          <Icon name="plus" size={16} style={styles.buttonInner}/>
         </TouchableOpacity>
       </View>
-
+      <Card/>
       
     </SafeAreaView>
 
