@@ -1,33 +1,31 @@
 import * as React from 'react';
 import {Text, View, Image, SafeAreaView, Switch, TouchableOpacity, TextInput} from 'react-native';
-import {styled} from '../styles/feedStyle'
+import {styled} from '../styles/feedStyle';
+import {globalStyles} from '../styles/global';
+import { useFonts } from 'expo-font';
+
+
 
 export default function Messages() {
   return (
-    <View >
-      <Text style={{ fontSize: 30, fontWeight: 'bold', marginLeft: 16, paddingTop: 30, color: '#1877F2' }}>
+    <View style={globalStyles.wrapper}>
+
+      <Text style={globalStyles.header}>
         Chats
       </Text>
 
       <View>
+
         <TouchableOpacity>
-          <View>
+          <View style={globalStyles.namePicContainer}>
             <View>
-              <Image source={require('../assets/test_profile_image.jpg')} style={styled.userimg}/>
-              <Image source={require('../assets/moodlets/happy.png')} style={styled.moodlet}/>
+              <Image source={require('../assets/test_profile_image.jpg')} style={globalStyles.userimg}/>
+              <Image source={require('../assets/moodlets/happy.png')} style={globalStyles.moodlet}/>
             </View>
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity>
-          <View>
-            
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity>
-          <View>
-
+            <View>
+              <Text>Name</Text>
+              <Text>Name</Text>
+            </View>
           </View>
         </TouchableOpacity>
       </View>

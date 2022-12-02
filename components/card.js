@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput } from "react-native";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {styled} from '../styles/feedStyle'
+import {globalStyles} from '../styles/global';
 
 
 export default function Card() {
@@ -46,9 +46,9 @@ export default function Card() {
             <View style={cardStyles.cardHead}>
 
                 <View style={cardStyles.namePicContainer}>
-                    <View style={cardStyles.pfp}>
-                        <Image source={require('../assets/test_profile_image.jpg')} style={cardStyles.profile_image}></Image>
-                        <Image source={require('../assets/moodlets/happy.png')} style={cardStyles.moodlet}></Image>
+                    <View>
+                        <Image source={require('../assets/test_profile_image.jpg')} style={globalStyles.userimg}/>
+                        <Image source={require('../assets/moodlets/happy.png')} style={globalStyles.moodlet}/>
                     </View>
 
                     <View>
@@ -70,14 +70,15 @@ export default function Card() {
 
                 <View style={cardStyles.picCommentContainer}>
 
-                    <View style={cardStyles.pfp}>
-                        <Image source={require('../assets/test_profile_image.jpg')} style={cardStyles.commenter_profile_image}></Image>
-                        <Image source={require('../assets/moodlets/happy.png')} style={cardStyles.moodlet}></Image>
+                    <View>
+                        <Image source={require('../assets/test_profile_image.jpg')} style={globalStyles.userimg}/>
+                        <Image source={require('../assets/moodlets/happy.png')} style={globalStyles.moodlet}/>
                     </View>
 
-                    <View style={cardStyles.commentBox}>
-                        <Text>Your Thoughts ?</Text>
-                    </View>
+                        <TextInput
+                            placeholder="Your Thoughts ?"
+                            style={cardStyles.commentBox}
+                        />
                 </View>
 
             </View>

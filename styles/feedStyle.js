@@ -1,6 +1,12 @@
 import {StyleSheet} from 'react-native';
 
+
 const styled = StyleSheet.create({
+
+    wrapper: {
+        marginLeft: 16,
+        paddingTop: 30
+    },
 
     card: {
         backgroundColor: "#fff",
@@ -79,7 +85,7 @@ const styled = StyleSheet.create({
         borderRadius: 30,
         paddingLeft: 10
     },
-    
+
     editbtn: {
         
     }
