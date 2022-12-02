@@ -16,12 +16,25 @@ const styled = StyleSheet.create({
         width: 60,
         height: 60,
         borderRadius: 30,
-        marginRight: 10
+        marginRight: 13
     },
     name: {
-        fontSize: 18,
-        fontWeight:'bold',
-        marginTop:10
+        fontSize: 16,
+        fontWeight:'700',
+    },
+    moodlet: {
+        right: -45,
+        bottom: 15,
+        width: 20,
+        height: 20,
+    },
+    id: {
+        fontSize: 10,
+        fontWeight: '300',
+        color: "#504F4F",
+    },
+    v: {
+        paddingTop: 15
     }
 })
 

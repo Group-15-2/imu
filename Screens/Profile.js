@@ -10,8 +10,14 @@ export default function Profile() {
       </Text>
       <View style={styled.card}>
         <View style={styled.userinfo}>
+            <View>
             <Image source={require('../assets/test_profile_image.jpg')} style={styled.userimg}/>
+            <Image source={require('../assets/moodlets/happy.png')} style={styled.moodlet}></Image>
+            </View>
+            <View style={styled.v}>
             <Text style={styled.name}>Ravana SL</Text> 
+            <Text style={styled.id}>ID = DAf345h5G5</Text>
+            </View>
         </View>
       </View>
     </SafeAreaView >
