@@ -44,15 +44,33 @@ export default function Profile() {
         </TouchableOpacity>
         <View style={styled.details}>
           <Text style={styled.userd}>Your Name</Text>
-          <TextInput style={styled.txtint} placeholder="Type here to translate!"/>
+          <TextInput style={styled.txtint} placeholder="Type here to translate!">
+          <Icon
+            name='square-edit-outline'
+            color='#000'
+            size={14}
+          />
+          </TextInput>
         </View>
         <View style={styled.details}>
           <Text style={styled.userd}>Your Email</Text>
-          <TextInput style={styled.txtint} placeholder="Type here to translate!"/>
+          <TextInput style={styled.txtint} placeholder="Type here to translate!">
+          <Icon
+            name='square-edit-outline'
+            color='#000'
+            size={14}
+          />
+          </TextInput>
         </View>
         <View style={styled.details}>
           <Text style={styled.userd}>Phone Number</Text>
-          <TextInput style={styled.txtint} placeholder="Type here to translate!"/>
+          <TextInput style={styled.txtint} placeholder="Type here to translate!">
+          <Icon
+            name='square-edit-outline'
+            color='#000'
+            size={14}
+          />
+          </TextInput>
         </View>
       </View>
     </SafeAreaView >
