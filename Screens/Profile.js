@@ -1,7 +1,7 @@
 import  React,{ useState } from 'react';
-import { Text, View, Image, SafeAreaView, Switch, TouchableOpacity, TextInput  } from 'react-native';
+import { Text, View, Image, SafeAreaView, Switch, TouchableOpacity, TextInput } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {styled} from '../styles/feedStyle'
+import {styled} from '../styles/feedStyle';
 
 export default function Profile() {
   const [isEnabled, setIsEnabled] = useState(false);
@@ -45,8 +45,7 @@ export default function Profile() {
         <View style={styled.details}>
           <Text style={styled.userd}>Your Name</Text>
           <TextInput style={styled.txtint} placeholder="Type here to translate!">
-          <Icon
-            name='square-edit-outline'
+          <Icon  name='square-edit-outline'
             color='#000'
             size={18}
           />
