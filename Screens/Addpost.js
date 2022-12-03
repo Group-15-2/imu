@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { SectionList, Text, View, StyleSheet, FlatList, TouchableWithoutFeedback } from 'react-native';
+import { SectionList, Text, View, StyleSheet, FlatList, TouchableWithoutFeedback, TextInput, ScrollView } from 'react-native';
 // import { addStyles } from '../styles/addstyle';
 
 const DATA = [
@@ -59,6 +59,8 @@ export default function Addpost() {
     )
   };
 
+  const [text, onChangeText] = useState('');
+
   return (
     <View>
       <Text style={addStyles.header}>
@@ -73,9 +75,16 @@ export default function Addpost() {
         style={addStyles.color_picker_container}
       />
 
-      <View style={[addStyles.card, { backgroundColor: selectedColor }]}>
-
-      </View>
+      <ScrollView>
+        <TextInput
+          style={[addStyles.card, { backgroundColor: selectedColor }]}
+          onChangeText={onChangeText}
+          value={text}
+          placeholder="Your Thoughts Here!"
+          placeholderTextColor={'#FFFFFF'}
+          multiline={true}
+        />
+      </ScrollView>
     </View>
   );
 }
@@ -98,7 +107,13 @@ const addStyles = StyleSheet.create({
   card: {
     margin: 16,
     borderRadius: 10,
-    height: 450,
+    minHeight: 450,
+    textAlignVertical: 'center',
+    textAlign: 'center',
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+    paddingHorizontal: 5,
   },
 
   color_picker: {
@@ -109,7 +124,6 @@ const addStyles = StyleSheet.create({
   },
 
   color_picker_container: {
-    display: 'flex',
-    flexDirection: 'row',
+
   }
 })
