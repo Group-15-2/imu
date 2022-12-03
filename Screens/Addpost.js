@@ -4,14 +4,13 @@ import { globalStyles } from '../styles/global';
 
 export default function Addpost() {
   return (
-    <View style={globalStyles.wrapper}>
-
+    <View >
       <Text style={globalStyles.header}>
-        New Post
+          Add Post
       </Text>
+      <View style={globalStyles.card}>
 
-
-
+      </View>
     </View>
   );
 }      
