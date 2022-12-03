@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { SectionList, Text, View } from 'react-native';
-import { globalStyles } from '../styles/global';
+import { addStyles } from '../styles/addstyle';
 
 export default function Addpost() {
   return (
     <View >
-      <Text style={globalStyles.header}>
+      <Text style={addStyles.header}>
           Add Post
       </Text>
-      <View style={globalStyles.card}>
+      <View style={addStyles.card}>
 
       </View>
     </View>
