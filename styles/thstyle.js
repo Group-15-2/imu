@@ -2,11 +2,6 @@ import {StyleSheet} from 'react-native';
 
 const thStyles = StyleSheet.create({
 
-    wrapper: {
-        marginLeft: 16,
-        paddingTop: 30
-    },
-
     header: {
         fontSize: 30, 
         fontWeight: 'bold',  
@@ -30,7 +25,8 @@ const thStyles = StyleSheet.create({
     date: {
         fontSize: 16,
         fontWeight: '800',
-        color: '#64A4F6'
+        color: '#64A4F6',
+        marginTop: 5
     },
 
     c1: {
