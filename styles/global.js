@@ -12,7 +12,7 @@ const globalStyles = StyleSheet.create({
         backgroundColor: "#fff",
         margin: 8,
         borderRadius: 10,
-        height: 450,
+        height: '100%',
     },
 
     header: {
@@ -51,6 +51,12 @@ const globalStyles = StyleSheet.create({
         width: 20,
         height: 20,
         marginBottom:-20
+    },
+
+    t: {
+        fontSize: 12,
+        fontWeight: '300',
+        color: "#504F4F",
     },
 
     txt: {
