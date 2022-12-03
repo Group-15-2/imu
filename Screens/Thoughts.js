@@ -6,7 +6,7 @@ export default function Addpost() {
   return (
     <View >
       <Text style={thStyles.header}>
-          Add Post
+          Thought Space
       </Text>
       <View style={thStyles.card}>
 

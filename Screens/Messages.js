@@ -17,6 +17,9 @@ export default function Messages() {
         <Chat/>
         <Chat/>
         <Chat/>
+        <Chat/>
+        <Chat/>
+        <Chat/>
       </View>
     </View>
   );
