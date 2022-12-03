@@ -8,16 +8,34 @@ const globalStyles = StyleSheet.create({
         paddingTop: 30
     },
 
+    card: {
+        backgroundColor: "#fff",
+        margin: 8,
+        borderRadius: 10,
+        height: 450,
+    },
+
     header: {
-        fontSize: 30,
-        fontWeight: 'bold',
-        color: '#1877F2'
+        fontSize: 30, 
+        fontWeight: 'bold',  
+        marginLeft: 16, 
+        paddingTop: 30, 
+        color: '#1877F2' 
     },
 
     namePicContainer: {
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
+        margin: 10
+    },
+
+    c1: {
+        width: '85%'
+    },
+
+    c2: {
+        width: '15%'
     },
 
     userimg: {
@@ -34,6 +52,14 @@ const globalStyles = StyleSheet.create({
         height: 20,
         marginBottom:-20
     },
+
+    txt: {
+        justifyContent: 'center',
+        marginTop: 40,
+        fontSize: 10,
+        fontWeight: '600',
+        color:'#504F4F'
+    }
 })
 
 export  { globalStyles }

@@ -8,6 +8,14 @@ const styled = StyleSheet.create({
         paddingTop: 30
     },
 
+    header: {
+        fontSize: 30, 
+        fontWeight: 'bold',  
+        marginLeft: 16, 
+        paddingTop: 30, 
+        color: '#1877F2' 
+    },
+
     card: {
         backgroundColor: "#fff",
         margin: 8,
