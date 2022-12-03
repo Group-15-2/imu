@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { SectionList, Text, View, StyleSheet, FlatList, TouchableWithoutFeedback, TextInput, ScrollView } from 'react-native';
 // import { addStyles } from '../styles/addstyle';
 
+//color picker data
 const DATA = [
   {
     id: 0,
@@ -33,6 +34,8 @@ const DATA = [
   },
 ]
 
+//item for FlatList
+//get parameters 'item, borderWidth, onPress' from renderItem
 const Item = ({ item, borderWidth, onPress }) => {
   return (
     <TouchableWithoutFeedback onPress={onPress}>
@@ -44,10 +47,15 @@ const Item = ({ item, borderWidth, onPress }) => {
 
 export default function Addpost() {
 
+  //update selectedId of the FlatList
   const [selectedId, setSelectedId] = useState(0);
+
+  //update selectedColor of the FlatList
   const [selectedColor, setSelectedColor] = useState('#6562FF');
 
   const renderItem = ({ item }) => {
+
+    //check the item id and selectedId, if they match borderWidth gets 3 else borderWidth gets 1
     const borderWidth = item.id === selectedId ? 3 : 1;
 
     return (
