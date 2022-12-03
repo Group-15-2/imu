@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput } from "react-native";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { globalStyles } from '../styles/global';
-
 
 export default function Card() {
 
@@ -47,8 +45,8 @@ export default function Card() {
                 <TouchableOpacity>
                     <View style={cardStyles.namePicContainer}>
                         <View>
-                            <Image source={require('../assets/test_profile_image.jpg')} style={globalStyles.userimg} />
-                            <Image source={require('../assets/moodlets/happy.png')} style={globalStyles.moodlet} />
+                            <Image source={require('../assets/test_profile_image.jpg')} style={cardStyles.userimg} />
+                            <Image source={require('../assets/moodlets/happy.png')} style={cardStyles.moodlet} />
                         </View>
 
                         <View>
@@ -74,8 +72,8 @@ export default function Card() {
                 <View style={cardStyles.picCommentContainer}>
 
                     <View>
-                        <Image source={require('../assets/test_profile_image.jpg')} style={globalStyles.userimg} />
-                        <Image source={require('../assets/moodlets/happy.png')} style={globalStyles.moodlet} />
+                        <Image source={require('../assets/test_profile_image.jpg')} style={cardStyles.userimg} />
+                        <Image source={require('../assets/moodlets/happy.png')} style={cardStyles.moodlet} />
                     </View>
 
                     <TextInput
@@ -167,6 +165,20 @@ const cardStyles = StyleSheet.create({
         fontSize: 10,
         fontWeight: '600',
         color: "#504F4F",
+    },
+    userimg: {
+        width: 60,
+        height: 60,
+        borderRadius: 30,
+        marginRight: 13
+    },
+
+    moodlet: {
+        right: -45,
+        bottom: 15,
+        width: 20,
+        height: 20,
+        marginBottom:-20
     },
     post_text: {
         textAlignVertical: 'center',

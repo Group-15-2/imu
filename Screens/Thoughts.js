@@ -1,13 +1,16 @@
 import * as React from 'react';
-import { Text, View } from 'react-native';
+import { SectionList, Text, View } from 'react-native';
+import { thStyles } from '../styles/thstyle';
 
-
-export default function Thoughts() {
+export default function Addpost() {
   return (
     <View >
-      <Text style={{ fontSize: 30, fontWeight: 'bold',  marginLeft: 16, paddingTop: 30, color: '#1877F2' }}>
-          Thought Space
+      <Text style={thStyles.header}>
+          Add Post
       </Text>
+      <View style={thStyles.card}>
+
+      </View>
     </View>
   );
-};
+}   

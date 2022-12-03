@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 
 
-const globalStyles = StyleSheet.create({
+const chatStyles = StyleSheet.create({
 
     wrapper: {
         marginLeft: 16,
@@ -68,4 +68,4 @@ const globalStyles = StyleSheet.create({
     }
 })
 
-export  { globalStyles }
+export  { chatStyles }
