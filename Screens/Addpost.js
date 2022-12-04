@@ -76,6 +76,7 @@ export default function Addpost() {
       </Text>
 
       <FlatList
+        numColumns={7}
         data={DATA}
         renderItem={renderItem}
         keyExtractor={item => item.id}
