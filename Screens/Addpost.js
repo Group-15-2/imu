@@ -118,7 +118,6 @@ const addStyles = StyleSheet.create({
   },
 
   card: {
-    // margin: 16,
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
     minHeight: 450,
@@ -128,8 +127,6 @@ const addStyles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#FFFFFF',
     paddingHorizontal: 5,
-    // paddingTop: 90,
-    // paddingBottom: 90,
   },
 
   color_picker: {
