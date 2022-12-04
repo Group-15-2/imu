@@ -75,25 +75,30 @@ export default function Addpost() {
       <Text style={addStyles.header}>
         Add Post
       </Text>
-      <FlatList
-        numColumns={7}
-        data={DATA}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-        extraData={selectedId}
-        style={addStyles.color_picker_container}
-      />
 
-      <ScrollView>
-        <TextInput
-          style={[addStyles.card, { backgroundColor: selectedColor }]}
-          onChangeText={onChangeText}
-          value={text}
-          placeholder="Your Thoughts Here!"
-          placeholderTextColor={'#FFFFFF'}
-          multiline={true}
-        />
-      </ScrollView>
+      <View style={addStyles.wrapper}>
+        <View style={[addStyles.flatlist_container, { backgroundColor: selectedColor }]}>
+          <FlatList
+            numColumns={7}
+            data={DATA}
+            renderItem={renderItem}
+            keyExtractor={item => item.id}
+            extraData={selectedId}
+            style={addStyles.color_picker_wrapper}
+          />
+        </View>
+
+        <ScrollView>
+          <TextInput
+            style={[addStyles.card, { backgroundColor: selectedColor }]}
+            onChangeText={onChangeText}
+            value={text}
+            placeholder="Your Thoughts Here!"
+            placeholderTextColor={'#FFFFFF'}
+            multiline={true}
+          />
+        </ScrollView>
+      </View>
     </View>
   );
 }
@@ -101,8 +106,7 @@ export default function Addpost() {
 const addStyles = StyleSheet.create({
 
   wrapper: {
-    marginLeft: 16,
-    paddingTop: 30,
+    margin: 8,
   },
 
   header: {
@@ -114,17 +118,18 @@ const addStyles = StyleSheet.create({
   },
 
   card: {
-    margin: 16,
-    borderRadius: 10,
-    minHeight: 600,
+    // margin: 16,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    minHeight: 450,
     textAlignVertical: 'center',
     textAlign: 'center',
     fontSize: 32,
     fontWeight: 'bold',
     color: '#FFFFFF',
     paddingHorizontal: 5,
-    paddingTop: 90,
-    paddingBottom: 90,
+    // paddingTop: 90,
+    // paddingBottom: 90,
   },
 
   color_picker: {
@@ -132,16 +137,16 @@ const addStyles = StyleSheet.create({
     height: 24,
     borderRadius: 50,
     borderColor: '#fff',
-    marginHorizontal: 5
+    marginHorizontal: 3
   },
 
-  color_picker_container: {
-    position: 'absolute',
-    zIndex: 1,
-    marginTop: 120,
+  color_picker_wrapper: {
     alignSelf: 'center',
-    backgroundColor: '#2f2f2f9c',
-    padding: 10,
-    borderRadius: 50
+    paddingVertical: 20
+  },
+
+  flatlist_container: {
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
   }
 })
