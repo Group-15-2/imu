@@ -68,7 +68,7 @@ export default function Addpost() {
   };
 
   //update post text
-  const [text, onChangeText] = useState('sfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff');
+  const [text, onChangeText] = useState('');
 
   return (
     <View>
@@ -116,14 +116,15 @@ const addStyles = StyleSheet.create({
   card: {
     margin: 16,
     borderRadius: 10,
-    minHeight: 450,
+    minHeight: 600,
     textAlignVertical: 'center',
     textAlign: 'center',
     fontSize: 32,
     fontWeight: 'bold',
     color: '#FFFFFF',
     paddingHorizontal: 5,
-    paddingTop: 80
+    paddingTop: 90,
+    paddingBottom: 90,
   },
 
   color_picker: {
@@ -140,7 +141,7 @@ const addStyles = StyleSheet.create({
     marginTop: 120,
     alignSelf: 'center',
     backgroundColor: '#2f2f2f9c',
-    padding: 5,
+    padding: 10,
     borderRadius: 50
   }
 })
