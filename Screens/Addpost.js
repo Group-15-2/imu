@@ -68,7 +68,7 @@ export default function Addpost() {
   };
 
   //update post text
-  const [text, onChangeText] = useState('');
+  const [text, onChangeText] = useState('sfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff');
 
   return (
     <View>
@@ -124,6 +124,7 @@ const addStyles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#FFFFFF',
     paddingHorizontal: 5,
+    paddingTop: 80
   },
 
   color_picker: {
