@@ -130,9 +130,13 @@ const addStyles = StyleSheet.create({
     height: 24,
     borderRadius: 50,
     borderColor: '#fff',
+    marginLeft: 5
   },
 
   color_picker_container: {
-
+    position: 'absolute',
+    zIndex: 1,
+    paddingTop: 120,
+    alignSelf: 'center'
   }
 })
