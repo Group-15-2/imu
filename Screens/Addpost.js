@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { SectionList, Text, View, StyleSheet, FlatList, TouchableWithoutFeedback, TextInput, ScrollView } from 'react-native';
+import { SectionList, Text, View, StyleSheet, FlatList, TouchableWithoutFeedback, TextInput, ScrollView, TouchableOpacity, Alert, KeyboardAvoidingView } from 'react-native';
 // import { addStyles } from '../styles/addstyle';
 
 //color picker data
@@ -70,6 +70,35 @@ export default function Addpost() {
   //update post text
   const [text, onChangeText] = useState('');
 
+  const isEmpty = () => {
+    if (text.length = 0) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const textColor = isEmpty === true ? '' : '';
+  const btnTouchableOpacity = isEmpty === true ? '' : '';
+  const btnColor = isEmpty === true ? '' : '';
+
+  const postFunction = () => {
+    if (isEmpty == true) {
+      Alert.alert(
+        "Alert Title",
+        "My Alert Msg",
+        [
+          {
+            text: "Cancel",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel"
+          },
+          { text: "OK", onPress: () => console.log("OK Pressed") }
+        ]
+      );
+    }
+  };
+
   return (
     <View>
       <Text style={addStyles.header}>
@@ -97,7 +126,14 @@ export default function Addpost() {
             placeholderTextColor={'#FFFFFF'}
             multiline={true}
           />
+
+          <TouchableOpacity onPress={postFunction} activeOpacity={btnTouchableOpacity}>
+            <View style={[addStyles.post_btn, { backgroundColor: '#1877F2' }]}>
+              <Text style={[addStyles.post_btn_text, { color: { textColor } }]}>Post</Text>
+            </View>
+          </TouchableOpacity>
         </ScrollView>
+
       </View>
     </View>
   );
@@ -120,7 +156,7 @@ const addStyles = StyleSheet.create({
   card: {
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
-    minHeight: 450,
+    minHeight: 300,
     textAlignVertical: 'center',
     textAlign: 'center',
     fontSize: 32,
@@ -145,5 +181,19 @@ const addStyles = StyleSheet.create({
   flatlist_container: {
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
+  },
+
+  post_btn: {
+    alignSelf: 'center',
+    borderRadius: 5,
+    width: '25%',
+    marginTop: 10,
+    paddingVertical: 10
+  },
+
+  post_btn_text: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    textAlign: 'center'
   }
 })
