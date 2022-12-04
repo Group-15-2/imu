@@ -71,19 +71,19 @@ export default function Addpost() {
   const [text, onChangeText] = useState('');
 
   const isEmpty = () => {
-    if (text.length = 0) {
+    if (text.length == 0) {
       return true;
     } else {
       return false;
     }
   };
 
-  const textColor = isEmpty === true ? '' : '';
-  const btnTouchableOpacity = isEmpty === true ? '' : '';
-  const btnColor = isEmpty === true ? '' : '';
+  const textColor = isEmpty ? '' : '';
+  const btnTouchableOpacity = isEmpty ? '1' : '0.6';
+  const btnColor = isEmpty ? '' : '';
 
   const postFunction = () => {
-    if (isEmpty == true) {
+    if (isEmpty) {
       Alert.alert(
         "Alert Title",
         "My Alert Msg",
@@ -126,16 +126,16 @@ export default function Addpost() {
             placeholderTextColor={'#FFFFFF'}
             multiline={true}
           />
-
-          <TouchableOpacity onPress={postFunction} activeOpacity={btnTouchableOpacity}>
-            <View style={[addStyles.post_btn, { backgroundColor: '#1877F2' }]}>
-              <Text style={[addStyles.post_btn_text, { color: { textColor } }]}>Post</Text>
-            </View>
-          </TouchableOpacity>
         </ScrollView>
 
+        <TouchableOpacity onPress={postFunction} activeOpacity={btnTouchableOpacity}>
+          <View style={[addStyles.post_btn, { backgroundColor: '#1877F2' }]}>
+            <Text style={[addStyles.post_btn_text, { color: { textColor } }]}>Post</Text>
+          </View>
+        </TouchableOpacity>
+
       </View>
-    </View>
+    </View >
   );
 }
 
