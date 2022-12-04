@@ -67,6 +67,7 @@ export default function Addpost() {
     )
   };
 
+  //update post text
   const [text, onChangeText] = useState('');
 
   return (
