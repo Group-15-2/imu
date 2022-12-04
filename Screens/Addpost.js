@@ -75,7 +75,6 @@ export default function Addpost() {
       <Text style={addStyles.header}>
         Add Post
       </Text>
-
       <FlatList
         numColumns={7}
         data={DATA}
@@ -132,13 +131,16 @@ const addStyles = StyleSheet.create({
     height: 24,
     borderRadius: 50,
     borderColor: '#fff',
-    marginLeft: 5
+    marginHorizontal: 5
   },
 
   color_picker_container: {
     position: 'absolute',
     zIndex: 1,
-    paddingTop: 120,
-    alignSelf: 'center'
+    marginTop: 120,
+    alignSelf: 'center',
+    backgroundColor: '#2f2f2f9c',
+    padding: 5,
+    borderRadius: 50
   }
 })
