@@ -1,5 +1,5 @@
 import  React,{ useState } from 'react';
-import { Text, View, Image, SafeAreaView, Switch, TouchableOpacity, TextInput } from 'react-native';
+import { Text, View, Image, SafeAreaView, Switch, TouchableOpacity, TextInput, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {styled} from '../styles/feedStyle';
 
@@ -13,6 +13,7 @@ export default function Profile() {
           Profile
       </Text>
       <View style={styled.card}>
+        <ScrollView>
         <View style={{flexDirection:"row"}}>
           <View style={{width:'73%'}}>
             <View style={styled.userinfo}>
@@ -70,6 +71,7 @@ export default function Profile() {
           />
           </TextInput>
         </View>
+        </ScrollView>
       </View>
     </SafeAreaView >
   );

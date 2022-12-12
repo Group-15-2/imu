@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Text, View} from 'react-native';
+import {Text, View, ScrollView} from 'react-native';
 import Chat from '../components/chat';
 import {chatStyles} from '../styles/chatstyle';
 import { useFonts } from 'expo-font';
@@ -13,13 +13,22 @@ export default function Messages() {
         Chats
       </Text>
       <View style={chatStyles.card}>
-        <Chat/>
-        <Chat/>
-        <Chat/>
-        <Chat/>
-        <Chat/>
-        <Chat/>
-        <Chat/>
+        <ScrollView>
+          <Chat/>
+          <Chat/>
+          <Chat/>
+          <Chat/>
+          <Chat/>
+          <Chat/>
+          <Chat/>
+          <Chat/>
+          <Chat/>
+          <Chat/>
+          <Chat/>
+          <Chat/>
+          <Chat/>
+          <Chat/>
+        </ScrollView>
       </View>
     </View>
   );
