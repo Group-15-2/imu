@@ -3,11 +3,11 @@ import { Text, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import homeScreen from './Screens/Home'
-import profile from './Screens/Profile'
-import addPost from './Screens/Addpost'
-import thoughts from './Screens/Thoughts'
-import messages from './Screens/Messages'
+import homeScreen from '../Screens/Home'
+import profile from '../Screens/Profile'
+import addPost from '../Screens/Addpost'
+import thoughts from '../Screens/Thoughts'
+import messages from '../Screens/Messages'
 
 const Tab = createBottomTabNavigator();
 

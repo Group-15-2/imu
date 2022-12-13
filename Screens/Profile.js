@@ -39,7 +39,7 @@ export default function Profile({ navigation }) {
             />
           </View>
         </View> 
-        <TouchableOpacity style={styled.button} >
+        <TouchableOpacity style={styled.button}>
           <Icon name= 'refresh' size={20} />
           <Text style={styled.refresh}>Generate New Identity</Text>
         </TouchableOpacity>
