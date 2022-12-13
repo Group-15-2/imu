@@ -1,5 +1,5 @@
 import React,{ useState } from 'react';
-import { Pressable, TextInput, View, Text, Button } from 'react-native';
+import { Pressable, TextInput, View, Text, TouchableOpacity } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { inStyle } from '../styles/instyle';
 
@@ -36,10 +36,12 @@ export default function App({ navigation }) {
             />
             </View>
             <Pressable onPress={handlePasswordVisibility}>
-            <MaterialCommunityIcons name={rightIcon} size={22} color="#232323" />
+            <MaterialCommunityIcons name={rightIcon} size={22} color="#BBBBBB" />
             </Pressable> 
         </View>
-        <Button style={inStyle.txtInt} title="Login" onPress={() => navigation.navigate('Home')}/>
+        <TouchableOpacity activeOpacity={.7} style={inStyle.txtInt} onPress={() => navigation.navigate('Home')}>
+            <Text style={inStyle.txt}>Login</Text>
+        </TouchableOpacity>
     </View>
   );
 }
