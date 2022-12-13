@@ -88,14 +88,22 @@ const styled = StyleSheet.create({
     },
 
     txtint: {
-        backgroundColor: '#ECECEC',
         height: 40,
+        width: '90%',
         borderRadius: 30,
         paddingLeft: 10
     },
 
     editbtn: {
-        
+        width:'10%',
+        alignItems:'center',
+        justifyContent:'center',
+    },
+
+    input: {
+        flexDirection:'row',
+        backgroundColor:'#ECECEC',
+        borderRadius: 16
     }
 })
 

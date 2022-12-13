@@ -22,7 +22,7 @@ export default function Profile({ navigation }) {
                   <Image source={require('../assets/moodlets/happy.png')} style={styled.moodlet}/>
                 </View>
                 <View style={styled.v}>
-                  <Text style={styled.name}>Chamra Atapattu</Text> 
+                  <Text style={styled.name}>Chamara Atapattu</Text> 
                   <Text style={styled.id}>ID = DAf345h5G5</Text>
                 </View> 
             </View>
@@ -45,31 +45,42 @@ export default function Profile({ navigation }) {
         </TouchableOpacity>
         <View style={styled.details}>
           <Text style={styled.userd}>Your Name</Text>
-          <TextInput style={styled.txtint} placeholder="Type here to translate!">
-          <Icon  name='square-edit-outline'
-            color='#000'
-            size={18}
-          />
-          </TextInput>
+          <View style={styled.input}>
+          <TextInput style={styled.txtint} placeholder="Type here to translate!"/>
+          <TouchableOpacity style={styled.editbtn}>
+            <Icon
+              name='square-edit-outline'
+              color='#000'
+              size={18}
+            />
+          </TouchableOpacity>
+          </View>
         </View>
         <View style={styled.details}>
           <Text style={styled.userd}>Your Email</Text>
-          <TextInput style={styled.txtint} placeholder="Type here to translate!">
-          <Icon  name='square-edit-outline'
-            color='#000'
-            size={18}
-          />
-          </TextInput>
+          <View style={styled.input}>
+          <TextInput style={styled.txtint} placeholder="Type here to translate!"/>
+          <TouchableOpacity style={styled.editbtn}>
+            <Icon
+              name='square-edit-outline'
+              color='#000'
+              size={18}
+            />
+          </TouchableOpacity>
+          </View>
         </View>
         <View style={styled.details}>
           <Text style={styled.userd}>Phone Number</Text>
-          <TextInput style={styled.txtint} placeholder="Type here to translate!">
-          <Icon
-            name='square-edit-outline'
-            color='#000'
-            size={18}
-          />
-          </TextInput>
+          <View style={styled.input}>
+          <TextInput style={styled.txtint} placeholder="Type here to translate!"/>
+          <TouchableOpacity style={styled.editbtn}>
+            <Icon
+              name='square-edit-outline'
+              color='#000'
+              size={18}
+            />
+          </TouchableOpacity>
+          </View>
         </View>
         </ScrollView>
       </View>

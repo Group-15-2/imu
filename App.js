@@ -38,7 +38,7 @@ export function MyTabs({navigation}) {
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
 
-          if (route.name === 'Home') {
+          if (route.name === 'home') {
             iconName = 'home-outline';
           }
           else if (route.name === 'Profile') {
@@ -64,7 +64,7 @@ export function MyTabs({navigation}) {
         tabBarHideOnKeyboard: 'true',
       })}
     >
-      <Tab.Screen name="Home" component={homeScreen} />
+      <Tab.Screen name="home" component={homeScreen} />
       <Tab.Screen name="Messages" component={messages} />
       <Tab.Screen name="AddPost" component={addPost} options={{ tabBarIcon: ({ color }) => (<MaterialCommunityIcons name="plus-circle" color={'#1877F2'} size={42} />), }} />
       <Tab.Screen name="Thoughts" component={thoughts} />
