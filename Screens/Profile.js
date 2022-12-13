@@ -3,7 +3,7 @@ import { Text, View, Image, SafeAreaView, Switch, TouchableOpacity, TextInput, S
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {styled} from '../styles/feedStyle';
 
-export default function Profile() {
+export default function Profile({ navigation }) {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
@@ -39,7 +39,7 @@ export default function Profile() {
             />
           </View>
         </View> 
-        <TouchableOpacity style={styled.button}>
+        <TouchableOpacity style={styled.button} >
           <Icon name= 'refresh' size={20} />
           <Text style={styled.refresh}>Generate New Identity</Text>
         </TouchableOpacity>
