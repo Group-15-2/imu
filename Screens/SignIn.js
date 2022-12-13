@@ -1,5 +1,6 @@
 import React,{ useState } from 'react';
 import { Pressable, TextInput, View, Text, TouchableOpacity } from 'react-native';
+import {Divider} from 'react-native-elements';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { inStyle } from '../styles/instyle';
 
@@ -42,6 +43,10 @@ export default function App({ navigation }) {
         <TouchableOpacity activeOpacity={.7} style={inStyle.txtInt} onPress={() => navigation.navigate('Home')}>
             <Text style={inStyle.txt}>Login</Text>
         </TouchableOpacity>
+        <Divider style={inStyle.divider}/>
+        <View style={inStyle.v}>
+        <Text style={inStyle.txt1}>Login with your Social Accounts</Text>
+        </View>
     </View>
   );
 }

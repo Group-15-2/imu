@@ -44,6 +44,23 @@ const inStyle = StyleSheet.create ({
     txt: {
         fontSize: 16,
         color: '#fff'
+    },
+    divider: {
+        backgroundColor: '#D9D9D9',
+        width: '90%',
+        margin: 15,
+        height: 2
+    },
+
+    v: {
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
+    txt1: {
+        color: '#9A9A9A',
+        fontSize: 14,
+        fontWeight: '500'
     }
 })
 
