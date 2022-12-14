@@ -61,6 +61,21 @@ const inStyle = StyleSheet.create ({
         color: '#9A9A9A',
         fontSize: 14,
         fontWeight: '500'
+    },
+
+    txt2: {
+        color: '#1877F2',
+        fontSize: 14,
+        fontWeight: '700'
+    },
+    sIcons: {
+        height: 48,
+        borderRadius: 10,
+        width: 54,
+        alignItems:'center',
+        justifyContent: 'center',
+        backgroundColor: '#EFEFEF',
+        margin: 5
     }
 })
 

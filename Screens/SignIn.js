@@ -1,6 +1,6 @@
 import React,{ useState } from 'react';
 import { Pressable, TextInput, View, Text, TouchableOpacity } from 'react-native';
-import {Divider} from 'react-native-elements';
+import { Divider, SocialIcon } from 'react-native-elements';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { inStyle } from '../styles/instyle';
 
@@ -46,6 +46,26 @@ export default function App({ navigation }) {
         <Divider style={inStyle.divider}/>
         <View style={inStyle.v}>
         <Text style={inStyle.txt1}>Login with your Social Accounts</Text>
+        </View>
+        <View style={{flexDirection: 'row', paddingTop: 10}}>
+            <View style={{width:'50%', justifyContent:'center', alignItems:'center'}}>
+            <View style={inStyle.sIcons}>
+                <MaterialCommunityIcons  name={'google'} size={24} color={'#1877F2'} /> 
+            </View>
+            </View>
+            <View style={{width:'50%', justifyContent:'center', alignItems:'center'}}>
+            <View style={inStyle.sIcons}>
+                <MaterialCommunityIcons  name={'facebook'} size={24} color={'#1877F2'}/> 
+            </View>
+            </View>
+        </View>
+        <View style={{flexDirection: 'row', justifyContent:'center', alignItems:'center',paddingTop: 10}}>
+            <View style={inStyle.v}>
+            <Text style={inStyle.txt1}>No Account ?</Text>
+            </View>
+            <TouchableOpacity activeOpacity={.7} style={inStyle.v} onPress={() => navigation.navigate('SignUp')}>
+            <Text style={inStyle.txt2}>Create One</Text>
+            </TouchableOpacity>
         </View>
     </View>
   );
