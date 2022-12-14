@@ -8,7 +8,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import signIn from './Screens/SignIn';
 import register from './Screens/Register';
 import register1 from './Screens/Register1';
-//import register2 from './Screens/Register2';
+import register2 from './Screens/Register2';
 
 import homeScreen from './Screens/Home'
 import profile from './Screens/Profile'
@@ -83,7 +83,7 @@ export default function App()  {
         <Stack.Screen name='SignIn' component={signIn} /> 
         <Stack.Screen name='SignUp' component={register} /> 
         <Stack.Screen name='SignUp1' component={register1} /> 
-        {/* <Stack.Screen name='SignUp2' component={register2} />  */}
+        <Stack.Screen name='SignUp2' component={register2} /> 
       </Stack.Navigator>
     </NavigationContainer>
   );

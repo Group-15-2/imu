@@ -14,7 +14,7 @@ export default function Home() {
       {/* heading */}
       <View style={styles.topSelector}>
         <Text style={styles.heading}>
-          How are you Feeling today?
+          How are you Feeling {'\n'}today?
         </Text>
         <TouchableOpacity style={styles.button}>
           <Icon name="plus" size={16} style={styles.buttonInner} />

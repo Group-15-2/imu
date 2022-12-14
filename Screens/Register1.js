@@ -26,7 +26,7 @@ export default function App({ navigation }) {
             <TextInput style={{fontSize:16}} placeholder="Mobile Number"/>
             </View>
         </View>
-        <TouchableOpacity activeOpacity={.7} style={inStyle.txtInt} onPress={() => navigation.navigate('Home')}>
+        <TouchableOpacity activeOpacity={.7} style={inStyle.txtInt} onPress={() => navigation.navigate('SignUp2')}>
             <Text style={inStyle.txt}>Register</Text>
         </TouchableOpacity>
     </View>
