@@ -6,7 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import signIn from './Screens/SignIn';
-import signUp from './Screens/SignUp';
+import signUp from './Screens/Register';
 
 import homeScreen from './Screens/Home'
 import profile from './Screens/Profile'
