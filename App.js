@@ -6,7 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import signIn from './Screens/SignIn';
-import signUp from './Screens/Register';
+import register from './Screens/Register';
 
 import homeScreen from './Screens/Home'
 import profile from './Screens/Profile'
@@ -79,7 +79,7 @@ export default function App()  {
       <Stack.Navigator initialRouteName='SignIn' screenOptions={({ route }) => ({headerShown: false})}>
         <Stack.Screen  name='Home' component={MyTabs} />
         <Stack.Screen name='SignIn' component={signIn} /> 
-        <Stack.Screen name='SignUp' component={signUp} /> 
+        <Stack.Screen name='SignUp' component={register} /> 
       </Stack.Navigator>
     </NavigationContainer>
   );
