@@ -76,6 +76,12 @@ const inStyle = StyleSheet.create ({
         justifyContent: 'center',
         backgroundColor: '#EFEFEF',
         margin: 5
+    },
+    img: {
+        width: 26,
+        height: 26,
+        backgroundColor:'#fff',
+        borderRadius: 13
     }
 })
 

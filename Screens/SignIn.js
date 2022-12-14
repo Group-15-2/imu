@@ -1,5 +1,5 @@
 import React,{ useState } from 'react';
-import { Pressable, TextInput, View, Text, TouchableOpacity } from 'react-native';
+import { Pressable, TextInput, View, Text, TouchableOpacity, Image } from 'react-native';
 import { Divider, SocialIcon } from 'react-native-elements';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { inStyle } from '../styles/instyle';
@@ -50,12 +50,12 @@ export default function App({ navigation }) {
         <View style={{flexDirection: 'row', paddingTop: 10}}>
             <View style={{width:'50%', justifyContent:'center', alignItems:'center'}}>
             <View style={inStyle.sIcons}>
-                <MaterialCommunityIcons  name={'google'} size={24} color={'#1877F2'} /> 
+                <Image source={require('../assets/google.png')} style={inStyle.img}/> 
             </View>
             </View>
             <View style={{width:'50%', justifyContent:'center', alignItems:'center'}}>
             <View style={inStyle.sIcons}>
-                <MaterialCommunityIcons  name={'facebook'} size={24} color={'#1877F2'}/> 
+                <MaterialCommunityIcons  name={'facebook'} size={26} color={'#1877F2'}/> 
             </View>
             </View>
         </View>
