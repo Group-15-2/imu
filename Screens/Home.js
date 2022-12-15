@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { Text, View, SafeAreaView, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { Text, View, SafeAreaView, TouchableOpacity, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useFonts } from 'expo-font';
 import Card from '../components/card';
-import { globalStyles } from '../styles/lobalStyles';
+import { styles} from '../styles/globalStyles';
 
 
 export default function Home() {

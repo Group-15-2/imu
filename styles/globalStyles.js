@@ -1,15 +1,16 @@
-const styles = StyleSheet.create({
-    container: {
-      fontFamily: 'my-custom-font'
-    },
+import { StyleSheet } from "react-native";
 
-    topSelector: {
-        fontFamily: 'Jakarta',
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginTop: 32,
+const styles = StyleSheet.create({
+      container: {
+        fontFamily: 'my-custom-font'
+      },
+
+      topSelector: {
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginTop: 32,
       },
     
       heading: {
@@ -36,3 +37,5 @@ const styles = StyleSheet.create({
         padding: 8,
       },
   });
+
+export {styles}  
