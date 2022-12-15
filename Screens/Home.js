@@ -3,12 +3,10 @@ import { Text, View, SafeAreaView, StyleSheet, TouchableOpacity, ScrollView } fr
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useFonts } from 'expo-font';
 import Card from '../components/card';
+import { globalStyles } from '../styles/lobalStyles';
 
 
 export default function Home() {
-  const [fontsLoaded] = useFonts({
-    'Jakarta': require('../assets/fonts/PlusJakartaSans-VariableFont_wght.ttf'),
-  });
   return (
     <SafeAreaView>
       {/* heading */}
@@ -29,40 +27,3 @@ export default function Home() {
 
   );
 };
-
-const styles = StyleSheet.create({
-
-  topSelector: {
-    // fontFamily: 'Jakarta',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: 32,
-  },
-
-  heading: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    lineHeight: 30.24,
-    marginLeft: 16,
-    paddingTop: 10,
-    color: '#1877F2'
-  },
-
-  button: {
-    alignItems: "center",
-    padding: 16,
-    backgroundColor: '#C3E2FF',
-    borderBottomLeftRadius: 50,
-    borderTopLeftRadius: 50,
-  },
-
-  buttonInner: {
-    alignItems: "center",
-    backgroundColor: '#fff',
-    borderRadius: 50,
-    padding: 8,
-  },
-
-})

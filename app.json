@@ -15,7 +15,7 @@
       "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": [
-      "**/*"
+      "./assets/fonts/PlusJakartaSans-VariableFont_wght.ttf"
     ],
     "ios": {
       "supportsTablet": true
@@ -29,6 +29,6 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    },
+    }
   }
 }
