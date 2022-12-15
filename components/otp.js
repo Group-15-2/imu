@@ -6,12 +6,15 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     justifyContent: "space-between",
+    
   },
   textInput: {
-    height: 50,
-    width: 50,
-    borderBottomWidth: 4,
-    margin: 5,
+    backgroundColor: '#ECECEC',
+    height: 60,
+    width: 60,
+    borderWidth: 3,
+    borderRadius: 10,
+    margin: 10,
     textAlign: "center",
     fontSize: 22,
     fontWeight: "500",
@@ -216,8 +219,8 @@ OTPTextView.propTypes = {
 OTPTextView.defaultProps = {
   defaultValue: "",
   inputCount: 4,
-  tintColor: "#3CB371",
-  offTintColor: "#DCDCDC",
+  tintColor: "#1877F2",
+  offTintColor: "#fff",
   inputCellLength: 1,
   containerStyle: {},
   textInputStyle: {},
