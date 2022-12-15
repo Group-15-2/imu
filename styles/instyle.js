@@ -23,6 +23,14 @@ const inStyle = StyleSheet.create ({
         alignItems: 'center',
         backgroundColor: '#ECECEC'
     },
+    inputContainer1: {
+        margin: 7,
+        width: '20%',
+        borderRadius: 10,
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: '#ECECEC'
+    },
     inputField: {
         flexDirection: 'row',
         color: '#BBBBBB',
