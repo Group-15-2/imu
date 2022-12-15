@@ -6,11 +6,11 @@ const styles = StyleSheet.create({
       },
 
       topSelector: {
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          marginTop: 32,
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: 32,
       },
     
       heading: {

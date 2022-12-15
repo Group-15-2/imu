@@ -7,6 +7,7 @@ import { styles} from '../styles/globalStyles';
 
 
 export default function Home() {
+
   return (
     <SafeAreaView>
       {/* heading */}
