@@ -29,7 +29,7 @@ const moodletDATA = [
   },
   {
     id: 4,
-    link: require('../assets/moodlets/Anguish.png'),
+    link: require('../assets/moodlets/anguish.png'),
     mood: 'Feeling Anguish!'
   },
   {
