@@ -128,17 +128,20 @@ export default function Home() {
 
 
       </View>
-      <View style={[styles.moodlet]}>
-        <TouchableOpacity onPress={MoodletClose}>
-          <Image source={require('../assets/moodlets/close.png')} style={[styles.mood, { margin: 6 }]} />
-        </TouchableOpacity>
-        <FlatList
-          numColumns={7}
-          data={moodletDATA}
-          renderItem={renderItem}
-          keyExtractor={item => item.id}
-          extraData={selectedId}
-        />
+
+      <View style={{ alignSelf: 'center' }}>
+        <View style={[styles.moodlet]}>
+          <TouchableOpacity onPress={MoodletClose}>
+            <Image source={require('../assets/moodlets/close.png')} style={[styles.mood, { margin: 6 }]} />
+          </TouchableOpacity>
+          <FlatList
+            numColumns={7}
+            data={moodletDATA}
+            renderItem={renderItem}
+            keyExtractor={item => item.id}
+            extraData={selectedId}
+          />
+        </View>
       </View>
       <ScrollView>
         <Card />
