@@ -178,7 +178,7 @@ const cardStyles = StyleSheet.create({
         bottom: 15,
         width: 20,
         height: 20,
-        marginBottom:-20
+        marginBottom: -20
     },
     post_text: {
         textAlignVertical: 'center',
@@ -188,7 +188,5 @@ const cardStyles = StyleSheet.create({
         color: '#FFFFFF',
         minHeight: 290,
         paddingHorizontal: 5,
-
-
     }
 })
