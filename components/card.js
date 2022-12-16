@@ -4,6 +4,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 export default function Card() {
 
+    let viewCount = 270;
+
     //postTextOriginal stores the raw string of post
     //postTextProcessed stores the max characters of the post text
     //TouchableOpacityValue holds the opacity value of TouchableOpacity Element
@@ -29,13 +31,15 @@ export default function Card() {
 
     //This function makes post to touch and expand to view full text of the post
     const viewFullPost = () => {
-        if (isShowing == false) { setPostTextProcessed(postTextOriginal); setIsShowing(true); }
-        else { setPostTextProcessed(postTextProcessed); setIsShowing(false); }
+        if (isShowing == false) { setPostTextProcessed(postTextOriginal); setIsShowing(true); setViewCountShow('none'); }
+        else { setPostTextProcessed(postTextProcessed); setIsShowing(false); setViewCountShow('flex'); }
     };
 
     //update real-time isShowing state and fullPost text to show
     const [fullPost, setPostTextProcessed] = useState(postTextProcessed);
     const [isShowing, setIsShowing] = useState(false);
+    const [isViewCountShow, setViewCountShow] = useState('flex');
+
 
 
     return (
@@ -56,6 +60,7 @@ export default function Card() {
                     </View>
                 </TouchableOpacity>
 
+
                 <TouchableOpacity>
                     <MaterialCommunityIcons name="message-text-outline" color={'#1877F2'} size={42} />
                 </TouchableOpacity>
@@ -64,6 +69,11 @@ export default function Card() {
             <TouchableOpacity activeOpacity={TouchableOpacityValue} onPress={viewFullPost}>
                 <View style={{ backgroundColor: '#8EDD81', width: '100%', minHeight: 290 }}>
                     <Text style={cardStyles.post_text}>{fullPost}</Text>
+
+                    <View style={[cardStyles.viewCount, { display: isViewCountShow }]}>
+                        <Image source={require('../assets/view-count.png')} style={{ width: 30, height: 30, marginRight: 5 }} />
+                        <Text style={{ fontWeight: 'bold', fontSize: 15, color: '#fff', textAlignVertical: 'center' }}>{viewCount}</Text>
+                    </View>
                 </View>
             </TouchableOpacity>
 
@@ -95,6 +105,16 @@ const cardStyles = StyleSheet.create({
         backgroundColor: '#ECECEC',
         padding: 10,
         borderRadius: 50
+    },
+
+    viewCount: {
+        display: 'flex',
+        flexDirection: 'row',
+        position: 'absolute',
+        bottom: 0,
+        right: 0,
+        paddingBottom: 15,
+        paddingRight: 15
     },
 
     cardHead: {
