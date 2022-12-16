@@ -30,6 +30,7 @@ export default function Card() {
     }
 
     //This function makes post to touch and expand to view full text of the post
+    //on full post, hides the view count
     const viewFullPost = () => {
         if (isShowing == false) { setPostTextProcessed(postTextOriginal); setIsShowing(true); setViewCountShow('none'); }
         else { setPostTextProcessed(postTextProcessed); setIsShowing(false); setViewCountShow('flex'); }
