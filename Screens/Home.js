@@ -44,9 +44,9 @@ const moodletDATA = [
   },
 ];
 
-const Item = ({ item, backgroundColor, onPress }) => {
+const Item = ({ item, backgroundColor, onPress, onLongPress }) => {
   return (
-    <TouchableWithoutFeedback onPress={onPress}>
+    <TouchableWithoutFeedback onPress={onPress} onLongPress={onLongPress}>
       <View style={[backgroundColor, { padding: 5, borderRadius: 100 }]} >
         <Image source={item.link} style={styles.mood} />
       </View>
@@ -63,26 +63,25 @@ export default function Home() {
 
   //update selectedColor of the FlatList
   const [selectedMood, setSelectedMood] = useState('How are you Feeling \ntoday?');
-  const [isSelected, setIsSelected] = useState(false);
+
 
   const renderItem = ({ item }) => {
 
     //check the item id and selectedId, if they match borderWidth gets 3 else borderWidth gets 1
     const backgroundColor = item.id === selectedId ? '#9EB8CF' : 'rgba(195, 226, 255, 0)';
-    // let isSelected = true;
+
+    let isSelected = true;
+
     const onPressEvent = () => {
-      if (isSelected) {
-        setSelectedId(null);
-        setImgLink(require('../assets/moodlets/add.png'));
-        setSelectedMood('How are you Feeling \ntoday?');
-      } else {
-        setSelectedId(item.id);
-        setImgLink(item.link);
-        setSelectedMood(item.mood);
-      };
-      // isSelected = !isSelected;
-      setIsSelected(!isSelected);
-      console.log(isSelected);
+      setSelectedId(item.id);
+      setImgLink(item.link);
+      setSelectedMood(item.mood);
+    };
+
+    const onLongPressEvent = () => {
+      setSelectedId(null);
+      setImgLink(require('../assets/moodlets/add.png'));
+      setSelectedMood('How are you Feeling \ntoday?');
     };
 
     return (
@@ -90,6 +89,7 @@ export default function Home() {
         item={item}
         onPress={onPressEvent}
         backgroundColor={{ backgroundColor }}
+        onLongPress={onLongPressEvent}
       />
     )
   };
