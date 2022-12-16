@@ -44,6 +44,7 @@ const moodletDATA = [
   },
 ];
 
+//flatlist item
 const Item = ({ item, backgroundColor, onPress, onLongPress }) => {
   return (
     <TouchableWithoutFeedback onPress={onPress} onLongPress={onLongPress}>
@@ -55,7 +56,7 @@ const Item = ({ item, backgroundColor, onPress, onLongPress }) => {
 };
 
 export default function Home() {
-
+  //update selected imgLink of the FlatList
   const [imgLink, setImgLink] = useState(require('../assets/moodlets/add.png'));
 
   //update selectedId of the FlatList
@@ -67,17 +68,17 @@ export default function Home() {
 
   const renderItem = ({ item }) => {
 
-    //check the item id and selectedId, if they match borderWidth gets 3 else borderWidth gets 1
+    //check the item id and selectedId, if they match background color get changed
     const backgroundColor = item.id === selectedId ? '#9EB8CF' : 'rgba(195, 226, 255, 0)';
 
-    let isSelected = true;
-
+    //selects an item from the flatlist on press
     const onPressEvent = () => {
       setSelectedId(item.id);
       setImgLink(item.link);
       setSelectedMood(item.mood);
     };
 
+    //deselects an item from the flatlist on press hold
     const onLongPressEvent = () => {
       setSelectedId(null);
       setImgLink(require('../assets/moodlets/add.png'));
@@ -94,15 +95,19 @@ export default function Home() {
     )
   };
 
+  //set and updates the display properties of the header section
   const [isHeaderShow, setHeaderShow] = useState('flex');
+
+  //set and updates the display properties of the moodlet
   const [isMoodletOpen, setMooodletOpen] = useState('none');
 
-
+  //Open the moodlet and hide header section
   const MoodletOpen = () => {
     setHeaderShow('none');
     setMooodletOpen('flex');
   };
 
+  //close the moodlet and show header section
   const MoodletClose = () => {
     setHeaderShow('flex');
     setMooodletOpen('none');
@@ -110,7 +115,6 @@ export default function Home() {
 
   return (
     <SafeAreaView>
-      {/* heading */}
       <View style={[styles.topSelector, { display: isHeaderShow }]}>
         <Text style={styles.heading}>
           {selectedMood}
