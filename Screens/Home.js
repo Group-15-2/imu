@@ -101,35 +101,30 @@ export default function Home() {
   const MoodletOpen = () => {
     setHeaderShow('none');
     setMooodletOpen('flex');
-    console.log(isHeaderShow);
-    console.log(isMoodletOpen);
   };
 
   const MoodletClose = () => {
     setHeaderShow('flex');
     setMooodletOpen('none');
-    console.log(isHeaderShow);
-    console.log(isMoodletOpen);
   };
 
   return (
     <SafeAreaView>
       {/* heading */}
-      <View style={styles.topSelector}>
+      <View style={[styles.topSelector, { display: isHeaderShow }]}>
         <Text style={styles.heading}>
           {selectedMood}
         </Text>
 
 
         <TouchableOpacity style={styles.button} onPress={MoodletOpen}>
-          {/* <Icon name="plus" size={16} style={styles.buttonInner} /> */}
           <Image source={imgLink} style={styles.buttonInner} />
         </TouchableOpacity>
 
 
       </View>
 
-      <View style={{ alignSelf: 'center' }}>
+      <View style={{ alignSelf: 'center', display: isMoodletOpen }} >
         <View style={[styles.moodlet]}>
           <TouchableOpacity onPress={MoodletClose}>
             <Image source={require('../assets/moodlets/close.png')} style={[styles.mood, { margin: 6 }]} />

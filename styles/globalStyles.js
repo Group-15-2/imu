@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     display: "flex",
     flexDirection: "row",
+    marginTop: 32
   },
 
   mood: {
