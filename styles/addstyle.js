@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 const addStyles = StyleSheet.create({
 
@@ -17,7 +17,7 @@ const addStyles = StyleSheet.create({
     card: {
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10,
-        minHeight: 300,
+        // minHeight: 300,
         textAlignVertical: 'center',
         textAlign: 'center',
         fontSize: 32,
@@ -59,4 +59,4 @@ const addStyles = StyleSheet.create({
     }
 })
 
-export {addStyles}
+export { addStyles }

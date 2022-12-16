@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { SectionList, Text, View, StyleSheet, FlatList, TouchableWithoutFeedback, TextInput, ScrollView, TouchableOpacity, Alert, KeyboardAvoidingView } from 'react-native';
+import React, { useState, useEffect } from 'react'
+import { Dimensions, Text, View, StyleSheet, FlatList, TouchableWithoutFeedback, TextInput, ScrollView, TouchableOpacity, Alert, KeyboardAvoidingView } from 'react-native';
 import { addStyles } from '../styles/addstyle';
 
 //color picker data
@@ -70,6 +70,7 @@ export default function Addpost() {
   //update post text
   const [text, onChangeText] = useState('');
 
+
   const isEmpty = () => {
     if (text.length == 0) {
       return true;
@@ -78,9 +79,12 @@ export default function Addpost() {
     }
   };
 
-  const textColor = isEmpty ? '' : '';
+  const textColor = isEmpty ? '#EE5757' : '#fff';
   const btnTouchableOpacity = isEmpty ? '1' : '0.6';
   const btnColor = isEmpty ? '' : '';
+
+
+
 
   const postFunction = () => {
     if (isEmpty) {
@@ -98,6 +102,9 @@ export default function Addpost() {
       );
     }
   };
+
+  //get the device window height
+  const windowHeight = (Dimensions.get('window').height) - 300;
 
   return (
     <View>
@@ -119,7 +126,7 @@ export default function Addpost() {
 
         <ScrollView>
           <TextInput
-            style={[addStyles.card, { backgroundColor: selectedColor }]}
+            style={[addStyles.card, { backgroundColor: selectedColor, minHeight: windowHeight }]}
             onChangeText={onChangeText}
             value={text}
             placeholder="Your Thoughts Here!"
@@ -130,7 +137,7 @@ export default function Addpost() {
 
         <TouchableOpacity onPress={postFunction} activeOpacity={btnTouchableOpacity}>
           <View style={[addStyles.post_btn, { backgroundColor: '#1877F2' }]}>
-            <Text style={[addStyles.post_btn_text, { color: { textColor } }]}>Post</Text>
+            <Text style={[addStyles.post_btn_text, { color: textColor }]}>Post</Text>
           </View>
         </TouchableOpacity>
 
