@@ -59,23 +59,57 @@ export default function Home() {
   const [imgLink, setImgLink] = useState(require('../assets/moodlets/add.png'));
 
   //update selectedId of the FlatList
-  const [selectedId, setSelectedId] = useState(0);
+  const [selectedId, setSelectedId] = useState(null);
 
   //update selectedColor of the FlatList
   const [selectedMood, setSelectedMood] = useState('How are you Feeling \ntoday?');
+  const [isSelected, setIsSelected] = useState(false);
 
   const renderItem = ({ item }) => {
 
     //check the item id and selectedId, if they match borderWidth gets 3 else borderWidth gets 1
     const backgroundColor = item.id === selectedId ? '#9EB8CF' : 'rgba(195, 226, 255, 0)';
+    // let isSelected = true;
+    const onPressEvent = () => {
+      if (isSelected) {
+        setSelectedId(null);
+        setImgLink(require('../assets/moodlets/add.png'));
+        setSelectedMood('How are you Feeling \ntoday?');
+      } else {
+        setSelectedId(item.id);
+        setImgLink(item.link);
+        setSelectedMood(item.mood);
+      };
+      // isSelected = !isSelected;
+      setIsSelected(!isSelected);
+      console.log(isSelected);
+    };
 
     return (
       <Item
         item={item}
-        onPress={() => { setSelectedId(item.id); setImgLink(item.link); setSelectedMood(item.mood); }}
+        onPress={onPressEvent}
         backgroundColor={{ backgroundColor }}
       />
     )
+  };
+
+  const [isHeaderShow, setHeaderShow] = useState('flex');
+  const [isMoodletOpen, setMooodletOpen] = useState('none');
+
+
+  const MoodletOpen = () => {
+    setHeaderShow('none');
+    setMooodletOpen('flex');
+    console.log(isHeaderShow);
+    console.log(isMoodletOpen);
+  };
+
+  const MoodletClose = () => {
+    setHeaderShow('flex');
+    setMooodletOpen('none');
+    console.log(isHeaderShow);
+    console.log(isMoodletOpen);
   };
 
   return (
@@ -85,14 +119,19 @@ export default function Home() {
         <Text style={styles.heading}>
           {selectedMood}
         </Text>
-        <TouchableOpacity style={styles.button}>
+
+
+        <TouchableOpacity style={styles.button} onPress={MoodletOpen}>
           {/* <Icon name="plus" size={16} style={styles.buttonInner} /> */}
           <Image source={imgLink} style={styles.buttonInner} />
         </TouchableOpacity>
 
+
       </View>
-      <View style={styles.moodlet}>
-        <Image source={require('../assets/moodlets/close.png')} style={[styles.mood, { margin: 6 }]} />
+      <View style={[styles.moodlet]}>
+        <TouchableOpacity onPress={MoodletClose}>
+          <Image source={require('../assets/moodlets/close.png')} style={[styles.mood, { margin: 6 }]} />
+        </TouchableOpacity>
         <FlatList
           numColumns={7}
           data={moodletDATA}
