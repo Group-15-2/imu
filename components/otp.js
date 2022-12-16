@@ -2,26 +2,26 @@ import React, { Component } from "react";
 import { View, TextInput, StyleSheet } from "react-native";
 import PropTypes from "prop-types";
 
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+ const styles = StyleSheet.create({
+   container: {
+     flexDirection: "row",
+     justifyContent: "space-between",
     
-  },
-  textInput: {
-    backgroundColor: '#ECECEC',
-    height: 60,
-    width: 60,
-    borderWidth: 3,
-    borderRadius: 10,
-    margin: 10,
-    textAlign: "center",
-    fontSize: 22,
-    fontWeight: "500",
-    color: "#000000",
-  },
-});
-
+   },
+   textInput: {
+     backgroundColor: '#ECECEC',
+     height: 60,
+     width: 60,
+     borderWidth: 3,
+     borderRadius: 10,
+     margin: 10,
+     textAlign: "center",
+     fontSize: 22,
+     fontWeight: "500",
+     color: "#000000",
+   },
+ });
+ 
 const getOTPTextChucks = (inputCount, inputCellLength, text) => {
   let otpText =
     text.match(new RegExp(".{1," + inputCellLength + "}", "g")) || [];
@@ -46,7 +46,7 @@ class OTPTextView extends Component {
 
     this.inputs = [];
   }
-
+// Text validation
   basicValidation = (text) => {
     const validText = /^[0-9a-zA-Z]+$/;
     return text.match(validText);
@@ -118,7 +118,7 @@ class OTPTextView extends Component {
       }
     }
   };
-
+  //Clear the text
   clear = () => {
     this.setState(
       {
@@ -130,7 +130,7 @@ class OTPTextView extends Component {
       }
     );
   };
-
+  //Handling length of the input text
   setValue = (value) => {
     const { inputCount, inputCellLength } = this.props;
 
@@ -167,7 +167,7 @@ class OTPTextView extends Component {
 
     const TextInputs = [];
 
-    for (let i = 0; i < inputCount; i += 1) {
+    for (let i = 0; i < inputCount; i += 1) {//Changing Border color
       const inputStyle = [
         styles.textInput,
         textInputStyle,
@@ -177,7 +177,7 @@ class OTPTextView extends Component {
       if (focusedInput === i) {
         inputStyle.push({ borderColor: tintColor });
       }
-
+     //Implementing Text Input
       TextInputs.push(
         <TextInput
           ref={(e) => {
@@ -216,7 +216,7 @@ OTPTextView.propTypes = {
   keyboardType: PropTypes.string,
 };
 
-OTPTextView.defaultProps = {
+OTPTextView.defaultProps = {//Props for Input Text Boxes
   defaultValue: "",
   inputCount: 4,
   tintColor: "#1877F2",
