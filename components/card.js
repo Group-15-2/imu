@@ -38,6 +38,8 @@ export default function Card() {
     //update real-time isShowing state and fullPost text to show
     const [fullPost, setPostTextProcessed] = useState(postTextProcessed);
     const [isShowing, setIsShowing] = useState(false);
+
+    //update display property of the view count to show and hide
     const [isViewCountShow, setViewCountShow] = useState('flex');
 
 
