@@ -2,11 +2,10 @@ import * as React from 'react';
 import {Text, View, Image, SafeAreaView, TouchableOpacity} from 'react-native';
 import {chatStyles} from '../styles/chatstyle';
 
-export default function Chat() {
+export default function Chat({navigation}) {
     return(
         <SafeAreaView>
             <View>
-                <TouchableOpacity>
                 <View style={{flexDirection:'row'}}>
                     <View style={chatStyles.c1}>
                         <View style={chatStyles.namePicContainer}>
@@ -24,7 +23,6 @@ export default function Chat() {
                     <Text style={chatStyles.txt}>15.02 PM</Text>
                     </View>  
                 </View>
-                </TouchableOpacity>
             </View>
         </SafeAreaView>
     )
