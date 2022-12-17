@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Text, View, SafeAreaView, TouchableOpacity, ScrollView, Image, FlatList, TouchableWithoutFeedback } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useFonts } from 'expo-font';
@@ -55,6 +55,9 @@ const Item = ({ item, backgroundColor, onPress, onLongPress }) => {
   );
 };
 
+//moodlet data to pass other screens
+export let mood;
+
 export default function Home() {
   //update selected imgLink of the FlatList
   const [imgLink, setImgLink] = useState(require('../assets/moodlets/add.png'));
@@ -64,6 +67,11 @@ export default function Home() {
 
   //update selectedColor of the FlatList
   const [selectedMood, setSelectedMood] = useState('How are you Feeling \ntoday?');
+
+  //everytime imgLink change, mood will update
+  useEffect(() => {
+    mood = imgLink;
+  }, [imgLink])
 
   const renderItem = ({ item }) => {
 

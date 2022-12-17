@@ -20,7 +20,7 @@ import messages from './Screens/Messages'
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-export function MyTabs({navigation}) {
+export function MyTabs({ navigation }) {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -76,16 +76,16 @@ export function MyTabs({navigation}) {
   );
 }
 
-export default function App()  {
+export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='SignIn' screenOptions={({ route }) => ({headerShown: false})}>
-        <Stack.Screen  name='Home' component={MyTabs} />
-        <Stack.Screen name='SignIn' component={signIn} /> 
-        <Stack.Screen name='SignUp' component={register} /> 
-        <Stack.Screen name='SignUp1' component={register1} /> 
+      <Stack.Navigator initialRouteName='SignIn' screenOptions={({ route }) => ({ headerShown: false })}>
+        <Stack.Screen name='Home' component={MyTabs} />
+        <Stack.Screen name='SignIn' component={signIn} />
+        <Stack.Screen name='SignUp' component={register} />
+        <Stack.Screen name='SignUp1' component={register1} />
         <Stack.Screen name='SignUp2' component={register2} />
-        <Stack.Screen name='ChatBox' component={chatbox} /> 
+        <Stack.Screen name='ChatBox' component={chatbox} />
       </Stack.Navigator>
     </NavigationContainer>
   );

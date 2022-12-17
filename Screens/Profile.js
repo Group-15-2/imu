@@ -1,11 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, View, Image, SafeAreaView, Switch, TouchableOpacity, TextInput, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { styled } from '../styles/feedStyle';
+import { useFocusEffect } from '@react-navigation/native';
+import { mood } from './Home';
 
 export default function Profile({ navigation }) {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+
+  //update moodlet image link from the home
+  const [imgLink, setImgLink] = useState(null);
+
+  //everytime Profile screen focuses, updates the imgLink
+  useFocusEffect(
+    React.useCallback(() => {
+      setImgLink(mood);
+    }, [])
+  );
 
   return (
     <SafeAreaView >
@@ -19,7 +31,7 @@ export default function Profile({ navigation }) {
               <View style={styled.userinfo}>
                 <View>
                   <Image source={require('../assets/test_profile_image.jpg')} style={styled.userimg} />
-                  <Image source={require('../assets/moodlets/happy.png')} style={styled.moodlet} />
+                  <Image source={imgLink} style={styled.moodlet} />
                 </View>
                 <View style={styled.v}>
                   <Text style={styled.name}>Chamara Atapattu</Text>
