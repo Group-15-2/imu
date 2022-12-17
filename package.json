@@ -33,6 +33,7 @@
     "react-native-textinput-effects": "^0.6.3",
     "react-native-textinput-with-icons": "^1.0.18",
     "react-native-web": "~0.18.7",
+    "react-phone-number-input": "^3.2.13",
     "styled-components": "^5.3.6"
   },
   "devDependencies": {

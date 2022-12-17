@@ -29,7 +29,7 @@ const moodletDATA = [
   },
   {
     id: 4,
-    link: require('../assets/moodlets/Anguish.png'),
+    link: require('../assets/moodlets/anguish.png'),
     mood: 'Feeling Anguish!'
   },
   {
@@ -143,9 +143,9 @@ export default function Home() {
         </View>
       </View>
       <ScrollView>
-        <Card />
-        <Card />
-        <Card />
+        <Card mood={imgLink} />
+        <Card mood={imgLink} />
+        <Card mood={imgLink} />
       </ScrollView>
     </SafeAreaView>
 

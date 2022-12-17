@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput } from "react-native";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-export default function Card() {
+export default function Card({ mood }) {
 
     let viewCount = 270;
 
@@ -86,7 +86,7 @@ export default function Card() {
 
                     <View>
                         <Image source={require('../assets/test_profile_image.jpg')} style={cardStyles.userimg} />
-                        <Image source={require('../assets/moodlets/happy.png')} style={cardStyles.moodlet} />
+                        <Image source={mood} style={cardStyles.moodlet} />
                     </View>
 
                     <TextInput
