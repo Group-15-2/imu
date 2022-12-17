@@ -65,7 +65,6 @@ export default function Home() {
   //update selectedColor of the FlatList
   const [selectedMood, setSelectedMood] = useState('How are you Feeling \ntoday?');
 
-
   const renderItem = ({ item }) => {
 
     //check the item id and selectedId, if they match background color get changed
