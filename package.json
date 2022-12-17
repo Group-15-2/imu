@@ -29,6 +29,7 @@
     "react-native-google-signin": "^2.1.1",
     "react-native-otp-input": "^1.0.12",
     "react-native-otp-input-view": "^1.0.2",
+    "react-native-phone-number-input": "^2.1.0",
     "react-native-textinput-effects": "^0.6.3",
     "react-native-textinput-with-icons": "^1.0.18",
     "react-native-web": "~0.18.7",

@@ -50,12 +50,16 @@ export default function App({ navigation }) {
         <View style={{flexDirection: 'row', paddingTop: 10}}>
             <View style={{width:'50%', justifyContent:'center', alignItems:'center'}}>
             <View style={inStyle.sIcons}>
+                <TouchableOpacity>
                 <Image source={require('../assets/google.png')} style={inStyle.img}/> 
+                </TouchableOpacity>
             </View>
             </View>
             <View style={{width:'50%', justifyContent:'center', alignItems:'center'}}>
             <View style={inStyle.sIcons}>
+                <TouchableOpacity>
                 <MaterialCommunityIcons  name={'facebook'} size={26} color={'#1877F2'}/> 
+                </TouchableOpacity>
             </View>
             </View>
         </View>

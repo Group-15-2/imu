@@ -39,6 +39,13 @@ const inStyle = StyleSheet.create ({
         fontWeight: '900',
         width: '90%'
     },
+    inputField1: {
+        flexDirection: 'row',
+        padding: 0,
+        fontSize: 24,
+        fontWeight: '900',
+        width: '100%'
+    },
     txtInt: {
         fontSize: 16,
         margin: 7,
