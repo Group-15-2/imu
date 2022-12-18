@@ -61,7 +61,7 @@ const chatStyles = StyleSheet.create({
 
     txt: {
         justifyContent: 'center',
-        marginTop: 40,
+        marginTop: 20,
         fontSize: 10,
         fontWeight: '600',
         color:'#504F4F'

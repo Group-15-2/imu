@@ -52,8 +52,8 @@ export default function Card({ mood }) {
                 <TouchableOpacity>
                     <View style={cardStyles.namePicContainer}>
                         <View>
-                            <Image source={require('../assets/test_profile_image.jpg')} style={cardStyles.userimg} />
-                            <Image source={mood} style={cardStyles.moodlet} />
+                            <Image source={require('../assets/4.jpg')} style={cardStyles.userimg} />
+                            <Image source={require('../assets/moodlets/good.png')} style={cardStyles.moodlet} />
                         </View>
 
                         <View>
