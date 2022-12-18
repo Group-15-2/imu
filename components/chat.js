@@ -1,8 +1,21 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import {Text, View, Image, SafeAreaView, TouchableOpacity} from 'react-native';
 import {chatStyles} from '../styles/chatstyle';
+import { useFocusEffect } from '@react-navigation/native';
+import { mood } from '../Screens/Home';
 
 export default function Chat({navigation}) {
+    const [isEnabled, setIsEnabled] = useState(false);
+    const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+
+    //update moodlet image link from the home
+    const [imgLink, setImgLink] = useState(null);
+
+    useFocusEffect(
+        React.useCallback(() => {
+          setImgLink(mood);
+        }, [])
+      );
     return(
         <SafeAreaView>
             <View>
@@ -11,7 +24,7 @@ export default function Chat({navigation}) {
                         <View style={chatStyles.namePicContainer}>
                         <View> 
                             <Image source={require('../assets/test_profile_image.jpg')} style={chatStyles.userimg}/>
-                            <Image source={require('../assets/moodlets/happy.png')} style={chatStyles.moodlet}/>
+                            <Image source={imgLink} style={chatStyles.moodlet}/>
                         </View>
                         <View>
                             <Text>Confused Unga Bunga</Text>

@@ -53,7 +53,7 @@ export default function Card({ mood }) {
                     <View style={cardStyles.namePicContainer}>
                         <View>
                             <Image source={require('../assets/test_profile_image.jpg')} style={cardStyles.userimg} />
-                            <Image source={require('../assets/moodlets/happy.png')} style={cardStyles.moodlet} />
+                            <Image source={mood} style={cardStyles.moodlet} />
                         </View>
 
                         <View>
