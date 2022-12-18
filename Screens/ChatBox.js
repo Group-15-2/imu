@@ -1,12 +1,13 @@
-import React,{ useState, useRef } from 'react';
-import { Pressable, TextInput, View, Text, TouchableOpacity } from 'react-native';
-import { inStyle } from '../styles/instyle';
+import React, { useEffect, useCallback, useState, useLayoutEffect } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-export default function ChatBox({ navigation }) {
+export default function ChatBox() {
+    
+    return(
+         <View>
+         <Text>Chat</Text>
+         </View>
+    );
+}
 
-  return (
-    <View style={inStyle.container}>
-        <Text style={inStyle.head}>Chat Box</Text>
-    </View>
-  );
-}  
+

@@ -6,7 +6,6 @@ import { mood } from '../Screens/Home';
 
 export default function Chat({navigation}) {
     const [isEnabled, setIsEnabled] = useState(false);
-    const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
     //update moodlet image link from the home
     const [imgLink, setImgLink] = useState(null);
@@ -18,7 +17,6 @@ export default function Chat({navigation}) {
       );
     return(
         <SafeAreaView>
-            <View>
                 <View style={{flexDirection:'row'}}>
                     <View style={chatStyles.c1}>
                         <View style={chatStyles.namePicContainer}>
@@ -36,7 +34,6 @@ export default function Chat({navigation}) {
                     <Text style={chatStyles.txt}>15.02 PM</Text>
                     </View>  
                 </View>
-            </View>
         </SafeAreaView>
     )
 }
