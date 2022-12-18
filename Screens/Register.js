@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Pressable, TextInput, View, Text, TouchableOpacity } from 'react-native';
 import { Divider, SocialIcon } from 'react-native-elements';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { inStyle } from '../styles/instyle';
 import { useTogglePasswordVisibility } from '../styles/useTogglePasswordVisibility';
 import { auth } from '../firebaseConfig';
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+
 
 
 
@@ -17,12 +18,22 @@ export default function App({ navigation }) {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
 
+
   //register users when trigger
   const handleRegister = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then(() => {
         console.log('User account created & signed in!');
         // navigation.navigate('SignUp1');
+        sendEmailVerification(auth.currentUser)
+          .then(() => {
+            // Email verification sent!
+            // ...
+            console.log('Verification Sent!');
+            navigation.navigate('SignUp1');
+            console.log(auth.currentUser.emailVerified);
+          });
+
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
