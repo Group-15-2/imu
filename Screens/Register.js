@@ -17,41 +17,53 @@ export default function App({ navigation }) {
     useTogglePasswordVisibility();
 
   const [password, setPassword] = useState('');
+  const [rePassword, setRePassword] = useState('');
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
 
+  const isPasswordMatch = () => {
+    if (password == rePassword) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   //register users when trigger
   const handleRegister = () => {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        console.log('User account created & signed in!');
-        // navigation.navigate('SignUp1');
-        sendEmailVerification(auth.currentUser)
-          .then(() => {
-            // Email verification sent!
-            console.log('Verification Sent!');
-            emailLocal = email;
-            passwordLocal = password;
-            navigation.navigate('VerifyEmail');
-          });
+    if (isPasswordMatch) {
+      createUserWithEmailAndPassword(auth, email, password)
+        .then(() => {
+          console.log('User account created & signed in!');
+          // navigation.navigate('SignUp1');
+          sendEmailVerification(auth.currentUser)
+            .then(() => {
+              // Email verification sent!
+              console.log('Verification Sent!');
+              emailLocal = email;
+              passwordLocal = password;
+              navigation.navigate('VerifyEmail');
+            });
 
-      })
-      .catch(error => {
-        if (error.code === 'auth/email-already-in-use') {
-          setError('Email address is already in use!');
-        }
+        })
+        .catch(error => {
+          if (error.code === 'auth/email-already-in-use') {
+            setError('Email address is already in use!');
+          }
 
-        if (error.code === 'auth/invalid-email') {
-          setError('That email address is invalid!');
-        }
+          if (error.code === 'auth/invalid-email') {
+            setError('That email address is invalid!');
+          }
 
-        if (error.code === 'auth/weak-password') {
-          setError('Password should be at least 6 characters!');
-        }
+          if (error.code === 'auth/weak-password') {
+            setError('Password should be at least 6 characters!');
+          }
 
-        console.error(error);
-      });
+          console.error(error);
+        });
+    } else {
+      setError('Re-Enter your password correctly!');
+    }
   };
 
 
@@ -67,6 +79,7 @@ export default function App({ navigation }) {
             <TextInput
               style={{ fontSize: 16 }}
               placeholder="Email"
+              textContentType="emailAddress"
               onChangeText={text => setEmail(text)}
               value={email}
 
@@ -87,6 +100,27 @@ export default function App({ navigation }) {
               value={password}
               enablesReturnKeyAutomatically
               onChangeText={text => setPassword(text)}
+            />
+          </View>
+          <Pressable onPress={handlePasswordVisibility}>
+            <MaterialCommunityIcons name={rightIcon} size={22} color="#BBBBBB" />
+          </Pressable>
+        </View>
+
+        <View style={inStyle.inputContainer}>
+          <View style={inStyle.inputField}>
+            <MaterialCommunityIcons name={'lock'} size={22} color={'#BBBBBB'} />
+            <TextInput
+              name="rePassword"
+              placeholder="Re-Enter Password"
+              style={{ fontSize: 16 }}
+              autoCapitalize="none"
+              autoCorrect={false}
+              textContentType="newPassword"
+              secureTextEntry={passwordVisibility}
+              value={rePassword}
+              enablesReturnKeyAutomatically
+              onChangeText={text => setRePassword(text)}
             />
           </View>
           <Pressable onPress={handlePasswordVisibility}>

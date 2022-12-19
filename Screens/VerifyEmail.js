@@ -11,10 +11,13 @@ export default function VerifyEmail({ navigation }) {
 
     useEffect(() => {
         let interval = setInterval(async () => {
+            if (isAnotherEmailHandled) {
+                clearInterval(interval);
+            }
             if (auth.currentUser.emailVerified) {
                 clearInterval(interval);
                 console.log('Account Verified!');
-                navigation.navigate('SignUp1');
+                navigation.navigate('SignIn');
             }
             await auth.currentUser.reload();
         }, 2000)
@@ -24,7 +27,7 @@ export default function VerifyEmail({ navigation }) {
     const [time, setTime] = useState(0);
     const { timerColor, setTimerColor } = useState('#9A9A9A');
     const timerRef = useRef(time);
-
+    let isAnotherEmailHandled = false;
     // const timer = () => {
     //     const timerId = setInterval(() => {
     //         timerRef.current -= 1;
@@ -40,6 +43,7 @@ export default function VerifyEmail({ navigation }) {
     // }
 
     const handleAnotherEmail = () => {
+        isAnotherEmailHandled = true;
         auth.currentUser.delete();
         navigation.navigate('SignUp');
     }
