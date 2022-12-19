@@ -3,31 +3,27 @@ import { View, Text, ActivityIndicator, StyleSheet, TouchableOpacity } from 'rea
 import Timer from '../components/Timer';
 import { auth } from '../firebaseConfig'
 import { inStyle } from '../styles/instyle';
+import { sendEmailVerification, createUserWithEmailAndPassword } from "firebase/auth";
+import { emailLocal, passwordLocal } from './Register';
 
-export default function VerifyEmail(navigation) {
+export default function VerifyEmail({ navigation }) {
 
 
     useEffect(() => {
-        // let interval = setInterval(async () => {
-        //     if (auth.currentUser.emailVerified) {
-        //         clearInterval(interval);
-        //         console.log('Account Verified!');
-        //         navigation.navigate('SignUp1');
-        //     }
-        //     await auth.currentUser.reload();
-        // }, 2000)
-
-        // let timer = setInterval(async () => {
-        //     setCount(count - 1);
-        // }, 1000)
-
+        let interval = setInterval(async () => {
+            if (auth.currentUser.emailVerified) {
+                clearInterval(interval);
+                console.log('Account Verified!');
+                navigation.navigate('SignUp1');
+            }
+            await auth.currentUser.reload();
+        }, 2000)
     }, []);
 
 
     const [time, setTime] = useState(0);
     const { timerColor, setTimerColor } = useState('#9A9A9A');
     const timerRef = useRef(time);
-
 
     // const timer = () => {
     //     const timerId = setInterval(() => {
@@ -43,16 +39,41 @@ export default function VerifyEmail(navigation) {
     //     };
     // }
 
+    const handleAnotherEmail = () => {
+        auth.currentUser.delete();
+        navigation.navigate('SignUp');
+    }
+
+    const handleResendEmail = () => {
+        auth.currentUser.reload();
+        if (auth.currentUser.emailVerified == false) {
+            auth.currentUser.delete();
+
+            createUserWithEmailAndPassword(auth, emailLocal, passwordLocal)
+                .then(() => {
+                    sendEmailVerification(auth.currentUser)
+                        .then(() => {
+                            // Email verification Resent!
+                            console.log('Verification Resent!');
+                        });
+
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+    }
+
     return (
         <View style={inStyle.container}>
             <View style={inStyle.wrapper}>
                 <Text style={inStyle.head}>Check Your Email!</Text>
 
                 <View style={{ paddingVertical: 20 }}>
-                    <Text style={inStyle.txt1}>We’ve sent a verification link to the email address you’ve provided</Text>
+                    <Text style={[inStyle.txt1, { fontWeight: "400" }]}>We’ve sent a verification link to {auth.currentUser.email}</Text>
                 </View>
 
-                <TouchableOpacity activeOpacity={.7} style={inStyle.txtInt} onPress={() => navigation.navigate('SignUp')}>
+                <TouchableOpacity activeOpacity={.7} style={inStyle.txtInt} onPress={handleAnotherEmail}>
                     <Text style={inStyle.txt}>Use Another Email</Text>
                 </TouchableOpacity>
 
@@ -62,7 +83,7 @@ export default function VerifyEmail(navigation) {
 
                 <View style={{ paddingTop: 20 }}>
                     <Text style={inStyle.txt3}>Haven’t Received it yet?</Text>
-                    <TouchableOpacity activeOpacity={.7} style={inStyle.v}>
+                    <TouchableOpacity activeOpacity={.7} style={inStyle.v} onPress={handleResendEmail}>
                         <Text style={inStyle.txt2}>Resend Email</Text>
                     </TouchableOpacity>
                 </View>

@@ -8,7 +8,8 @@ import { auth } from '../firebaseConfig';
 import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 
 
-
+export let emailLocal;
+export let passwordLocal;
 
 
 export default function App({ navigation }) {
@@ -30,6 +31,8 @@ export default function App({ navigation }) {
           .then(() => {
             // Email verification sent!
             console.log('Verification Sent!');
+            emailLocal = email;
+            passwordLocal = password;
             navigation.navigate('VerifyEmail');
           });
 
