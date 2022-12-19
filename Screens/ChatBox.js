@@ -6,8 +6,10 @@ import Message from '../components/message'
 
 export default function ChatBox () {
   const mock = [
-    { id: 1, message: 'Hello! I am Chathura. I live in Colombo', side: 'left',createdAt: new Date(), }, 
-    { id: 2, message: 'Hi!', side: 'right',createdAt: new Date(), }
+    { id: 4, message: 'Thank You..', side: 'left',createdAt: new Date(), }, 
+    { id: 3, message: 'Hello! I am Kalpana. I live in RathnaPura', side: 'right',createdAt: new Date(), },
+    { id: 2, message: 'Hello! I am Chathura. I live in Colombo', side: 'left',createdAt: new Date(), }, 
+    { id: 1, message: 'Hi!', side: 'right',createdAt: new Date(), },
   ]
   return (
     <SafeAreaView>
