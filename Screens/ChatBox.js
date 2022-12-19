@@ -4,10 +4,10 @@ import { FlatList, SafeAreaView, View, StyleSheet } from 'react-native'
 import Chat from '../components/chat'
 import Message from '../components/message'
 
-export default function HooksExample () {
+export default function ChatBox () {
   const mock = [
-    { id: 1, message: 'Hello', side: 'left' }, 
-    { id: 2, message: 'Hi!', side: 'right' }
+    { id: 1, message: 'Hello! I am Chathura. I live in Colombo', side: 'left',createdAt: new Date(), }, 
+    { id: 2, message: 'Hi!', side: 'right',createdAt: new Date(), }
   ]
   return (
     <SafeAreaView>
@@ -20,7 +20,7 @@ export default function HooksExample () {
           }}
           renderItem={function ({ item }) {
             return (
-              <Message side={item.side} message={item.message} />
+              <Message createdAt={item.createdAt} side={item.side} message={item.message} />
             )
           }}
         />

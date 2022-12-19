@@ -31,11 +31,10 @@ const styles = StyleSheet.create({
     textContainer: {
       width: 160,
       backgroundColor: '#fff',
-      borderRadius: 40,
+      borderRadius: 20,
       paddingHorizontal: 15,
       paddingVertical: 12,
       marginLeft: 2,
-      borderRadius: 20
     },
     rightContainer: {
       justifyContent: 'flex-end'
