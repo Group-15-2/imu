@@ -8,7 +8,7 @@ import { emailLocal, passwordLocal } from './Register';
 
 export default function VerifyEmail({ navigation }) {
 
-
+    //if email is verified navigating to the sing-in screen
     useEffect(() => {
         let interval = setInterval(async () => {
             if (isAnotherEmailHandled) {
@@ -24,10 +24,9 @@ export default function VerifyEmail({ navigation }) {
     }, []);
 
 
-    const [time, setTime] = useState(0);
-    const { timerColor, setTimerColor } = useState('#9A9A9A');
-    const timerRef = useRef(time);
-    let isAnotherEmailHandled = false;
+    // const [time, setTime] = useState(0);
+    // const { timerColor, setTimerColor } = useState('#9A9A9A');
+    // const timerRef = useRef(time);
     // const timer = () => {
     //     const timerId = setInterval(() => {
     //         timerRef.current -= 1;
@@ -42,25 +41,40 @@ export default function VerifyEmail({ navigation }) {
     //     };
     // }
 
+    //indicates whether the change Another Email Button pressed or not
+    let isAnotherEmailHandled = false;
+
+    //triggers when Another Email Button pressed
     const handleAnotherEmail = () => {
         isAnotherEmailHandled = true;
         auth.currentUser.delete();
         navigation.navigate('SignUp');
     }
 
+    //triggers when Resend Email Button pressed
+    //in this, deleting user, who previously registered
+    //At the same time, creating a new user using the same credentials
+    //when resend button pressed, above functions happens over and over
+    //this technique was done to avoid some errors with firebase 
     const handleResendEmail = () => {
+        //reload user data
         auth.currentUser.reload();
+
+        //triggers only if email is not verified
         if (auth.currentUser.emailVerified == false) {
+
+            //delete the current registered user from the firebase database
             auth.currentUser.delete();
 
+            //then re-register the user using original credentials given by the user in Register Screen
             createUserWithEmailAndPassword(auth, emailLocal, passwordLocal)
                 .then(() => {
+
+                    //send the email verification
                     sendEmailVerification(auth.currentUser)
                         .then(() => {
-                            // Email verification Resent!
                             console.log('Verification Resent!');
                         });
-
                 })
                 .catch(error => {
                     console.error(error);
@@ -71,6 +85,7 @@ export default function VerifyEmail({ navigation }) {
     return (
         <View style={inStyle.container}>
             <View style={inStyle.wrapper}>
+
                 <Text style={inStyle.head}>Check Your Email!</Text>
 
                 <View style={{ paddingVertical: 20 }}>

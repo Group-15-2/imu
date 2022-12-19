@@ -7,7 +7,8 @@ import { useTogglePasswordVisibility } from '../styles/useTogglePasswordVisibili
 import { auth } from '../firebaseConfig';
 import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 
-
+//exports two variable data to store email and password
+//this will use to resend email verification
 export let emailLocal;
 export let passwordLocal;
 
@@ -16,11 +17,20 @@ export default function App({ navigation }) {
   const { passwordVisibility, rightIcon, handlePasswordVisibility } =
     useTogglePasswordVisibility();
 
+  //real-time update password from field
   const [password, setPassword] = useState('');
+
+  //real-time update repassword from field
   const [rePassword, setRePassword] = useState('');
+
+  //real-time update email from field
   const [email, setEmail] = useState('');
+
+  //real-time update error from field
   const [error, setError] = useState('');
 
+  //check whether password and re-entered password matches
+  //if match returns true, if not returns false
   const isPasswordMatch = () => {
     if (password == rePassword) {
       return true;
@@ -29,16 +39,18 @@ export default function App({ navigation }) {
     }
   }
 
-  //register users when trigger
+  //register users when Register button pressed
   const handleRegister = () => {
     if (isPasswordMatch()) {
+
+      //create a user with firebase
       createUserWithEmailAndPassword(auth, email, password)
         .then(() => {
-          console.log('User account created & signed in!');
-          // navigation.navigate('SignUp1');
+          console.log('User account created!');
+
+          //sent email verification to the currunt user
           sendEmailVerification(auth.currentUser)
             .then(() => {
-              // Email verification sent!
               console.log('Verification Sent!');
               emailLocal = email;
               passwordLocal = password;
@@ -46,6 +58,8 @@ export default function App({ navigation }) {
             });
 
         })
+
+        //errors
         .catch(error => {
           if (error.code === 'auth/email-already-in-use') {
             setError('Email address is already in use!');
@@ -73,10 +87,10 @@ export default function App({ navigation }) {
 
   return (
     <View style={inStyle.container}>
-
       <View style={inStyle.wrapper}>
 
         <Text style={inStyle.head}>Register</Text>
+
         <View style={inStyle.inputContainer}>
           <View style={inStyle.inputField}>
             <MaterialCommunityIcons name={'email'} size={22} color={'#BBBBBB'} />
@@ -86,10 +100,10 @@ export default function App({ navigation }) {
               textContentType="emailAddress"
               onChangeText={text => setEmail(text)}
               value={email}
-
             />
           </View>
         </View>
+
         <View style={inStyle.inputContainer}>
           <View style={inStyle.inputField}>
             <MaterialCommunityIcons name={'lock'} size={22} color={'#BBBBBB'} />
@@ -131,6 +145,7 @@ export default function App({ navigation }) {
             <MaterialCommunityIcons name={rightIcon} size={22} color="#BBBBBB" />
           </Pressable>
         </View>
+
         <TouchableOpacity activeOpacity={.7} style={inStyle.txtInt} onPress={handleRegister}>
           <Text style={inStyle.txt}>Next</Text>
         </TouchableOpacity>
