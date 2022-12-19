@@ -1,39 +1,57 @@
-import React, { useState, useEffect } from 'react';
-import {Text, View, Image, SafeAreaView, TouchableOpacity} from 'react-native';
-import {chatStyles} from '../styles/chatstyle';
-import { useFocusEffect } from '@react-navigation/native';
-import { mood } from '../Screens/Home';
+import React, { useCallback, useState } from 'react'
+import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native'
 
-export default function Chat({navigation}) {
-    const [isEnabled, setIsEnabled] = useState(false);
+export default function Chat () {
+  const [message, setMessage] = useState('')
 
-    //update moodlet image link from the home
-    const [imgLink, setImgLink] = useState(null);
+  const handlePress = useCallback(
+    function () {
+      // todo this
+    },
+    [message]
+  )
 
-    useFocusEffect(
-        React.useCallback(() => {
-          setImgLink(mood);
-        }, [])
-      );
-    return(
-        <SafeAreaView>
-                <View style={{flexDirection:'row'}}>
-                    <View style={chatStyles.c1}>
-                        <View style={chatStyles.namePicContainer}>
-                        <View> 
-                            <Image source={require('../assets/test_profile_image.jpg')} style={chatStyles.userimg}/>
-                            <Image source={imgLink} style={chatStyles.moodlet}/>
-                        </View>
-                        <View>
-                            <Text>Confused Unga Bunga</Text>
-                            <Text style={chatStyles.t}>You: Anytime</Text>
-                        </View>
-                    </View>
-                    </View>
-                    <View style={chatStyles.c2}>
-                    <Text style={chatStyles.txt}>15.02 PM</Text>
-                    </View>  
-                </View>
-        </SafeAreaView>
-    )
+  return (
+    <View style={styles.container}>
+      <View style={styles.inputContainer}>
+        <TextInput 
+            style={styles.input} 
+            value={message} 
+            onChangeText={setMessage} 
+            placeholder="Write you message" 
+        />
+
+      </View>
+
+      <TouchableOpacity style={styles.send} onPress={handlePress} >
+        <Text style={{color:'#fff'}}>Send</Text>
+      </TouchableOpacity>
+    </View>
+  )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    width: '100%'
+  },
+  inputContainer: {
+    width: '70%'
+  },
+  input: {
+    backgroundColor:'#D9D9D9',
+    height: 40,
+    borderColor: '#1877F2',
+    borderWidth: 1,
+    borderRadius: 10,
+    flexDirection: 'row',
+    paddingHorizontal: 10
+  },
+  send: {
+    backgroundColor:'#1877F2',
+    padding: 10,
+    borderRadius: 10
+  }
+})
