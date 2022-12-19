@@ -1,11 +1,11 @@
 import { StyleSheet } from "react-native";
 
-const inStyle = StyleSheet.create ({
+const inStyle = StyleSheet.create({
 
     head: {
         fontSize: 32,
         fontWeight: '800',
-        marginLeft: 10,
+        marginBottom: 20,
         alignItems: 'flex-start'
     },
 
@@ -13,11 +13,15 @@ const inStyle = StyleSheet.create ({
         flex: 1,
         justifyContent: 'center',
         backgroundColor: '#fff',
-        width:'100%'
+        width: '100%',
+    },
+
+    wrapper: {
+        marginHorizontal: 10
     },
     inputContainer: {
-        margin: 7,
-        width: '95%',
+        marginVertical: 7,
+        width: '100%',
         borderRadius: 10,
         flexDirection: 'row',
         alignItems: 'center',
@@ -48,8 +52,8 @@ const inStyle = StyleSheet.create ({
     },
     txtInt: {
         fontSize: 16,
-        margin: 7,
-        width: '95%',
+        marginVertical: 10,
+        width: '100%',
         height: 48,
         borderRadius: 10,
         alignItems: 'center',
@@ -62,8 +66,7 @@ const inStyle = StyleSheet.create ({
     },
     divider: {
         backgroundColor: '#D9D9D9',
-        width: '90%',
-        margin: 15,
+        width: '100%',
         height: 2
     },
 
@@ -75,7 +78,7 @@ const inStyle = StyleSheet.create ({
     txt1: {
         color: '#9A9A9A',
         fontSize: 14,
-        fontWeight: '500'
+        fontWeight: 'bold'
     },
 
     txt2: {
@@ -83,11 +86,24 @@ const inStyle = StyleSheet.create ({
         fontSize: 14,
         fontWeight: '700'
     },
+
+    txt3: {
+        color: '#9A9A9A',
+        fontSize: 14,
+        textAlign: 'center'
+    },
+
+    txt4: {
+        color: '#9A9A9A',
+        fontSize: 14,
+        fontWeight: '400'
+    },
+
     sIcons: {
         height: 48,
         borderRadius: 10,
         width: 54,
-        alignItems:'center',
+        alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#EFEFEF',
         margin: 5
@@ -95,9 +111,9 @@ const inStyle = StyleSheet.create ({
     img: {
         width: 26,
         height: 26,
-        backgroundColor:'#fff',
+        backgroundColor: '#fff',
         borderRadius: 13
     }
 })
 
-export  { inStyle }
+export { inStyle }

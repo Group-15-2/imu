@@ -54,44 +54,49 @@ export default function App({ navigation }) {
 
   return (
     <View style={inStyle.container}>
-      <Text style={inStyle.head}>Register</Text>
-      <View style={inStyle.inputContainer}>
-        <View style={inStyle.inputField}>
-          <MaterialCommunityIcons name={'email'} size={22} color={'#BBBBBB'} />
-          <TextInput
-            style={{ fontSize: 16 }}
-            placeholder="Email"
-            onChangeText={text => setEmail(text)}
-            value={email}
 
-          />
-        </View>
-      </View>
-      <View style={inStyle.inputContainer}>
-        <View style={inStyle.inputField}>
-          <MaterialCommunityIcons name={'lock'} size={22} color={'#BBBBBB'} />
-          <TextInput
-            name="password"
-            placeholder="Password"
-            style={{ fontSize: 16 }}
-            autoCapitalize="none"
-            autoCorrect={false}
-            textContentType="newPassword"
-            secureTextEntry={passwordVisibility}
-            value={password}
-            enablesReturnKeyAutomatically
-            onChangeText={text => setPassword(text)}
-          />
-        </View>
-        <Pressable onPress={handlePasswordVisibility}>
-          <MaterialCommunityIcons name={rightIcon} size={22} color="#BBBBBB" />
-        </Pressable>
-      </View>
-      <TouchableOpacity activeOpacity={.7} style={inStyle.txtInt} onPress={handleRegister}>
-        <Text style={inStyle.txt}>Next</Text>
-      </TouchableOpacity>
+      <View style={inStyle.wrapper}>
 
-      <Text style={{ color: 'red', textAlign: 'center' }}>{error}</Text>
+        <Text style={inStyle.head}>Register</Text>
+        <View style={inStyle.inputContainer}>
+          <View style={inStyle.inputField}>
+            <MaterialCommunityIcons name={'email'} size={22} color={'#BBBBBB'} />
+            <TextInput
+              style={{ fontSize: 16 }}
+              placeholder="Email"
+              onChangeText={text => setEmail(text)}
+              value={email}
+
+            />
+          </View>
+        </View>
+        <View style={inStyle.inputContainer}>
+          <View style={inStyle.inputField}>
+            <MaterialCommunityIcons name={'lock'} size={22} color={'#BBBBBB'} />
+            <TextInput
+              name="password"
+              placeholder="Password"
+              style={{ fontSize: 16 }}
+              autoCapitalize="none"
+              autoCorrect={false}
+              textContentType="newPassword"
+              secureTextEntry={passwordVisibility}
+              value={password}
+              enablesReturnKeyAutomatically
+              onChangeText={text => setPassword(text)}
+            />
+          </View>
+          <Pressable onPress={handlePasswordVisibility}>
+            <MaterialCommunityIcons name={rightIcon} size={22} color="#BBBBBB" />
+          </Pressable>
+        </View>
+        <TouchableOpacity activeOpacity={.7} style={inStyle.txtInt} onPress={handleRegister}>
+          <Text style={inStyle.txt}>Next</Text>
+        </TouchableOpacity>
+
+        <Text style={{ color: 'red', textAlign: 'center' }}>{error}</Text>
+
+      </View>
     </View>
   );
 }
