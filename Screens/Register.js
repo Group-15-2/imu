@@ -30,8 +30,7 @@ export default function App({ navigation }) {
           .then(() => {
             // Email verification sent!
             console.log('Verification Sent!');
-            navigation.navigate('SignUp1');
-            console.log(auth.currentUser.emailVerified);
+            navigation.navigate('VerifyEmail');
           });
 
       })

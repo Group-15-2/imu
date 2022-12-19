@@ -16,6 +16,7 @@ import profile from './Screens/Profile'
 import addPost from './Screens/Addpost'
 import thoughts from './Screens/Thoughts'
 import messages from './Screens/Messages'
+import VerifyEmail from './Screens/VerifyEmail';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -83,6 +84,7 @@ export default function App() {
         <Stack.Screen name='Home' component={MyTabs} />
         <Stack.Screen name='SignIn' component={signIn} />
         <Stack.Screen name='SignUp' component={register} />
+        <Stack.Screen name='VerifyEmail' component={VerifyEmail} />
         <Stack.Screen name='SignUp1' component={register1} />
         <Stack.Screen name='SignUp2' component={register2} />
         <Stack.Screen name='ChatBox' component={chatbox} />

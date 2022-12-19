@@ -11,16 +11,7 @@ export default function App({ navigation }) {
     const phoneInput = useRef < PhoneInput > (null);
 
 
-    useEffect(() => {
-        let interval = setInterval(async () => {
-            if (auth.currentUser.emailVerified) {
-                clearInterval(interval);
-                console.log('Account Verified!');
-                navigation.navigate('SignIn');
-            }
-            await auth.currentUser.reload();
-        }, 2000)
-    }, []);
+
 
     return (
         <View style={inStyle.container}>
