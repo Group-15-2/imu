@@ -5,7 +5,7 @@ import {chatStyles} from '../styles/chatstyle';
 const Messages = [
   {
     id: '1',
-    userName: 'Jenny Doe',
+    userName: 'Michel Shen',
     userImg: require('../assets/4.jpg'),
     moodlet: require('../assets/moodlets/happy.png'),
     messageTime: '4 mins ago',
