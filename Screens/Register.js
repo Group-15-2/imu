@@ -31,7 +31,7 @@ export default function App({ navigation }) {
 
   //register users when trigger
   const handleRegister = () => {
-    if (isPasswordMatch) {
+    if (isPasswordMatch()) {
       createUserWithEmailAndPassword(auth, email, password)
         .then(() => {
           console.log('User account created & signed in!');
@@ -57,6 +57,10 @@ export default function App({ navigation }) {
 
           if (error.code === 'auth/weak-password') {
             setError('Password should be at least 6 characters!');
+          }
+
+          if (error.code === 'auth/internal-error') {
+            setError('Enter fields correctly!');
           }
 
           console.error(error);
