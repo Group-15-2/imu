@@ -17,6 +17,7 @@ export default function App({ navigation }) {
 
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+  const [error, setError] = useState('');
 
 
   //register users when trigger
@@ -28,7 +29,6 @@ export default function App({ navigation }) {
         sendEmailVerification(auth.currentUser)
           .then(() => {
             // Email verification sent!
-            // ...
             console.log('Verification Sent!');
             navigation.navigate('SignUp1');
             console.log(auth.currentUser.emailVerified);
@@ -37,11 +37,15 @@ export default function App({ navigation }) {
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
-          console.log('That email address is already in use!');
+          setError('Email address is already in use!');
         }
 
         if (error.code === 'auth/invalid-email') {
-          console.log('That email address is invalid!');
+          setError('That email address is invalid!');
+        }
+
+        if (error.code === 'auth/weak-password') {
+          setError('Password should be at least 6 characters!');
         }
 
         console.error(error);
@@ -87,6 +91,8 @@ export default function App({ navigation }) {
       <TouchableOpacity activeOpacity={.7} style={inStyle.txtInt} onPress={handleRegister}>
         <Text style={inStyle.txt}>Next</Text>
       </TouchableOpacity>
+
+      <Text style={{ color: 'red', textAlign: 'center' }}>{error}</Text>
     </View>
   );
 }

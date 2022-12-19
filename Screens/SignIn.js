@@ -13,6 +13,7 @@ export default function App({ navigation }) {
 
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
+    const [error, setError] = useState('');
 
     //register users when trigger
     const handleSignIn = () => {
@@ -23,12 +24,20 @@ export default function App({ navigation }) {
 
             })
             .catch(error => {
-                if (error.code === 'auth/email-already-in-use') {
-                    console.log('That email address is already in use!');
+                if (error.code === 'auth/user-disabled') {
+                    setError(' Email has been disabled');
                 }
 
                 if (error.code === 'auth/invalid-email') {
-                    console.log('That email address is invalid!');
+                    setError('Email address or password is invalid!');
+                }
+
+                if (error.code === 'auth/user-not-found') {
+                    setError('Email address or password is invalid!');
+                }
+
+                if (error.code === 'auth/wrong-password') {
+                    setError('Password is invalid!');
                 }
 
                 console.error(error);
@@ -72,6 +81,9 @@ export default function App({ navigation }) {
             <TouchableOpacity activeOpacity={.7} style={inStyle.txtInt} onPress={handleSignIn}>
                 <Text style={inStyle.txt}>Login</Text>
             </TouchableOpacity>
+
+            <Text style={{ color: 'red', textAlign: 'center' }}>{error}</Text>
+
             <Divider style={inStyle.divider} />
             <View style={inStyle.v}>
                 <Text style={inStyle.txt1}>Login with your Social Accounts</Text>
