@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import { Pressable, TextInput, View, Text, TouchableOpacity } from 'react-native';
 import { inStyle } from '../styles/instyle';
@@ -11,17 +11,16 @@ export default function App({ navigation }) {
     const phoneInput = useRef < PhoneInput > (null);
 
 
-    useFocusEffect(() => {
-        if (auth.currentUser.emailVerified) {
-            console.log('Account Verified!');
-            navigation.navigate('Home');
-        } else {
-            setTimeout(() => {
-                auth.currentUser.delete();
-                console.log('Account Deleted!');
-            }, 180000);
-        }
-    });
+    useEffect(() => {
+        let interval = setInterval(async () => {
+            if (auth.currentUser.emailVerified) {
+                clearInterval(interval);
+                console.log('Account Verified!');
+                navigation.navigate('SignIn');
+            }
+            await auth.currentUser.reload();
+        }, 2000)
+    }, []);
 
     return (
         <View style={inStyle.container}>
