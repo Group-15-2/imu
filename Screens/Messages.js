@@ -5,7 +5,7 @@ import {chatStyles} from '../styles/chatstyle';
 const Messages = [
   {
     id: '1',
-    userName: 'Jenny Doe',
+    userName: 'Michel Shen',
     userImg: require('../assets/4.jpg'),
     moodlet: require('../assets/moodlets/happy.png'),
     messageTime: '4 mins ago',
@@ -40,7 +40,7 @@ export default function MessagesScreen ({navigation})  {
         Chats
       </Text>
       <View style={chatStyles.card}>
-        <ScrollView>
+        <View> 
         <FlatList 
           data={Messages}
           keyExtractor={item=>item.id}
@@ -65,8 +65,8 @@ export default function MessagesScreen ({navigation})  {
             </View>       
           </TouchableOpacity>
          )}
-        />       
-        </ScrollView>
+        /> 
+        </View>
       </View>
     </View>
   );
