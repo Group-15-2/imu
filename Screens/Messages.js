@@ -40,7 +40,7 @@ export default function MessagesScreen ({navigation})  {
         Chats
       </Text>
       <View style={chatStyles.card}>
-        <ScrollView>
+        <View> 
         <FlatList 
           data={Messages}
           keyExtractor={item=>item.id}
@@ -65,8 +65,8 @@ export default function MessagesScreen ({navigation})  {
             </View>       
           </TouchableOpacity>
          )}
-        />       
-        </ScrollView>
+        /> 
+        </View>
       </View>
     </View>
   );
