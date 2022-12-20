@@ -31,18 +31,26 @@ const styles = StyleSheet.create({
     textContainer: {
       width: 160,
       backgroundColor: '#fff',
-      borderRadius: 20,
-      paddingHorizontal: 15,
-      paddingVertical: 12,
+      paddingHorizontal: 10,
+      paddingVertical: 10,
       marginLeft: 2,
+      borderTopRightRadius:20,
+      borderTopLeftRadius:20,
+      borderBottomRightRadius:20,
     },
     rightContainer: {
-      justifyContent: 'flex-end'
+      justifyContent: 'flex-end',
+      
     },
     rightTextContainer: {
-      backgroundColor: '#87cefa',
+      width: 160,
+      paddingHorizontal: 10,
+      paddingVertical: 10,
+      backgroundColor: '#87CEFA',
       marginRight: 2,
-      borderRadius: 20
+      borderTopRightRadius:20,
+      borderTopLeftRadius:20,
+      borderBottomLeftRadius:20,    
     },
     leftText: {
       textAlign: 'left'
@@ -51,13 +59,13 @@ const styles = StyleSheet.create({
       textAlign: 'right'
     },
     text: {
-      fontSize: 12
+      fontSize: 14
     }
   })
   
   const flattenedStyles = {
-    container: StyleSheet.flatten([styles.container, styles.rightContainer]),
-    textContainer: StyleSheet.flatten([styles.textContainer, styles.rightTextContainer]),
+    container: StyleSheet.flatten([styles.container, styles.rightContainer, styles.leftContainer]),
+    textContainer: StyleSheet.flatten([styles.rightTextContainer]),
     leftText: StyleSheet.flatten([styles.leftText, styles.text]),
     rightText: StyleSheet.flatten([styles.rightText, styles.text])
   }
