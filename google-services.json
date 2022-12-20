@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "167329016926-c556kpguhqhfklaf5kvbo8amb6r5hvj0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.beetlejuice.imu",
+            "certificate_hash": "4457330f739532bb650ae1db03c227b4c3f3c6fb"
+          }
+        },
+        {
           "client_id": "167329016926-g2mgqik6qno32g0a06uov8nm83219b80.apps.googleusercontent.com",
           "client_type": 3
         }
