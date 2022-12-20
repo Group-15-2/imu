@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Pressable, TextInput, View, Text, TouchableOpacity, Image } from 'react-native';
 import { Divider, SocialIcon } from '@rneui/themed';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -6,8 +6,53 @@ import { inStyle } from '../styles/instyle';
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from '../firebaseConfig';
 import { useTogglePasswordVisibility } from '../styles/useTogglePasswordVisibility';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+
 
 export default function App({ navigation }) {
+    GoogleSignin.configure({
+        webClientId: '167329016926-g2mgqik6qno32g0a06uov8nm83219b80.apps.googleusercontent.com',
+    });
+
+    // Set an initializing state whilst Firebase connects
+    const [initializing, setInitializing] = useState(true);
+    const [user, setUser] = useState();
+
+    // Handle user state changes
+    function onAuthStateChanged() {
+        setUser(user);
+        if (initializing) setInitializing(false);
+    }
+
+    useEffect(() => {
+        const subscriber = auth.onAuthStateChanged(onAuthStateChanged);
+        return subscriber; // unsubscribe on unmount
+    }, []);
+
+
+    const onGoogleButtonPress = async () => {
+        // Check if your device supports Google Play
+        await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+        // Get the users ID token
+        const { idToken } = await GoogleSignin.signIn();
+
+        // Create a Google credential with the token
+        const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
+        // Sign-in the user with the credential
+        const user_sign_in = auth.signInWithCredential(googleCredential);
+        user_sign_in.then(() => {
+            console.log(user);
+        })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
+    if (initializing) return null;
+
+
+
     const { passwordVisibility, rightIcon, handlePasswordVisibility } =
         useTogglePasswordVisibility();
 

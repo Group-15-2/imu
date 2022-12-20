@@ -13,7 +13,7 @@ export let emailLocal;
 export let passwordLocal;
 
 
-export default function App({ navigation }) {
+export default function register({ navigation }) {
   const { passwordVisibility, rightIcon, handlePasswordVisibility } =
     useTogglePasswordVisibility();
 
