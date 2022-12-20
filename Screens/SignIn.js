@@ -9,7 +9,7 @@ import { useTogglePasswordVisibility } from '../styles/useTogglePasswordVisibili
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 
-export default function App({ navigation }) {
+export default function signIn({ navigation }) {
     GoogleSignin.configure({
         webClientId: '167329016926-g2mgqik6qno32g0a06uov8nm83219b80.apps.googleusercontent.com',
     });
