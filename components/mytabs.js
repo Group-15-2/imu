@@ -1,28 +1,17 @@
-import 'expo-dev-client';
 import * as React from 'react';
 import { Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import signIn from './Screens/SignIn';
-import register from './Screens/Register';
-import register1 from './Screens/Register1';
-import register2 from './Screens/Register2';
-import chatbox from './Screens/ChatBox';
-
-import homeScreen from './Screens/Home'
-import profile from './Screens/Profile'
-import addPost from './Screens/Addpost'
-import thoughts from './Screens/Thoughts'
-import messages from './Screens/Messages'
-import VerifyEmail from './Screens/VerifyEmail';
+import homeScreen from '../Screens/Home'
+import profile from '../Screens/Profile'
+import addPost from '../Screens/Addpost'
+import thoughts from '../Screens/Thoughts'
+import messages from '../Screens/Messages'
 
 const Tab = createBottomTabNavigator();
-const Stack = createNativeStackNavigator();
 
-export function MyTabs({ navigation }) {
+export function MyTabs() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -43,7 +32,7 @@ export function MyTabs({ navigation }) {
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
 
-          if (route.name === 'home') {
+          if (route.name === 'Home') {
             iconName = 'home-outline';
           }
           else if (route.name === 'Profile') {
@@ -69,7 +58,7 @@ export function MyTabs({ navigation }) {
         tabBarHideOnKeyboard: 'true',
       })}
     >
-      <Tab.Screen name="home" component={homeScreen} />
+      <Tab.Screen name="Home" component={homeScreen} />
       <Tab.Screen name="Messages" component={messages} />
       <Tab.Screen name="AddPost" component={addPost} options={{ tabBarIcon: ({ color }) => (<MaterialCommunityIcons name="plus-circle" color={'#1877F2'} size={42} />), }} />
       <Tab.Screen name="Thoughts" component={thoughts} />
@@ -77,20 +66,3 @@ export function MyTabs({ navigation }) {
     </Tab.Navigator>
   );
 }
-
-export default function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName='SignIn' screenOptions={({ route }) => ({ headerShown: false })}>
-        <Stack.Screen name='Home' component={MyTabs} />
-        <Stack.Screen name='SignIn' component={signIn} />
-        <Stack.Screen name='SignUp' component={register} />
-        <Stack.Screen name='VerifyEmail' component={VerifyEmail} />
-        <Stack.Screen name='SignUp1' component={register1} />
-        <Stack.Screen name='SignUp2' component={register2} />
-        <Stack.Screen name='ChatBox' component={chatbox} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
-};
-

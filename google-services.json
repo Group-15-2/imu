@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "167329016926",
+    "project_id": "project-imu",
+    "storage_bucket": "project-imu.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:167329016926:android:e9b29e7c1e29eadab358cf",
+        "android_client_info": {
+          "package_name": "com.beetlejuice.imu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "167329016926-98b0vkr9tk03d1ql6dcrusicv4na3abb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.beetlejuice.imu",
+            "certificate_hash": "48ef03e88ac64cf8d056f39d556d5d3456951ded"
+          }
+        },
+        {
+          "client_id": "167329016926-en14plss847pbck79uukb0set3jldbui.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.beetlejuice.imu",
+            "certificate_hash": "b47552f1f64a2efca918565c7d2dc5d76a1f1780"
+          }
+        },
+        {
+          "client_id": "167329016926-g2mgqik6qno32g0a06uov8nm83219b80.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8A428Co2uZLFxrgtK-n7BxyBuYpu69TI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "167329016926-g2mgqik6qno32g0a06uov8nm83219b80.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
