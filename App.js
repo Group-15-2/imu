@@ -6,17 +6,17 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import signIn from './Screens/SignIn';
-import register from './Screens/Register';
-import register1 from './Screens/Register1';
-import register2 from './Screens/Register2';
-import chatbox from './Screens/ChatBox';
+import SignIn from './Screens/SignIn';
+import Register from './Screens/Register';
+import Register1 from './Screens/Register1';
+import Register2 from './Screens/Register2';
+import ChatBox from './Screens/ChatBox';
 
-import homeScreen from './Screens/Home'
-import profile from './Screens/Profile'
-import addPost from './Screens/Addpost'
-import thoughts from './Screens/Thoughts'
-import messages from './Screens/Messages'
+import Home from './Screens/Home'
+import Profile from './Screens/Profile'
+import AddPost from './Screens/AddPost'
+import Thoughts from './Screens/Thoughts'
+import Messages from './Screens/Messages'
 import VerifyEmail from './Screens/VerifyEmail';
 
 const Tab = createBottomTabNavigator();
@@ -69,11 +69,11 @@ export function MyTabs({ navigation }) {
         tabBarHideOnKeyboard: 'true',
       })}
     >
-      <Tab.Screen name="home" component={homeScreen} />
-      <Tab.Screen name="Messages" component={messages} />
-      <Tab.Screen name="AddPost" component={addPost} options={{ tabBarIcon: ({ color }) => (<MaterialCommunityIcons name="plus-circle" color={'#1877F2'} size={42} />), }} />
-      <Tab.Screen name="Thoughts" component={thoughts} />
-      <Tab.Screen name="Profile" component={profile} />
+      <Tab.Screen name="home" component={Home} />
+      <Tab.Screen name="Messages" component={Messages} />
+      <Tab.Screen name="AddPost" component={AddPost} options={{ tabBarIcon: ({ color }) => (<MaterialCommunityIcons name="plus-circle" color={'#1877F2'} size={42} />), }} />
+      <Tab.Screen name="Thoughts" component={Thoughts} />
+      <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
   );
 }
@@ -83,12 +83,12 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName='SignIn' screenOptions={({ route }) => ({ headerShown: false })}>
         <Stack.Screen name='Home' component={MyTabs} />
-        <Stack.Screen name='SignIn' component={signIn} />
-        <Stack.Screen name='SignUp' component={register} />
+        <Stack.Screen name='SignIn' component={SignIn} />
+        <Stack.Screen name='SignUp' component={Register} />
         <Stack.Screen name='VerifyEmail' component={VerifyEmail} />
-        <Stack.Screen name='SignUp1' component={register1} />
-        <Stack.Screen name='SignUp2' component={register2} />
-        <Stack.Screen name='ChatBox' component={chatbox} />
+        <Stack.Screen name='SignUp1' component={Register1} />
+        <Stack.Screen name='SignUp2' component={Register2} />
+        <Stack.Screen name='ChatBox' component={ChatBox} />
       </Stack.Navigator>
     </NavigationContainer>
   );

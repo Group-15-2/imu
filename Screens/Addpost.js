@@ -45,7 +45,7 @@ const Item = ({ item, borderWidth, onPress }) => {
 };
 
 
-export default function Addpost() {
+export default function AddPost() {
 
   //update selectedId of the FlatList
   const [selectedId, setSelectedId] = useState(0);

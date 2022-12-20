@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Text, View, ScrollView } from 'react-native';
-import Thoughts from '../components/thought';
+import Thought from '../components/thought';
 import { thStyles } from '../styles/thstyle';
 
-export default function Thought() {
+export default function Thoughts() {
   return (
     <View>
       <Text style={thStyles.header}>
@@ -11,17 +11,17 @@ export default function Thought() {
       </Text>
       <View style={thStyles.card}>
         <ScrollView>
-          <Thoughts/>
-          <Thoughts/>
-          <Thoughts/>
-          <Thoughts/>
-          <Thoughts/>
-          <Thoughts/>
-          <Thoughts/>
-          <Thoughts/>
-          <Thoughts/>
-          <Thoughts/>
-          <Thoughts/>
+          <Thought />
+          <Thought />
+          <Thought />
+          <Thought />
+          <Thought />
+          <Thought />
+          <Thought />
+          <Thought />
+          <Thought />
+          <Thought />
+          <Thought />
         </ScrollView>
       </View>
     </View>

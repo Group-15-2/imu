@@ -4,7 +4,7 @@ import { inStyle } from '../styles/instyle';
 import OTP from '../components/otp'
 
 
-export default function register2({ navigation }) {
+export default function Register2({ navigation }) {
 
   return (
     <View style={inStyle.container}>

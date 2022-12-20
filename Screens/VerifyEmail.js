@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { View, Text, ActivityIndicator, StyleSheet, TouchableOpacity } from 'react-native'
-import Timer from '../components/Timer';
+// import Timer from '../components/Timer';
 import { auth } from '../firebaseConfig'
 import { inStyle } from '../styles/instyle';
 import { sendEmailVerification, createUserWithEmailAndPassword } from "firebase/auth";

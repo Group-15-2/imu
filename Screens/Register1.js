@@ -5,7 +5,7 @@ import { inStyle } from '../styles/instyle';
 import PhoneInput from "react-native-phone-number-input";
 import { auth } from '../firebaseConfig';
 
-export default function register1({ navigation }) {
+export default function Register1({ navigation }) {
     const [value, setValue] = useState("");
     const [formattedValue, setFormattedValue] = useState("");
     const phoneInput = useRef < PhoneInput > (null);
