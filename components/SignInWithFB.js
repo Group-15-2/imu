@@ -5,7 +5,7 @@ import { GoogleAuthProvider, onAuthStateChanged, signInWithCredential } from "fi
 import { auth } from '../firebaseConfig';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { LoginButton, AccessToken, LoginManager } from 'react-native-fbsdk-next';
+import { LoginManager } from 'react-native-fbsdk-next';
 
 export default function SignInWithFB({ navigation }) {
 
