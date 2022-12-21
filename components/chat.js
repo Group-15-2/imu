@@ -6,8 +6,8 @@ export default function Chat () {
   const [message, setMessage] = useState('')
 
   const handlePress = useCallback(
-    function () {
-      // todo this
+    function handleSend(newMessage = []) {
+      setMessage((message, newMessage));
     },
     [message]
   )
