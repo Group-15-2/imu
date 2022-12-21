@@ -20,10 +20,6 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "ios": {
-      "googleServicesFile": "./GoogleService-Info.plist",
-      "supportsTablet": true
-    },
     "android": {
       "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
@@ -37,7 +33,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "2f04bfff-04d5-4a75-8906-0b73375fe6b4"
+        "projectId": "90f66b56-b81e-4d7b-9b37-811ec38d6d44"
       }
     }
   }
