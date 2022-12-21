@@ -9,11 +9,6 @@ import { LoginManager } from 'react-native-fbsdk-next';
 
 export default function SignInWithFB({ navigation }) {
 
-    GoogleSignin.configure({
-        webClientId: '167329016926-g2mgqik6qno32g0a06uov8nm83219b80.apps.googleusercontent.com',
-    });
-
-
     // Set an initializing state whilst Firebase connects
     // const [initializing, setInitializing] = useState(true);
     // const [user, setUser] = useState('');
