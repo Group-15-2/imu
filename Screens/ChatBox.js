@@ -6,16 +6,6 @@ import Chat from '../components/chat'
 import Message from '../components/message' 
 
 export default function ChatBox ({navigation}) {
-  const Messages = [
-    {
-      id: '1',
-      userName: 'Michel Shen',
-      moodlet: require('../assets/moodlets/happy.png'),
-      messageTime: '4 mins ago',
-      messageText:
-        'Hey there, this is my test for a post of my social app in React Native.',
-    },
-  ] 
 
   const mock = [
     { id: 4, message: 'Thank You..', side: 'left',createdAt: new Date(), }, 
