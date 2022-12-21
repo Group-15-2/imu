@@ -7,12 +7,14 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from '../firebaseConfig';
 import { useTogglePasswordVisibility } from '../styles/useTogglePasswordVisibility';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import SignInWithGoogle from '../components/SignInWithGoogle';
 
 
 export default function SignIn({ navigation }) {
-    GoogleSignin.configure({
-        webClientId: '167329016926-g2mgqik6qno32g0a06uov8nm83219b80.apps.googleusercontent.com',
-    });
+    // GoogleSignin.configure({
+    //     webClientId: '167329016926-g2mgqik6qno32g0a06uov8nm83219b80.apps.googleusercontent.com',
+    // });
+
 
 
 
@@ -111,9 +113,7 @@ export default function SignIn({ navigation }) {
                     <View style={{ flexDirection: 'row', paddingTop: 10 }}>
                         <View style={{ width: '50%', justifyContent: 'center', alignItems: 'center' }}>
                             <View style={inStyle.sIcons}>
-                                <TouchableOpacity>
-                                    <Image source={require('../assets/google.png')} style={inStyle.img} />
-                                </TouchableOpacity>
+                                <SignInWithGoogle />
                             </View>
                         </View>
                         <View style={{ width: '50%', justifyContent: 'center', alignItems: 'center' }}>
