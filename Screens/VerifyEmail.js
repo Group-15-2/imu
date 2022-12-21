@@ -23,6 +23,16 @@ export default function VerifyEmail({ navigation }) {
         }, 2000)
     }, []);
 
+    useEffect(() => {
+        navigation.addListener('beforeRemove', (e) => {
+            e.preventDefault();
+            if (isAnotherEmailHandled || auth.currentUser.emailVerified) {
+                navigation.dispatch(e.data.action);
+            }
+        });
+
+    });
+
 
     const [time, setTime] = useState(0);
     // const { timerColor, setTimerColor } = useState('#9A9A9A');

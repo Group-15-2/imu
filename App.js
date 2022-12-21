@@ -18,7 +18,6 @@ import AddPost from './Screens/AddPost'
 import Thoughts from './Screens/Thoughts'
 import Messages from './Screens/Messages'
 import VerifyEmail from './Screens/VerifyEmail';
-import SignInWithGoogle from './components/SignInWithGoogle';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -85,7 +84,6 @@ export default function App() {
       <Stack.Navigator initialRouteName='SignIn' screenOptions={({ route }) => ({ headerShown: false })}>
         <Stack.Screen name='Home' component={MyTabs} />
         <Stack.Screen name='SignIn' component={SignIn} />
-        {/* <Stack.Screen name='SignInWithGoogle' component={SignInWithGoogle} /> */}
         <Stack.Screen name='SignUp' component={Register} />
         <Stack.Screen name='VerifyEmail' component={VerifyEmail} />
         <Stack.Screen name='SignUp1' component={Register1} />
