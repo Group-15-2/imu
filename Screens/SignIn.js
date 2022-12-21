@@ -32,8 +32,13 @@ export default function SignIn({ navigation }) {
     const handleSignIn = () => {
         signInWithEmailAndPassword(auth, email, password)
             .then(() => {
-                console.log('User signed in!');
-                navigation.navigate('Home');
+                if (auth.currentUser.emailVerified) {
+                    console.log('User signed in!');
+                    navigation.navigate('Home');
+                } else {
+                    auth.currentUser.delete();
+                    setError('Email is not verified, register again!')
+                }
 
             })
             .catch(error => {
