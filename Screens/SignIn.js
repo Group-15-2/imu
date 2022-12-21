@@ -79,7 +79,7 @@ export default function App({ navigation }) {
                         <MaterialCommunityIcons name={rightIcon} size={22} color="#BBBBBB" />
                     </Pressable>
                 </View>
-                <TouchableOpacity activeOpacity={.7} style={inStyle.txtInt} onPress={handleSignIn}>
+                <TouchableOpacity activeOpacity={.7} style={inStyle.txtInt} onPress={() => navigation.navigate('Home')}>
                     <Text style={inStyle.txt}>Login</Text>
                 </TouchableOpacity>
 

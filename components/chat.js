@@ -1,5 +1,6 @@
-import React, { useCallback, useState } from 'react'
-import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native'
+import React, { useCallback, useState } from 'react';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default function Chat () {
   const [message, setMessage] = useState('')
@@ -23,8 +24,8 @@ export default function Chat () {
 
       </View>
 
-      <TouchableOpacity style={styles.send} onPress={handlePress} >
-        <Text style={{color:'#fff'}}>Send</Text>
+      <TouchableOpacity activeOpacity={.7} style={styles.send} onPress={handlePress} >
+        <Icon name='send' size={22} color={'#fff'} />
       </TouchableOpacity>
     </View>
   )
@@ -34,24 +35,28 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-around',
     width: '100%'
   },
   inputContainer: {
-    width: '70%'
+    width: '80%'
   },
   input: {
-    backgroundColor:'#D9D9D9',
+    backgroundColor:'#fff',
     height: 40,
-    borderColor: '#1877F2',
+    borderColor: '#E6E6E6',
     borderWidth: 1,
-    borderRadius: 10,
+    borderTopLeftRadius: 30,
+    borderBottomLeftRadius: 30,
     flexDirection: 'row',
     paddingHorizontal: 10
   },
   send: {
+    height: 40,
     backgroundColor:'#1877F2',
-    padding: 10,
-    borderRadius: 10
+    paddingTop: 10,
+    paddingLeft: 14,
+    paddingRight: 14,
+    borderTopRightRadius: 30,
+    borderBottomRightRadius: 30,
   }
 })
