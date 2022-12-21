@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import {View, ScrollView, Text, Button, StyleSheet} from 'react-native';
-import {Bubble, GiftedChat, Send} from 'react-native-gifted-chat';
+import {Bubble, GiftedChat, Send, InputToolbar} from 'react-native-gifted-chat';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
@@ -42,8 +42,8 @@ const ChatScreen = () => {
         <View>
           <MaterialCommunityIcons
             name="send"
-            style={{ backgroundColor:'#1877F2', padding:7}}
-            size={32}
+            style={styles.input}
+            size={36}
             color="#fff"
           />
         </View>
@@ -58,12 +58,32 @@ const ChatScreen = () => {
         wrapperStyle={{
           right: {
             backgroundColor: '#87CEFA',
+            borderBottomRightRadius: 0
+          },
+          left: {
+            backgroundColor: '#fff',
+            borderBottomLeftRadius: 0
           },
         }}
         textStyle={{
           right: {
-            color: '#fff',
+            color: '#000',
           },
+        }}
+      />
+    );
+  };
+
+  const customtInputToolbar = props => {
+    return (
+      <InputToolbar
+        {...props}
+        containerStyle={{
+          backgroundColor: "white",
+          borderWidth: 2,
+          borderColor: "#FFF",
+          borderRadius:20,
+          paddingBottom:2
         }}
       />
     );
@@ -87,6 +107,7 @@ const ChatScreen = () => {
       renderSend={renderSend}
       scrollToBottom
       scrollToBottomComponent={scrollToBottomComponent}
+      renderInputToolbar={props => customtInputToolbar(props)}
     />
   );
 };
@@ -99,6 +120,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  input: { 
+    backgroundColor:'#1877F2',
+    paddingLeft:7,
+    paddingRight:7, 
+    margin:1, 
+    borderBottomRightRadius:20, 
+    borderTopRightRadius:20
+  }
 });
 // import Chat from '../components/chat'
 // import Message from '../components/message' 
