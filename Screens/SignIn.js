@@ -104,7 +104,7 @@ export default function SignIn({ navigation }) {
                 <Text style={{ color: 'red', textAlign: 'center' }}>{error}</Text>
 
                 <View style={{ paddingBottom: 25 }}>
-                    <TouchableOpacity activeOpacity={.7} style={inStyle.v} onPress={() => navigation.navigate('SignUp')}>
+                    <TouchableOpacity activeOpacity={.7} style={inStyle.v} onPress={() => navigation.navigate('PasswordResetVerify')}>
                         <Text style={inStyle.txt2}>Forgot Password?</Text>
                     </TouchableOpacity>
                 </View>

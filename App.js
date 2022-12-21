@@ -18,6 +18,7 @@ import AddPost from './Screens/AddPost'
 import Thoughts from './Screens/Thoughts'
 import Messages from './Screens/Messages'
 import VerifyEmail from './Screens/VerifyEmail';
+import PasswordResetVerify from './Screens/PasswordResetVerify';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -84,6 +85,7 @@ export default function App() {
       <Stack.Navigator initialRouteName='SignIn' screenOptions={({ route }) => ({ headerShown: false })}>
         <Stack.Screen name='Home' component={MyTabs} />
         <Stack.Screen name='SignIn' component={SignIn} />
+        <Stack.Screen name='PasswordResetVerify' component={PasswordResetVerify} />
         <Stack.Screen name='SignUp' component={Register} />
         <Stack.Screen name='VerifyEmail' component={VerifyEmail} />
         <Stack.Screen name='SignUp1' component={Register1} />
