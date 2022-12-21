@@ -91,7 +91,7 @@ const ChatScreen = () => {
 
   const scrollToBottomComponent = () => {
     return(
-      <FontAwesome name='angle-double-down' size={22} color='#333' />
+      <MaterialCommunityIcons name='chevron-double-down' size={22} color='#333' />
     );
   }
 
