@@ -30,6 +30,7 @@ export default function SignInWithFB({ navigation }) {
     // }, []);
 
     const onFBButtonPress = async () => {
+        LoginManager.logOut();
         LoginManager.logInWithPermissions(["public_profile"]).then(
             function (result) {
                 if (result.isCancelled) {
