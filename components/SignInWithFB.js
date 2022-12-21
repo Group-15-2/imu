@@ -4,9 +4,10 @@ import { inStyle } from '../styles/instyle';
 import { GoogleAuthProvider, onAuthStateChanged, signInWithCredential } from "firebase/auth";
 import { auth } from '../firebaseConfig';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { LoginButton, AccessToken, LoginManager } from 'react-native-fbsdk-next';
 
-
-export default function SignInWithGoogle({ navigation }) {
+export default function SignInWithFB({ navigation }) {
 
     GoogleSignin.configure({
         webClientId: '167329016926-g2mgqik6qno32g0a06uov8nm83219b80.apps.googleusercontent.com',
@@ -28,25 +29,24 @@ export default function SignInWithGoogle({ navigation }) {
     //     return subscriber; // unsubscribe on unmount
     // }, []);
 
-    const onGoogleButtonPress = async () => {
-        await GoogleSignin.signOut();
-        // Check if your device supports Google Play
-        await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
-        // Get the users ID token
-        const { idToken } = await GoogleSignin.signIn();
+    const onFBButtonPress = async () => {
+        LoginManager.logInWithPermissions(["public_profile"]).then(
+            function (result) {
+                if (result.isCancelled) {
+                    console.log("Login cancelled");
+                } else {
+                    console.log(
+                        "Login success with permissions: " +
+                        result.grantedPermissions.toString()
+                    );
+                    navigation.navigate('Home');
+                }
+            },
+            function (error) {
+                console.log("Login fail with error: " + error);
+            }
+        );
 
-        // Create a Google credential with the token
-        const googleCredential = GoogleAuthProvider.credential(idToken);
-
-        // Sign-in the user with the credential
-        const signin = signInWithCredential(auth, googleCredential);
-
-        const isSignedIn = await GoogleSignin.isSignedIn();
-        // console.log(isSignedIn);
-
-        if (isSignedIn) {
-            navigation.navigate('Home');
-        }
     }
 
 
@@ -56,8 +56,8 @@ export default function SignInWithGoogle({ navigation }) {
 
     return (
         <View>
-            <TouchableOpacity onPress={onGoogleButtonPress}>
-                <Image source={require('../assets/google.png')} style={inStyle.img} />
+            <TouchableOpacity onPress={onFBButtonPress}>
+                <MaterialCommunityIcons name={'facebook'} size={26} color={'#1877F2'} />
             </TouchableOpacity>
         </View>
     );

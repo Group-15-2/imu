@@ -8,6 +8,7 @@ import { auth } from '../firebaseConfig';
 import { useTogglePasswordVisibility } from '../styles/useTogglePasswordVisibility';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import SignInWithGoogle from '../components/SignInWithGoogle';
+import SignInWithFB from '../components/SignInWithFB';
 
 
 export default function SignIn({ navigation }) {
@@ -113,14 +114,12 @@ export default function SignIn({ navigation }) {
                     <View style={{ flexDirection: 'row', paddingTop: 10 }}>
                         <View style={{ width: '50%', justifyContent: 'center', alignItems: 'center' }}>
                             <View style={inStyle.sIcons}>
-                                <SignInWithGoogle />
+                                <SignInWithGoogle navigation={navigation} />
                             </View>
                         </View>
                         <View style={{ width: '50%', justifyContent: 'center', alignItems: 'center' }}>
                             <View style={inStyle.sIcons}>
-                                <TouchableOpacity>
-                                    <MaterialCommunityIcons name={'facebook'} size={26} color={'#1877F2'} />
-                                </TouchableOpacity>
+                                <SignInWithFB navigation={navigation} />
                             </View>
                         </View>
                     </View>
