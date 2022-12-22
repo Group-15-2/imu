@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { View, Text, ActivityIndicator, StyleSheet, TouchableOpacity } from 'react-native'
-import Timer from '../components/Timer';
+// import Timer from '../components/Timer';
 import { auth } from '../firebaseConfig'
 import { inStyle } from '../styles/instyle';
 import { sendEmailVerification, createUserWithEmailAndPassword } from "firebase/auth";
@@ -22,6 +22,16 @@ export default function VerifyEmail({ navigation }) {
             await auth.currentUser.reload();
         }, 2000)
     }, []);
+
+    useEffect(() => {
+        navigation.addListener('beforeRemove', (e) => {
+            e.preventDefault();
+            if (isAnotherEmailHandled || auth.currentUser.emailVerified) {
+                navigation.dispatch(e.data.action);
+            }
+        });
+
+    });
 
 
     const [time, setTime] = useState(0);

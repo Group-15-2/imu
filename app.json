@@ -3,7 +3,15 @@
     "name": "imu",
     "slug": "imu",
     "plugins": [
-      "@react-native-google-signin/google-signin"
+      "@react-native-google-signin/google-signin",
+      [
+        "react-native-fbsdk-next",
+        {
+          "appID": "641124837698053",
+          "clientToken": "259704b170367be1b220941835a7c3d4",
+          "displayName": "imu-project"
+        }
+      ]
     ],
     "version": "1.0.0",
     "orientation": "portrait",
@@ -21,7 +29,6 @@
       "**/*"
     ],
     "ios": {
-      "googleServicesFile": "./GoogleService-Info.plist",
       "supportsTablet": true
     },
     "android": {
