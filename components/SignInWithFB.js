@@ -5,7 +5,7 @@ import { GoogleAuthProvider, onAuthStateChanged, signInWithCredential } from "fi
 import { auth } from '../firebaseConfig';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { LoginManager } from 'react-native-fbsdk-next';
+//import { LoginManager } from 'react-native-fbsdk-next';
 
 export default function SignInWithFB({ navigation }) {
 
@@ -24,26 +24,26 @@ export default function SignInWithFB({ navigation }) {
     //     return subscriber; // unsubscribe on unmount
     // }, []);
 
-    const onFBButtonPress = async () => {
-        LoginManager.logOut();
-        LoginManager.logInWithPermissions(["public_profile"]).then(
-            function (result) {
-                if (result.isCancelled) {
-                    console.log("Login cancelled");
-                } else {
-                    console.log(
-                        "Login success with permissions: " +
-                        result.grantedPermissions.toString()
-                    );
-                    navigation.navigate('Home');
-                }
-            },
-            function (error) {
-                console.log("Login fail with error: " + error);
-            }
-        );
+    // const onFBButtonPress = async () => {
+    //     LoginManager.logOut();
+    //     LoginManager.logInWithPermissions(["public_profile"]).then(
+    //         function (result) {
+    //             if (result.isCancelled) {
+    //                 console.log("Login cancelled");
+    //             } else {
+    //                 console.log(
+    //                     "Login success with permissions: " +
+    //                     result.grantedPermissions.toString()
+    //                 );
+    //                 navigation.navigate('Home');
+    //             }
+    //         },
+    //         function (error) {
+    //             console.log("Login fail with error: " + error);
+    //         }
+    //     );
 
-    }
+    // }
 
 
     // if (initializing) return null;

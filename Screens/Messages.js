@@ -1,12 +1,7 @@
 import React from 'react';
-<<<<<<< HEAD
 import {Text, View, ScrollView, TouchableOpacity, Image, FlatList, Card} from 'react-native';
 import {chatStyles} from '../styles/chatstyle';
 import { SafeAreaView } from 'react-native-safe-area-context';
-=======
-import { Text, View, ScrollView, TouchableOpacity, Image, FlatList, Card } from 'react-native';
-import { chatStyles } from '../styles/chatstyle';
->>>>>>> ce0b7572729622aa542c5fd92a2d7a98d54c7d07
 
 const MessagesData = [
   {

@@ -6,24 +6,16 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-<<<<<<< HEAD
-import signIn from './Screens/SignIn';
 import register from './Screens/Register';
-import register1 from './Screens/Register1';
-import register2 from './Screens/Register2';
 import onboard from './Screens/Onboarding';
-import chatbox from './Screens/ChatBox';
-=======
-import SignIn from './Screens/SignIn';
-import Register from './Screens/Register';
+import signIn from './Screens/SignIn';
 import Register1 from './Screens/Register1';
 import Register2 from './Screens/Register2';
-import ChatBox from './Screens/ChatBox';
->>>>>>> ce0b7572729622aa542c5fd92a2d7a98d54c7d07
+import chatBox from './Screens/ChatBox';
 
 import Home from './Screens/Home'
 import Profile from './Screens/Profile'
-import AddPost from './Screens/AddPost'
+import AddPost from './Screens/Addpost'
 import Thoughts from './Screens/Thoughts'
 import Messages from './Screens/Messages'
 import VerifyEmail from './Screens/VerifyEmail';
@@ -93,19 +85,14 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName='SignIn' screenOptions={({ route }) => ({ headerShown: false })}>
         <Stack.Screen name='Home' component={MyTabs} />
-<<<<<<< HEAD
-        <Stack.Screen name='SignIn' component={signIn} />
         <Stack.Screen name='Onboard' component={onboard} />
-        <Stack.Screen name='SignUp' component={register} />
-=======
-        <Stack.Screen name='SignIn' component={SignIn} />
+        <Stack.Screen name='SignIn' component={signIn} />
         <Stack.Screen name='PasswordResetVerify' component={PasswordResetVerify} />
-        <Stack.Screen name='SignUp' component={Register} />
->>>>>>> ce0b7572729622aa542c5fd92a2d7a98d54c7d07
+        <Stack.Screen name='SignUp' component={register} />
         <Stack.Screen name='VerifyEmail' component={VerifyEmail} />
         <Stack.Screen name='SignUp1' component={Register1} />
         <Stack.Screen name='SignUp2' component={Register2} />
-        <Stack.Screen name='ChatBox' component={ChatBox} />
+        <Stack.Screen name='ChatBox' component={chatBox} />
       </Stack.Navigator>
     </NavigationContainer>
   );

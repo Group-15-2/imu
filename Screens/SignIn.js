@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Pressable, TextInput, View, Text, TouchableOpacity, Image } from 'react-native';
 import { Divider, SocialIcon } from '@rneui/themed';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -6,21 +6,8 @@ import { inStyle } from '../styles/instyle';
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from '../firebaseConfig';
 import { useTogglePasswordVisibility } from '../styles/useTogglePasswordVisibility';
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import SignInWithGoogle from '../components/SignInWithGoogle';
-import SignInWithFB from '../components/SignInWithFB';
 
-
-export default function SignIn({ navigation }) {
-    // GoogleSignin.configure({
-    //     webClientId: '167329016926-g2mgqik6qno32g0a06uov8nm83219b80.apps.googleusercontent.com',
-    // });
-
-
-
-
-
-
+export default function App({ navigation }) {
     const { passwordVisibility, rightIcon, handlePasswordVisibility } =
         useTogglePasswordVisibility();
 
@@ -32,13 +19,8 @@ export default function SignIn({ navigation }) {
     const handleSignIn = () => {
         signInWithEmailAndPassword(auth, email, password)
             .then(() => {
-                if (auth.currentUser.emailVerified) {
-                    console.log('User signed in!');
-                    navigation.navigate('Home');
-                } else {
-                    auth.currentUser.delete();
-                    setError('Email is not verified, register again!')
-                }
+                console.log('User signed in!');
+                navigation.navigate('Home');
 
             })
             .catch(error => {
@@ -104,7 +86,7 @@ export default function SignIn({ navigation }) {
                 <Text style={{ color: 'red', textAlign: 'center' }}>{error}</Text>
 
                 <View style={{ paddingBottom: 25 }}>
-                    <TouchableOpacity activeOpacity={.7} style={inStyle.v} onPress={() => navigation.navigate('PasswordResetVerify')}>
+                    <TouchableOpacity activeOpacity={.7} style={inStyle.v} onPress={() => navigation.navigate('SignUp')}>
                         <Text style={inStyle.txt2}>Forgot Password?</Text>
                     </TouchableOpacity>
                 </View>
@@ -119,12 +101,16 @@ export default function SignIn({ navigation }) {
                     <View style={{ flexDirection: 'row', paddingTop: 10 }}>
                         <View style={{ width: '50%', justifyContent: 'center', alignItems: 'center' }}>
                             <View style={inStyle.sIcons}>
-                                <SignInWithGoogle navigation={navigation} />
+                                <TouchableOpacity>
+                                    <Image source={require('../assets/google.png')} style={inStyle.img} />
+                                </TouchableOpacity>
                             </View>
                         </View>
                         <View style={{ width: '50%', justifyContent: 'center', alignItems: 'center' }}>
                             <View style={inStyle.sIcons}>
-                                <SignInWithFB navigation={navigation} />
+                                <TouchableOpacity>
+                                    <MaterialCommunityIcons name={'facebook'} size={26} color={'#1877F2'} />
+                                </TouchableOpacity>
                             </View>
                         </View>
                     </View>
