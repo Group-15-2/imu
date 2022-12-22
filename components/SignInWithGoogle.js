@@ -29,7 +29,7 @@ export default function SignInWithGoogle({ navigation }) {
     // }, []);
 
     const onGoogleButtonPress = async () => {
-        await GoogleSignin.signOut();
+        // await GoogleSignin.signOut();
         // Check if your device supports Google Play
         await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
         // Get the users ID token

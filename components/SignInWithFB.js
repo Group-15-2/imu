@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, Image } from 'react-native';
 import { inStyle } from '../styles/instyle';
-import { GoogleAuthProvider, onAuthStateChanged, signInWithCredential } from "firebase/auth";
+import { FacebookAuthProvider, GoogleAuthProvider, onAuthStateChanged, signInWithCredential } from "firebase/auth";
 import { auth } from '../firebaseConfig';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { LoginManager } from 'react-native-fbsdk-next';
+import { AccessToken, LoginManager } from 'react-native-fbsdk-next';
 
 export default function SignInWithFB({ navigation }) {
 
@@ -25,28 +25,20 @@ export default function SignInWithFB({ navigation }) {
     // }, []);
 
     const onFBButtonPress = async () => {
-        LoginManager.logOut();
-        LoginManager.logInWithPermissions(["public_profile"]).then(
-            function (result) {
-                if (result.isCancelled) {
-                    console.log("Login cancelled");
-                } else {
-                    console.log(
-                        "Login success with permissions: " +
-                        result.grantedPermissions.toString()
-                    );
-                    navigation.navigate('Home');
-                }
-            },
-            function (error) {
-                console.log("Login fail with error: " + error);
-            }
-        );
+        LoginManager.logInWithPermissions(["public_profile", 'email']);
+        const data = await AccessToken.getCurrentAccessToken();
 
+        const facebookCredentials = FacebookAuthProvider.credential(data.accessToken);
+        await signInWithCredential(auth, facebookCredentials).then(() => {
+            navigation.navigate('Home');
+        }
+        ).catch((e) => {
+            console.log("Login fail with error: " + e)
+        })
     }
 
-
     // if (initializing) return null;
+
 
 
 

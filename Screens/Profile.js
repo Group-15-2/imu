@@ -7,7 +7,14 @@ import { mood } from './Home';
 import { Divider, SocialIcon } from '@rneui/themed';
 import { inStyle } from '../styles/instyle';
 import { auth } from '../firebaseConfig';
-import { GraphRequest, GraphRequestManager, AccessToken } from "react-native-fbsdk-next";
+import { GraphRequest, GraphRequestManager, AccessToken, LoginManager } from "react-native-fbsdk-next";
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import ImagePickerScreen from '../components/ImagePickerScreen';
+
+
+
+
+
 
 export default function ProfileScreen({ navigation }) {
   const [isEnabled, setIsEnabled] = useState(false);
@@ -26,52 +33,12 @@ export default function ProfileScreen({ navigation }) {
   );
 
   useEffect(() => {
-    if (auth.currentUser == null) {
-      AccessToken.getCurrentAccessToken().then(
-        (data) => {
-          let accessToken = data.accessToken
-          alert(accessToken.toString())
-
-          const responseInfoCallback = (error, result) => {
-            if (error) {
-              console.log(error)
-              alert('Error fetching data: ' + error.toString());
-            } else {
-              console.log(result)
-              alert('Success fetching data: ' + result.toString());
-            }
-          }
-
-          const infoRequest = new GraphRequest(
-            '/me',
-            {
-              accessToken: accessToken,
-              parameters: {
-                fields: {
-                  string: 'email,name,first_name,middle_name,last_name'
-                }
-              },
-              access_token: {
-                string: accessToken.toString() // put your accessToken here
-              }
-            },
-            responseInfoCallback
-          );
-
-          // Start the graph request.
-          new GraphRequestManager().addRequest(infoRequest).start();
-        });
-
-
-    } else {
-      setName(auth.currentUser.displayName);
-      setEmail(auth.currentUser.email);
-      setPFP(auth.currentUser.photoURL);
-      setPhoneNo(auth.currentUser.phoneNumber);
-      setUID(auth.currentUser.uid);
-    }
-  }
-  );
+    setName(auth.currentUser.displayName);
+    setEmail(auth.currentUser.email);
+    setPFP(auth.currentUser.photoURL);
+    setPhoneNo(auth.currentUser.phoneNumber);
+    setUID(auth.currentUser.uid);
+  }, [auth.currentUser]);
 
   const [name, setName] = useState();
   const [email, setEmail] = useState();
@@ -84,8 +51,12 @@ export default function ProfileScreen({ navigation }) {
 
   const handleLogOut = () => {
     auth.signOut();
+    GoogleSignin.signOut();
+    // LoginManager.logOut();
     navigation.navigate('SignIn');
   }
+
+
 
   return (
     <SafeAreaView >
@@ -112,6 +83,11 @@ export default function ProfileScreen({ navigation }) {
               <Image source={{ uri: PFP }} style={styled.userimg} />
               <Image source={imgLink} style={styled.moodlet} />
             </View>
+
+            <ImagePickerScreen />
+
+
+
             <View>
               <Text style={styled.id}>ID = {UID}</Text>
             </View>
