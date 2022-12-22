@@ -24,14 +24,17 @@ const styled = StyleSheet.create({
     },
 
     userinfo: {
-        justifyContent: 'flex-start',
-        marginVertical: 10
+        // justifyContent: 'flex-start',
+        marginVertical: 10,
+        // alignSelf: 'center'
     },
 
     userimg: {
         width: 100,
         height: 100,
         borderRadius: 90,
+        borderColor: '#1877F2',
+        borderWidth: 1
     },
 
     name: {
@@ -92,7 +95,9 @@ const styled = StyleSheet.create({
         height: 40,
         width: '90%',
         borderRadius: 30,
-        paddingLeft: 10
+        paddingLeft: 10,
+        fontWeight: 'bold'
+
     },
 
     editbtn: {

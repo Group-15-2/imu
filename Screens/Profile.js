@@ -6,13 +6,17 @@ import { useFocusEffect } from '@react-navigation/native';
 import { mood } from './Home';
 import { Divider, SocialIcon } from '@rneui/themed';
 import { inStyle } from '../styles/instyle';
+import { auth } from '../firebaseConfig';
+import { GraphRequest, GraphRequestManager, AccessToken } from "react-native-fbsdk-next";
 
-export default function Profile({ navigation }) {
+export default function ProfileScreen({ navigation }) {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
   //update moodlet image link from the home
   const [imgLink, setImgLink] = useState(null);
+
+
 
   //everytime Profile screen focuses, updates the imgLink
   useFocusEffect(
@@ -21,6 +25,68 @@ export default function Profile({ navigation }) {
     }, [])
   );
 
+  useEffect(() => {
+    if (auth.currentUser == null) {
+      AccessToken.getCurrentAccessToken().then(
+        (data) => {
+          let accessToken = data.accessToken
+          alert(accessToken.toString())
+
+          const responseInfoCallback = (error, result) => {
+            if (error) {
+              console.log(error)
+              alert('Error fetching data: ' + error.toString());
+            } else {
+              console.log(result)
+              alert('Success fetching data: ' + result.toString());
+            }
+          }
+
+          const infoRequest = new GraphRequest(
+            '/me',
+            {
+              accessToken: accessToken,
+              parameters: {
+                fields: {
+                  string: 'email,name,first_name,middle_name,last_name'
+                }
+              },
+              access_token: {
+                string: accessToken.toString() // put your accessToken here
+              }
+            },
+            responseInfoCallback
+          );
+
+          // Start the graph request.
+          new GraphRequestManager().addRequest(infoRequest).start();
+        });
+
+
+    } else {
+      setName(auth.currentUser.displayName);
+      setEmail(auth.currentUser.email);
+      setPFP(auth.currentUser.photoURL);
+      setPhoneNo(auth.currentUser.phoneNumber);
+      setUID(auth.currentUser.uid);
+    }
+  }
+  );
+
+  const [name, setName] = useState();
+  const [email, setEmail] = useState();
+  const [phoneNo, setPhoneNo] = useState();
+  const [PFP, setPFP] = useState();
+  const [UID, setUID] = useState();
+  const [generatedName, setGeneratedName] = useState();
+
+  const placeholderTextColor = '#242323';
+
+  const handleLogOut = () => {
+    auth.signOut();
+    navigation.navigate('SignIn');
+  }
+
   return (
     <SafeAreaView >
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -28,7 +94,7 @@ export default function Profile({ navigation }) {
           Profile
         </Text>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handleLogOut}>
           <View style={{ flexDirection: 'row', marginRight: 16, paddingTop: 33, }}>
             <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#504F4F', paddingRight: 10 }}>Logout</Text>
             <Image source={require('../assets/logout.png')} style={{ height: 30, width: 30 }} />
@@ -40,24 +106,30 @@ export default function Profile({ navigation }) {
       <View style={styled.card}>
         <ScrollView>
 
-          <View style={{ alignSelf: 'center' }}>
-            <View style={styled.userinfo}>
-              <View>
-                <Image source={require('../assets/test_profile_image.jpg')} style={styled.userimg} />
-                <Image source={imgLink} style={styled.moodlet} />
-              </View>
-              <View>
-                <Text style={styled.id}>ID = DAf345h5G5</Text>
-              </View>
+
+          <View style={styled.userinfo}>
+            <View style={{ alignSelf: 'center' }}>
+              <Image source={{ uri: PFP }} style={styled.userimg} />
+              <Image source={imgLink} style={styled.moodlet} />
+            </View>
+            <View>
+              <Text style={styled.id}>ID = {UID}</Text>
             </View>
           </View>
+
 
           <Divider style={styled.divider} />
 
           <View style={styled.details}>
             <Text style={styled.userd}>Your Name</Text>
             <View style={styled.input}>
-              <TextInput style={styled.txtint} placeholder="Type here to translate!" />
+              <TextInput
+                style={styled.txtint}
+                placeholder="Enter Your Name"
+                placeholderTextColor={placeholderTextColor}
+                onChangeText={(text) => setName(text)}
+                value={name}
+              />
               <TouchableOpacity style={styled.editbtn}>
                 <Icon
                   name='square-edit-outline'
@@ -71,7 +143,13 @@ export default function Profile({ navigation }) {
           <View style={styled.details}>
             <Text style={styled.userd}>Your Email</Text>
             <View style={styled.input}>
-              <TextInput style={styled.txtint} placeholder="Type here to translate!" />
+              <TextInput
+                style={styled.txtint}
+                placeholder="Enter Your Email"
+                placeholderTextColor={placeholderTextColor}
+                onChangeText={(text) => setEmail(text)}
+                value={email}
+              />
               <TouchableOpacity style={styled.editbtn}>
                 <Icon
                   name='square-edit-outline'
@@ -85,7 +163,13 @@ export default function Profile({ navigation }) {
           <View style={styled.details}>
             <Text style={styled.userd}>Phone Number</Text>
             <View style={styled.input}>
-              <TextInput style={styled.txtint} placeholder="Type here to translate!" />
+              <TextInput
+                style={styled.txtint}
+                placeholder="Enter Your Phone Number"
+                placeholderTextColor={placeholderTextColor}
+                onChangeText={(text) => setPhoneNo(text)}
+                value={phoneNo}
+              />
               <TouchableOpacity style={styled.editbtn}>
                 <Icon
                   name='square-edit-outline'
@@ -114,7 +198,7 @@ export default function Profile({ navigation }) {
           <View style={styled.details}>
             <Text style={styled.userd}>Generated Name</Text>
             <View style={styled.input}>
-              <TextInput style={styled.txtint} placeholder="Type here to translate!" />
+              <TextInput style={styled.txtint} placeholder="Type here to translate!" placeholderTextColor={placeholderTextColor} />
               <TouchableOpacity style={styled.editbtn}>
                 <Icon
                   name='refresh'
@@ -124,6 +208,9 @@ export default function Profile({ navigation }) {
               </TouchableOpacity>
             </View>
           </View>
+
+          <Divider style={styled.divider} />
+
 
           <TouchableOpacity activeOpacity={.7} style={[inStyle.txtInt, { marginBottom: 40 }]}>
             <Text style={inStyle.txt}>Change Password</Text>
