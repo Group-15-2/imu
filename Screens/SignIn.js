@@ -118,7 +118,7 @@ export default function App({ navigation }) {
                         <View style={inStyle.v}>
                             <Text style={inStyle.txt1}>No Account ?</Text>
                         </View>
-                        <TouchableOpacity activeOpacity={.7} style={inStyle.v} onPress={() => navigation.navigate('SignUp')}>
+                        <TouchableOpacity activeOpacity={.7} style={inStyle.v} onPress={() => navigation.navigate('Onboard')}>
                             <Text style={inStyle.txt2}>Create One</Text>
                         </TouchableOpacity>
                     </View>

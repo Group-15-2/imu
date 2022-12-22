@@ -10,6 +10,7 @@ import signIn from './Screens/SignIn';
 import register from './Screens/Register';
 import register1 from './Screens/Register1';
 import register2 from './Screens/Register2';
+import onboard from './Screens/Onboarding';
 import chatbox from './Screens/ChatBox';
 
 import homeScreen from './Screens/Home'
@@ -84,6 +85,7 @@ export default function App() {
       <Stack.Navigator initialRouteName='SignIn' screenOptions={({ route }) => ({ headerShown: false })}>
         <Stack.Screen name='Home' component={MyTabs} />
         <Stack.Screen name='SignIn' component={signIn} />
+        <Stack.Screen name='Onboard' component={onboard} />
         <Stack.Screen name='SignUp' component={register} />
         <Stack.Screen name='VerifyEmail' component={VerifyEmail} />
         <Stack.Screen name='SignUp1' component={register1} />
