@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 
 const styled = StyleSheet.create({
@@ -9,11 +9,11 @@ const styled = StyleSheet.create({
     },
 
     header: {
-        fontSize: 30, 
-        fontWeight: 'bold',  
-        marginLeft: 16, 
-        paddingTop: 30, 
-        color: '#1877F2' 
+        fontSize: 30,
+        fontWeight: 'bold',
+        marginLeft: 16,
+        paddingTop: 30,
+        color: '#1877F2'
     },
 
     card: {
@@ -24,26 +24,24 @@ const styled = StyleSheet.create({
     },
 
     userinfo: {
-        justifyContent:'flex-start',
-        flexDirection:'row',
-        margin: 10
+        justifyContent: 'flex-start',
+        marginVertical: 10
     },
 
     userimg: {
-        width: 60,
-        height: 60,
-        borderRadius: 30,
-        marginRight: 13
+        width: 100,
+        height: 100,
+        borderRadius: 90,
     },
 
     name: {
         fontSize: 16,
-        fontWeight:'700',
+        fontWeight: '700',
     },
 
     moodlet: {
-        right: -45,
-        bottom: 15,
+        right: -75,
+        bottom: 20,
         width: 20,
         height: 20,
     },
@@ -52,33 +50,36 @@ const styled = StyleSheet.create({
         fontSize: 10,
         fontWeight: '300',
         color: "#504F4F",
-    },
-    v: {
-        paddingTop: 15,
+        textAlign: 'center',
+        marginTop: -5
     },
 
     anonymity: {
-        fontSize: 10,
-        fontWeight: '500',
+        fontSize: 22,
+        fontWeight: 'bold',
         color: "#504F4F",
-        padding: 20
+        padding: 10
     },
 
     btn: {
-        right:20,
-        bottom: 30
+        // right: 20,
+        // bottom: 30
     },
 
     button: {
-        flexDirection:'row',
+        flexDirection: 'row',
         marginLeft: 10,
     },
     refresh: {
-        fontSize:18
+        fontSize: 18
     },
 
     details: {
         margin: 10,
+    },
+
+    divider: {
+        paddingVertical: 5
     },
 
     userd: {
@@ -95,16 +96,16 @@ const styled = StyleSheet.create({
     },
 
     editbtn: {
-        width:'10%',
-        alignItems:'center',
-        justifyContent:'center',
+        width: '10%',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
 
     input: {
-        flexDirection:'row',
-        backgroundColor:'#ECECEC',
+        flexDirection: 'row',
+        backgroundColor: '#ECECEC',
         borderRadius: 16
     }
 })
 
-export  { styled }
+export { styled }
