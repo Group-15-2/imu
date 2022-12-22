@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, Image, SafeAreaView, Switch, TouchableOpacity, TextInput, ScrollView } from 'react-native';
+import { Text, View, Image, Switch, TouchableOpacity, TextInput, ScrollView } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { styled } from '../styles/feedStyle';
 import { useFocusEffect } from '@react-navigation/native';

@@ -1,6 +1,7 @@
 import React from 'react';
 import {Text, View, ScrollView, TouchableOpacity, Image, FlatList, Card} from 'react-native';
 import {chatStyles} from '../styles/chatstyle';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Messages = [
   {
@@ -35,7 +36,7 @@ const Messages = [
 
 export default function MessagesScreen ({navigation})  {
   return (
-    <View>
+    <SafeAreaView>
       <Text style={chatStyles.header}>
         Chats
       </Text>
@@ -68,6 +69,6 @@ export default function MessagesScreen ({navigation})  {
         /> 
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };

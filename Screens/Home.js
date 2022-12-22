@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { Text, View, SafeAreaView, TouchableOpacity, ScrollView, Image, FlatList, TouchableWithoutFeedback } from 'react-native';
+import { Text, View, TouchableOpacity, ScrollView, Image, FlatList, TouchableWithoutFeedback } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useFonts } from 'expo-font';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import Card from '../components/card';
 import { styles } from '../styles/globalStyles';
 

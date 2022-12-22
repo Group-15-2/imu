@@ -19,7 +19,6 @@ const chatStyles = StyleSheet.create({
         fontSize: 30, 
         fontWeight: 'bold',  
         marginLeft: 16, 
-        paddingTop: 30, 
         color: '#1877F2' 
     },
 

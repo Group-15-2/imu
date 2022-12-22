@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Dimensions, Text, View, StyleSheet, FlatList, TouchableWithoutFeedback, TextInput, ScrollView, TouchableOpacity, Alert, KeyboardAvoidingView } from 'react-native';
 import { addStyles } from '../styles/addstyle';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 //color picker data
 const DATA = [
@@ -107,7 +108,7 @@ export default function Addpost() {
   const windowHeight = (Dimensions.get('window').height) - 300;
 
   return (
-    <View>
+    <SafeAreaView>
       <Text style={addStyles.header}>
         Add Post
       </Text>
@@ -142,7 +143,7 @@ export default function Addpost() {
         </TouchableOpacity>
 
       </View>
-    </View >
+    </SafeAreaView>
   );
 }
 
