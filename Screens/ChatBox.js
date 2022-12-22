@@ -173,7 +173,7 @@ const styles= StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    height:45
+    height:60
   },
   heading: {
     fontSize: 24,
