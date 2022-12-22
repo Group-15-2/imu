@@ -28,9 +28,8 @@ export default function Profile({ navigation }) {
         <Text style={styled.header}>
           Profile
         </Text>
-
         <TouchableOpacity>
-          <View style={{ flexDirection: 'row', marginRight: 16, paddingTop: 33, }}>
+          <View style={{ flexDirection: 'row', marginRight: 16, paddingTop: 5, }}>
             <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#504F4F', paddingRight: 10 }}>Logout</Text>
             <Image source={require('../assets/logout.png')} style={{ height: 30, width: 30 }} />
           </View>

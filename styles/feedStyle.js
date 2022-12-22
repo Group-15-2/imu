@@ -9,18 +9,13 @@ const styled = StyleSheet.create({
     },
 
     header: {
-<<<<<<< HEAD
         fontSize: 30, 
         fontWeight: 'bold',  
         marginLeft: 16, 
-        color: '#1877F2' 
-=======
+        color: '#1877F2', 
         fontSize: 30,
         fontWeight: 'bold',
-        marginLeft: 16,
-        paddingTop: 30,
         color: '#1877F2'
->>>>>>> ce0b7572729622aa542c5fd92a2d7a98d54c7d07
     },
 
     card: {
