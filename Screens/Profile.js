@@ -10,6 +10,9 @@ import { auth } from '../firebaseConfig';
 import { GraphRequest, GraphRequestManager, AccessToken, LoginManager } from "react-native-fbsdk-next";
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import ImagePickerScreen from '../components/ImagePickerScreen';
+import ConfirmModal from '../components/ConfirmModal';
+import ReAuthenticateModal from '../components/ReAuthenticateModal';
+import ChangePasswordModal from '../components/ChangePasswordModal';
 
 
 
@@ -47,6 +50,10 @@ export default function ProfileScreen({ navigation }) {
   const [UID, setUID] = useState();
   const [generatedName, setGeneratedName] = useState();
 
+  const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
+  const [isReAuthenticateModalOpen, setReAuthenticateModalOpen] = useState(false);
+  const [isChangePasswordModalOpen, setChangePasswordModalOpen] = useState(false);
+
   const placeholderTextColor = '#242323';
 
   const handleLogOut = () => {
@@ -65,7 +72,7 @@ export default function ProfileScreen({ navigation }) {
           Profile
         </Text>
 
-        <TouchableOpacity onPress={handleLogOut}>
+        <TouchableOpacity onPress={() => setConfirmModalOpen(true)}>
           <View style={{ flexDirection: 'row', marginRight: 16, paddingTop: 33, }}>
             <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#504F4F', paddingRight: 10 }}>Logout</Text>
             <Image source={require('../assets/logout.png')} style={{ height: 30, width: 30 }} />
@@ -188,9 +195,31 @@ export default function ProfileScreen({ navigation }) {
           <Divider style={styled.divider} />
 
 
-          <TouchableOpacity activeOpacity={.7} style={[inStyle.txtInt, { marginBottom: 40 }]}>
+          <TouchableOpacity activeOpacity={.7} style={[inStyle.txtInt, { marginBottom: 40 }]} onPress={() => setReAuthenticateModalOpen(true)}>
             <Text style={inStyle.txt}>Change Password</Text>
           </TouchableOpacity>
+
+
+
+
+
+          <ConfirmModal
+            isConfirmModalOpen={isConfirmModalOpen}
+            subject={'Do you really want to Logout?'}
+            setConfirmModalOpen={setConfirmModalOpen}
+            onPress={handleLogOut}
+          />
+
+          <ReAuthenticateModal
+            isReAuthenticateModalOpen={isReAuthenticateModalOpen}
+            setReAuthenticateModalOpen={setReAuthenticateModalOpen}
+            setActionModalOpen={setChangePasswordModalOpen}
+          />
+
+          <ChangePasswordModal
+            isChangePasswordModalOpen={isChangePasswordModalOpen}
+            setChangePasswordModalOpen={setChangePasswordModalOpen}
+          />
 
         </ScrollView>
       </View>

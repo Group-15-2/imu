@@ -9,6 +9,7 @@ import { useTogglePasswordVisibility } from '../styles/useTogglePasswordVisibili
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import SignInWithGoogle from '../components/SignInWithGoogle';
 import SignInWithFB from '../components/SignInWithFB';
+import AuthErrorCheck from '../components/services/AuthErrorCheck';
 
 
 export default function SignIn({ navigation }) {
@@ -42,22 +43,7 @@ export default function SignIn({ navigation }) {
 
             })
             .catch(error => {
-                if (error.code === 'auth/user-disabled') {
-                    setError(' Email has been disabled');
-                }
-
-                if (error.code === 'auth/invalid-email') {
-                    setError('Email address or password is invalid!');
-                }
-
-                if (error.code === 'auth/user-not-found') {
-                    setError('Email address or password is invalid!');
-                }
-
-                if (error.code === 'auth/wrong-password') {
-                    setError('Password is invalid!');
-                }
-
+                setError(error.code);
                 console.error(error);
             });
     };
@@ -101,7 +87,8 @@ export default function SignIn({ navigation }) {
                     <Text style={inStyle.txt}>Login</Text>
                 </TouchableOpacity>
 
-                <Text style={{ color: 'red', textAlign: 'center' }}>{error}</Text>
+                {/* <Text style={inStyle.error}>{error}</Text> */}
+                <AuthErrorCheck error={error} />
 
                 <View style={{ paddingBottom: 25 }}>
                     <TouchableOpacity activeOpacity={.7} style={inStyle.v} onPress={() => navigation.navigate('PasswordResetVerify')}>

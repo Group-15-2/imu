@@ -9,6 +9,11 @@ const inStyle = StyleSheet.create({
         alignItems: 'flex-start'
     },
 
+    error: {
+        color: 'red',
+        textAlign: 'center'
+    },
+
     container: {
         flex: 1,
         justifyContent: 'center',
