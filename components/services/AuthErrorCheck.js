@@ -3,7 +3,7 @@ import { View, Text } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { inStyle } from '../../styles/instyle';
 
-export default function AuthErrorCheck({ error, clearErrorState }) {
+export default function AuthErrorCheck({ error }) {
 
     const [errorMsg, setErrorMsg] = useState('');
 
