@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "imu",
+    "owner": "group152",
     "slug": "imu",
     "plugins": [
       "@react-native-google-signin/google-signin",
@@ -35,17 +36,7 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
-      "infoPlist": {
-        "SKAdNetworkItems": [
-          {
-            "SKAdNetworkIdentifier": "v9wttpbfk9.skadnetwork"
-          },
-          {
-            "SKAdNetworkIdentifier": "n38lu8286q.skadnetwork"
-          }
-        ]
-      }
+      "supportsTablet": true
     },
     "android": {
       "googleServicesFile": "./google-services.json",
@@ -53,11 +44,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.beetlejuice.imu",
-      "permissions": [
-        "android.permission.INTERNET",
-        "android.permission.RECORD_AUDIO"
-      ]
+      "package": "com.beetlejuice.imu"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -66,7 +53,6 @@
       "eas": {
         "projectId": "a392dd3b-c7dc-41b1-9d7d-860da88954a5"
       }
-    },
-    "owner": "group152"
+    }
   }
 }
