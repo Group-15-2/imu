@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useFonts } from 'expo-font';
 import Card from '../components/card';
 import { styles } from '../styles/globalStyles';
+import { useFocusEffect } from '@react-navigation/native';
 
 //moodlet data
 const moodletDATA = [
@@ -57,6 +58,11 @@ const Item = ({ item, backgroundColor, onPress, onLongPress }) => {
 
 //moodlet data to pass other screens
 export let mood;
+export let isLogOut;
+
+export const setisLogOut = (value) => {
+  isLogOut = value;
+}
 
 export default function Home({ navigation }) {
   //update selected imgLink of the FlatList
@@ -71,14 +77,18 @@ export default function Home({ navigation }) {
   //everytime imgLink change, mood will update
   useEffect(() => {
     mood = imgLink;
-  }, [imgLink])
+  }, [imgLink]);
+
 
   useEffect(() => {
     navigation.addListener('beforeRemove', (e) => {
       e.preventDefault();
+      if (isLogOut) {
+        navigation.dispatch(e.data.action);
+      }
     });
+  }, [isLogOut]);
 
-  });
 
   const renderItem = ({ item }) => {
 

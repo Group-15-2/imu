@@ -10,6 +10,7 @@ import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import SignInWithGoogle from '../components/SignInWithGoogle';
 import SignInWithFB from '../components/SignInWithFB';
 import AuthErrorCheck from '../components/services/AuthErrorCheck';
+import { setisLogOut } from './Home';
 
 
 export default function SignIn({ navigation }) {
@@ -35,6 +36,7 @@ export default function SignIn({ navigation }) {
             .then(() => {
                 if (auth.currentUser.emailVerified) {
                     console.log('User signed in!');
+                    setisLogOut(false);
                     navigation.navigate('Home');
                 } else {
                     auth.currentUser.delete();
@@ -106,12 +108,12 @@ export default function SignIn({ navigation }) {
                     <View style={{ flexDirection: 'row', paddingTop: 10 }}>
                         <View style={{ width: '50%', justifyContent: 'center', alignItems: 'center' }}>
                             <View style={inStyle.sIcons}>
-                                <SignInWithGoogle navigation={navigation} />
+                                <SignInWithGoogle navigation={navigation} setError={setError} />
                             </View>
                         </View>
                         <View style={{ width: '50%', justifyContent: 'center', alignItems: 'center' }}>
                             <View style={inStyle.sIcons}>
-                                <SignInWithFB navigation={navigation} />
+                                <SignInWithFB navigation={navigation} setError={setError} />
                             </View>
                         </View>
                     </View>

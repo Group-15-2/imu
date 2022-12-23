@@ -3,7 +3,7 @@ import { Text, View, Image, SafeAreaView, Switch, TouchableOpacity, TextInput, S
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { styled } from '../styles/feedStyle';
 import { useFocusEffect } from '@react-navigation/native';
-import { mood } from './Home';
+import { mood, setisLogOut } from './Home';
 import { Divider, SocialIcon } from '@rneui/themed';
 import { inStyle } from '../styles/instyle';
 import { auth } from '../firebaseConfig';
@@ -15,10 +15,6 @@ import ReAuthenticateModal from '../components/ReAuthenticateModal';
 import ChangePasswordModal from '../components/ChangePasswordModal';
 
 
-
-
-
-
 export default function ProfileScreen({ navigation }) {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
@@ -27,11 +23,11 @@ export default function ProfileScreen({ navigation }) {
   const [imgLink, setImgLink] = useState(null);
 
 
-
   //everytime Profile screen focuses, updates the imgLink
   useFocusEffect(
     React.useCallback(() => {
       setImgLink(mood);
+
     }, [])
   );
 
@@ -57,6 +53,7 @@ export default function ProfileScreen({ navigation }) {
   const placeholderTextColor = '#242323';
 
   const handleLogOut = () => {
+    setisLogOut(true);
     auth.signOut();
     GoogleSignin.signOut();
     // LoginManager.logOut();
@@ -225,4 +222,5 @@ export default function ProfileScreen({ navigation }) {
       </View>
     </SafeAreaView >
   );
-}      
+}
+

@@ -6,8 +6,9 @@ import { auth } from '../firebaseConfig';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AccessToken, LoginManager } from 'react-native-fbsdk-next';
+import { setisLogOut } from '../Screens/Home';
 
-export default function SignInWithFB({ navigation }) {
+export default function SignInWithFB({ navigation, setError }) {
 
     // Set an initializing state whilst Firebase connects
     // const [initializing, setInitializing] = useState(true);
@@ -30,9 +31,11 @@ export default function SignInWithFB({ navigation }) {
 
         const facebookCredentials = FacebookAuthProvider.credential(data.accessToken);
         await signInWithCredential(auth, facebookCredentials).then(() => {
+            setisLogOut(false);
             navigation.navigate('Home');
         }
         ).catch((e) => {
+            setError(e.code);
             console.log("Login fail with error: " + e)
         })
     }
