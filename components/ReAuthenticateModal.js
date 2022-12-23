@@ -40,7 +40,7 @@ export default function ReAuthenticateModal({ isReAuthenticateModalOpen, setReAu
 
     return (
         <Modal animationType="slide" visible={isReAuthenticateModalOpen} transparent={true} onRequestClose={closeReAuthenticateModal}>
-            <View style={styles.reAuthenticateModal}>
+            <View style={modalStyle.reAuthenticateModal}>
                 <View style={modalStyle.container}>
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -87,15 +87,3 @@ export default function ReAuthenticateModal({ isReAuthenticateModalOpen, setReAu
         </Modal>
     )
 }
-
-const styles = StyleSheet.create({
-    reAuthenticateModal: {
-        position: 'relative',
-        minHeight: '25%',
-        width: '90%',
-        backgroundColor: '#25292e',
-        alignSelf: 'center',
-        borderRadius: 10,
-        top: '25%'
-    }
-})

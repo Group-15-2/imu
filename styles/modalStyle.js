@@ -21,6 +21,15 @@ const modalStyle = StyleSheet.create({
         borderTopRightRadius: 5,
         borderTopLeftRadius: 5,
     },
+    reAuthenticateModal: {
+        position: 'relative',
+        minHeight: '25%',
+        width: '90%',
+        backgroundColor: '#25292e',
+        alignSelf: 'center',
+        borderRadius: 10,
+        top: '25%'
+    },
 
     container: {
         padding: 15
