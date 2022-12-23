@@ -35,7 +35,17 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "SKAdNetworkItems": [
+          {
+            "SKAdNetworkIdentifier": "v9wttpbfk9.skadnetwork"
+          },
+          {
+            "SKAdNetworkIdentifier": "n38lu8286q.skadnetwork"
+          }
+        ]
+      }
     },
     "android": {
       "googleServicesFile": "./google-services.json",
@@ -43,15 +53,20 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.beetlejuice.imu"
+      "package": "com.beetlejuice.imu",
+      "permissions": [
+        "android.permission.INTERNET",
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "2f04bfff-04d5-4a75-8906-0b73375fe6b4"
+        "projectId": "a392dd3b-c7dc-41b1-9d7d-860da88954a5"
       }
-    }
+    },
+    "owner": "group152"
   }
 }
