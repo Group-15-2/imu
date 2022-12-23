@@ -94,9 +94,11 @@ const styled = StyleSheet.create({
     txtint: {
         height: 40,
         width: '90%',
-        borderRadius: 30,
+        // borderRadius: 30,
         paddingLeft: 10,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color: '#242323',
+        textAlignVertical: 'center'
 
     },
 

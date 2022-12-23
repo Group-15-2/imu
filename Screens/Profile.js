@@ -13,6 +13,7 @@ import ImagePickerScreen from '../components/ImagePickerScreen';
 import ConfirmModal from '../components/ConfirmModal';
 import ReAuthenticateModal from '../components/ReAuthenticateModal';
 import ChangePasswordModal from '../components/ChangePasswordModal';
+import EditDetailModal from '../components/EditDetailModal';
 
 
 export default function ProfileScreen({ navigation }) {
@@ -37,7 +38,7 @@ export default function ProfileScreen({ navigation }) {
     setPFP(auth.currentUser.photoURL);
     setPhoneNo(auth.currentUser.phoneNumber);
     setUID(auth.currentUser.uid);
-  }, [auth.currentUser]);
+  }, [auth.currentUser.displayName, auth.currentUser.email, auth.currentUser.phoneNumber, auth.currentUser.photoURL, auth.currentUser.uid]);
 
   const [name, setName] = useState();
   const [email, setEmail] = useState();
@@ -49,6 +50,8 @@ export default function ProfileScreen({ navigation }) {
   const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
   const [isReAuthenticateModalOpen, setReAuthenticateModalOpen] = useState(false);
   const [isChangePasswordModalOpen, setChangePasswordModalOpen] = useState(false);
+  const [isNameModalOpen, setNameModalOpen] = useState(false);
+  const [isPhoneModalOpen, setPhoneModalOpen] = useState(false);
 
   const placeholderTextColor = '#242323';
 
@@ -103,14 +106,8 @@ export default function ProfileScreen({ navigation }) {
           <View style={styled.details}>
             <Text style={styled.userd}>Your Name</Text>
             <View style={styled.input}>
-              <TextInput
-                style={styled.txtint}
-                placeholder="Enter Your Name"
-                placeholderTextColor={placeholderTextColor}
-                onChangeText={(text) => setName(text)}
-                value={name}
-              />
-              <TouchableOpacity style={styled.editbtn}>
+              <Text style={styled.txtint}>{name}</Text>
+              <TouchableOpacity style={styled.editbtn} onPress={() => setNameModalOpen(true)}>
                 <Icon
                   name='square-edit-outline'
                   color='#000'
@@ -123,14 +120,8 @@ export default function ProfileScreen({ navigation }) {
           <View style={styled.details}>
             <Text style={styled.userd}>Your Email</Text>
             <View style={styled.input}>
-              <TextInput
-                style={styled.txtint}
-                placeholder="Enter Your Email"
-                placeholderTextColor={placeholderTextColor}
-                onChangeText={(text) => setEmail(text)}
-                value={email}
-              />
-              <TouchableOpacity style={styled.editbtn}>
+              <Text style={styled.txtint}>{email}</Text>
+              <TouchableOpacity style={styled.editbtn} onPress={() => setReAuthenticateModalOpen(true)}>
                 <Icon
                   name='square-edit-outline'
                   color='#000'
@@ -143,14 +134,8 @@ export default function ProfileScreen({ navigation }) {
           <View style={styled.details}>
             <Text style={styled.userd}>Phone Number</Text>
             <View style={styled.input}>
-              <TextInput
-                style={styled.txtint}
-                placeholder="Enter Your Phone Number"
-                placeholderTextColor={placeholderTextColor}
-                onChangeText={(text) => setPhoneNo(text)}
-                value={phoneNo}
-              />
-              <TouchableOpacity style={styled.editbtn}>
+              <Text style={styled.txtint}>{phoneNo}</Text>
+              <TouchableOpacity style={styled.editbtn} onPress={() => setPhoneModalOpen(true)}>
                 <Icon
                   name='square-edit-outline'
                   color='#000'
@@ -178,7 +163,7 @@ export default function ProfileScreen({ navigation }) {
           <View style={styled.details}>
             <Text style={styled.userd}>Generated Name</Text>
             <View style={styled.input}>
-              <TextInput style={styled.txtint} placeholder="Type here to translate!" placeholderTextColor={placeholderTextColor} />
+              <Text style={styled.txtint}>{generatedName}</Text>
               <TouchableOpacity style={styled.editbtn}>
                 <Icon
                   name='refresh'
@@ -213,9 +198,29 @@ export default function ProfileScreen({ navigation }) {
             setActionModalOpen={setChangePasswordModalOpen}
           />
 
+          {/* <ReAuthenticateModal
+            isReAuthenticateModalOpen={isReAuthenticateModalOpen}
+            setReAuthenticateModalOpen={setReAuthenticateModalOpen}
+            setActionModalOpen={setChangePasswordModalOpen}
+          /> */}
+
           <ChangePasswordModal
             isChangePasswordModalOpen={isChangePasswordModalOpen}
             setChangePasswordModalOpen={setChangePasswordModalOpen}
+          />
+
+          <EditDetailModal
+            type={'name'}
+            setVisibility={setNameModalOpen}
+            visibility={isNameModalOpen}
+            value={name}
+          />
+
+          <EditDetailModal
+            type={'phone-number'}
+            setVisibility={setPhoneModalOpen}
+            visibility={isPhoneModalOpen}
+            value={phoneNo}
           />
 
         </ScrollView>
