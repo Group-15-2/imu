@@ -36,6 +36,10 @@ export default function AuthErrorCheck({ error, clearErrorState }) {
             setErrorMsg('Password should be at least 6 characters!');
         }
 
+        if (error === 'auth/missing-email') {
+            setErrorMsg('No user account associated with this email');
+        }
+
         if (error === 'auth/account-exists-with-different-credential') {
             setErrorMsg('Account exists with different credentials');
         }
