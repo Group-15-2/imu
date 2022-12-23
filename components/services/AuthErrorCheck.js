@@ -28,9 +28,19 @@ export default function AuthErrorCheck({ error, clearErrorState }) {
             setErrorMsg('Enter fields correctly!');
         }
 
+        if (error === 'auth/password-not-match') {
+            setErrorMsg('Re-enter your password correctly!');
+        }
+
+        if (error === 'auth/weak-password') {
+            setErrorMsg('Password should be at least 6 characters!');
+        }
+
         if (error === 'auth/too-many-requests') {
             setErrorMsg('Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later');
         }
+
+
     }, [error]);
 
     return (

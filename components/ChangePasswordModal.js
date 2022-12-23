@@ -7,6 +7,7 @@ import { useTogglePasswordVisibility } from '../styles/useTogglePasswordVisibili
 import { styled } from '../styles/feedStyle';
 import { EmailAuthProvider, reauthenticateWithCredential, updatePassword } from "firebase/auth";
 import { auth } from '../firebaseConfig';
+import AuthErrorCheck from './services/AuthErrorCheck';
 
 export default function ChangePasswordModal({ isChangePasswordModalOpen, setChangePasswordModalOpen }) {
 
@@ -15,6 +16,8 @@ export default function ChangePasswordModal({ isChangePasswordModalOpen, setChan
 
     //real-time update repassword from field
     const [rePassword, setRePassword] = useState('');
+
+    const [error, setError] = useState('');
 
     const { passwordVisibility, rightIcon, handlePasswordVisibility } =
         useTogglePasswordVisibility();
@@ -26,15 +29,22 @@ export default function ChangePasswordModal({ isChangePasswordModalOpen, setChan
     }
 
     const handleChangePassword = () => {
-        if (password == rePassword && password.length > 0) {
-            updatePassword(auth.currentUser, password).then(() => {
-                console.log('password updated');
-                setChangePasswordModalOpen(false);
-                setPassword('');
-                setRePassword('');
-            }).catch((error) => {
-                console.log(error);
-            });
+        if (password.length > 0) {
+            if (password == rePassword) {
+                updatePassword(auth.currentUser, password).then(() => {
+                    console.log('password updated');
+                    setChangePasswordModalOpen(false);
+                    setPassword('');
+                    setRePassword('');
+                }).catch((error) => {
+                    setError(error.code);
+                    console.log(error);
+                });
+            } else {
+                setError('auth/password-not-match');
+            }
+        } else {
+            setError('auth/weak-password');
         }
     }
 
@@ -104,7 +114,7 @@ export default function ChangePasswordModal({ isChangePasswordModalOpen, setChan
                         <Text style={inStyle.txt}>Change Password</Text>
                     </TouchableOpacity>
 
-                    <Text></Text>
+                    <AuthErrorCheck error={error} />
 
                 </View>
             </View>

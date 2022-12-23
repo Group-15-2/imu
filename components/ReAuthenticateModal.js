@@ -79,7 +79,7 @@ export default function ReAuthenticateModal({ isReAuthenticateModalOpen, setReAu
                         <Text style={inStyle.txt}>Next</Text>
                     </TouchableOpacity>
 
-                    <AuthErrorCheck error={error} clearErrorState={isReAuthenticateModalOpen} />
+                    <AuthErrorCheck error={error} />
 
                 </View>
             </View>
