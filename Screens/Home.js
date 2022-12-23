@@ -58,7 +58,7 @@ const Item = ({ item, backgroundColor, onPress, onLongPress }) => {
 //moodlet data to pass other screens
 export let mood;
 
-export default function Home() {
+export default function Home({ navigation }) {
   //update selected imgLink of the FlatList
   const [imgLink, setImgLink] = useState(require('../assets/moodlets/add.png'));
 
@@ -72,6 +72,13 @@ export default function Home() {
   useEffect(() => {
     mood = imgLink;
   }, [imgLink])
+
+  useEffect(() => {
+    navigation.addListener('beforeRemove', (e) => {
+      e.preventDefault();
+    });
+
+  });
 
   const renderItem = ({ item }) => {
 
