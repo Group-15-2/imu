@@ -5,7 +5,7 @@ import { modalStyle } from '../styles/modalStyle';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTogglePasswordVisibility } from '../styles/useTogglePasswordVisibility';
 import { styled } from '../styles/feedStyle';
-import { EmailAuthProvider, reauthenticateWithCredential } from "firebase/auth";
+import { EmailAuthProvider, reauthenticateWithCredential, updatePassword } from "firebase/auth";
 import { auth } from '../firebaseConfig';
 
 export default function ChangePasswordModal({ isChangePasswordModalOpen, setChangePasswordModalOpen }) {
@@ -23,6 +23,19 @@ export default function ChangePasswordModal({ isChangePasswordModalOpen, setChan
         setChangePasswordModalOpen(false);
         setPassword('');
         setRePassword('');
+    }
+
+    const handleChangePassword = () => {
+        if (password == rePassword && password.length > 0) {
+            updatePassword(auth.currentUser, password).then(() => {
+                console.log('password updated');
+                setChangePasswordModalOpen(false);
+                setPassword('');
+                setRePassword('');
+            }).catch((error) => {
+                console.log(error);
+            });
+        }
     }
 
 
@@ -87,7 +100,7 @@ export default function ChangePasswordModal({ isChangePasswordModalOpen, setChan
                         </Pressable>
                     </View>
 
-                    <TouchableOpacity activeOpacity={.7} style={inStyle.txtInt}>
+                    <TouchableOpacity activeOpacity={.7} style={inStyle.txtInt} onPress={handleChangePassword}>
                         <Text style={inStyle.txt}>Change Password</Text>
                     </TouchableOpacity>
 
