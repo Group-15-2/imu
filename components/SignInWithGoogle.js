@@ -4,9 +4,10 @@ import { inStyle } from '../styles/instyle';
 import { GoogleAuthProvider, onAuthStateChanged, signInWithCredential } from "firebase/auth";
 import { auth } from '../firebaseConfig';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { setisLogOut } from '../Screens/Home';
 
 
-export default function SignInWithGoogle({ navigation }) {
+export default function SignInWithGoogle({ navigation, setError }) {
 
     GoogleSignin.configure({
         webClientId: '167329016926-g2mgqik6qno32g0a06uov8nm83219b80.apps.googleusercontent.com',
@@ -29,7 +30,7 @@ export default function SignInWithGoogle({ navigation }) {
     // }, []);
 
     const onGoogleButtonPress = async () => {
-        await GoogleSignin.signOut();
+        // await GoogleSignin.signOut();
         // Check if your device supports Google Play
         await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
         // Get the users ID token
@@ -39,14 +40,12 @@ export default function SignInWithGoogle({ navigation }) {
         const googleCredential = GoogleAuthProvider.credential(idToken);
 
         // Sign-in the user with the credential
-        const signin = signInWithCredential(auth, googleCredential);
-
-        const isSignedIn = await GoogleSignin.isSignedIn();
-        // console.log(isSignedIn);
-
-        if (isSignedIn) {
+        await signInWithCredential(auth, googleCredential).then(() => {
+            setisLogOut(false);
             navigation.navigate('Home');
-        }
+        }).catch((e) => {
+            setError(e.code);
+        })
     }
 
 

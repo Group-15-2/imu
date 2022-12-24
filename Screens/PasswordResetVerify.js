@@ -7,6 +7,7 @@ import { sendEmailVerification, createUserWithEmailAndPassword, sendPasswordRese
 import { emailLocal, passwordLocal } from './Register';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTogglePasswordVisibility } from '../styles/useTogglePasswordVisibility';
+import AuthErrorCheck from '../components/services/AuthErrorCheck';
 
 export default function PasswordResetVerify({ navigation }) {
 
@@ -67,10 +68,8 @@ export default function PasswordResetVerify({ navigation }) {
                 setIsShow2('flex');
             })
             .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log(errorCode);
-                console.log(errorMessage);
+                setError(error.code);
+                console.log(error);
             });
     }
 
@@ -100,6 +99,8 @@ export default function PasswordResetVerify({ navigation }) {
                     <TouchableOpacity activeOpacity={.7} style={inStyle.txtInt} onPress={handleSendEmail}>
                         <Text style={inStyle.txt}>Send Verification</Text>
                     </TouchableOpacity>
+
+                    <AuthErrorCheck error={error} />
 
                 </View>
 

@@ -14,12 +14,17 @@ import Register2 from './Screens/Register2';
 import chatBox from './Screens/ChatBox';
 
 import Home from './Screens/Home'
+<<<<<<< HEAD
 import Profile from './Screens/Profile'
 import AddPost from './Screens/Addpost'
+=======
+import AddPost from './Screens/AddPost'
+>>>>>>> origin/authentication
 import Thoughts from './Screens/Thoughts'
 import Messages from './Screens/Messages'
 import VerifyEmail from './Screens/VerifyEmail';
 import PasswordResetVerify from './Screens/PasswordResetVerify';
+import ProfileScreen from './Screens/Profile';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -75,7 +80,7 @@ export function MyTabs({ navigation }) {
       <Tab.Screen name="Messages" component={Messages} />
       <Tab.Screen name="AddPost" component={AddPost} options={{ tabBarIcon: ({ color }) => (<MaterialCommunityIcons name="plus-circle" color={'#1877F2'} size={42} />), }} />
       <Tab.Screen name="Thoughts" component={Thoughts} />
-      <Tab.Screen name="Profile" component={Profile} />
+      <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
   );
 }

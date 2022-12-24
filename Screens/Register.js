@@ -6,6 +6,7 @@ import { inStyle } from '../styles/instyle';
 import { useTogglePasswordVisibility } from '../styles/useTogglePasswordVisibility';
 import { auth } from '../firebaseConfig';
 import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import AuthErrorCheck from '../components/services/AuthErrorCheck';
 
 //exports two variable data to store email and password
 //this will use to resend email verification
@@ -61,26 +62,11 @@ export default function Register({ navigation }) {
 
         //errors
         .catch(error => {
-          if (error.code === 'auth/email-already-in-use') {
-            setError('Email address is already in use!');
-          }
-
-          if (error.code === 'auth/invalid-email') {
-            setError('That email address is invalid!');
-          }
-
-          if (error.code === 'auth/weak-password') {
-            setError('Password should be at least 6 characters!');
-          }
-
-          if (error.code === 'auth/internal-error') {
-            setError('Enter fields correctly!');
-          }
-
+          setError(error.code);
           console.error(error);
         });
     } else {
-      setError('Re-Enter your password correctly!');
+      setError('auth/password-not-match');
     }
   };
 
@@ -150,7 +136,7 @@ export default function Register({ navigation }) {
           <Text style={inStyle.txt}>Next</Text>
         </TouchableOpacity>
 
-        <Text style={{ color: 'red', textAlign: 'center' }}>{error}</Text>
+        <AuthErrorCheck error={error} />
 
       </View>
     </View>

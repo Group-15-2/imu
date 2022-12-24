@@ -6,6 +6,9 @@ import { inStyle } from '../styles/instyle';
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from '../firebaseConfig';
 import { useTogglePasswordVisibility } from '../styles/useTogglePasswordVisibility';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import SignInWithGoogle from '../components/SignInWithGoogle';
+import SignInWithFB from '../components/SignInWithFB';
 
 export default function App({ navigation }) {
     const { passwordVisibility, rightIcon, handlePasswordVisibility } =
@@ -19,27 +22,17 @@ export default function App({ navigation }) {
     const handleSignIn = () => {
         signInWithEmailAndPassword(auth, email, password)
             .then(() => {
-                console.log('User signed in!');
-                navigation.navigate('Home');
+                if (auth.currentUser.emailVerified) {
+                    console.log('User signed in!');
+                    navigation.navigate('Home');
+                } else {
+                    auth.currentUser.delete();
+                    setError('Email is not verified, register again!')
+                }
 
             })
             .catch(error => {
-                if (error.code === 'auth/user-disabled') {
-                    setError(' Email has been disabled');
-                }
-
-                if (error.code === 'auth/invalid-email') {
-                    setError('Email address or password is invalid!');
-                }
-
-                if (error.code === 'auth/user-not-found') {
-                    setError('Email address or password is invalid!');
-                }
-
-                if (error.code === 'auth/wrong-password') {
-                    setError('Password is invalid!');
-                }
-
+                setError(error.code);
                 console.error(error);
             });
     };
@@ -83,7 +76,8 @@ export default function App({ navigation }) {
                     <Text style={inStyle.txt}>Login</Text>
                 </TouchableOpacity>
 
-                <Text style={{ color: 'red', textAlign: 'center' }}>{error}</Text>
+                {/* <Text style={inStyle.error}>{error}</Text> */}
+                <AuthErrorCheck error={error} />
 
                 <View style={{ paddingBottom: 25 }}>
                     <TouchableOpacity activeOpacity={.7} style={inStyle.v} onPress={() => navigation.navigate('SignUp')}>
@@ -101,16 +95,12 @@ export default function App({ navigation }) {
                     <View style={{ flexDirection: 'row', paddingTop: 10 }}>
                         <View style={{ width: '50%', justifyContent: 'center', alignItems: 'center' }}>
                             <View style={inStyle.sIcons}>
-                                <TouchableOpacity>
-                                    <Image source={require('../assets/google.png')} style={inStyle.img} />
-                                </TouchableOpacity>
+                                <SignInWithGoogle navigation={navigation} />
                             </View>
                         </View>
                         <View style={{ width: '50%', justifyContent: 'center', alignItems: 'center' }}>
                             <View style={inStyle.sIcons}>
-                                <TouchableOpacity>
-                                    <MaterialCommunityIcons name={'facebook'} size={26} color={'#1877F2'} />
-                                </TouchableOpacity>
+                                <SignInWithFB navigation={navigation} />
                             </View>
                         </View>
                     </View>

@@ -1,7 +1,28 @@
 {
   "expo": {
     "name": "imu",
+    "owner": "group152",
     "slug": "imu",
+<<<<<<< HEAD
+=======
+    "plugins": [
+      "@react-native-google-signin/google-signin",
+      [
+        "react-native-fbsdk-next",
+        {
+          "appID": "641124837698053",
+          "clientToken": "259704b170367be1b220941835a7c3d4",
+          "displayName": "imu-project"
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
+      ]
+    ],
+>>>>>>> origin/authentication
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -33,7 +54,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "2f04bfff-04d5-4a75-8906-0b73375fe6b4"
+        "projectId": "a392dd3b-c7dc-41b1-9d7d-860da88954a5"
       }
     }
   }
