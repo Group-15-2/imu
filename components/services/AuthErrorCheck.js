@@ -44,6 +44,10 @@ export default function AuthErrorCheck({ error }) {
             setErrorMsg('Account exists with different credentials');
         }
 
+        if (error === 'auth/email-already-in-use') {
+            setErrorMsg('Email already in use');
+        }
+
         if (error === 'auth/too-many-requests') {
             setErrorMsg('Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later');
         }

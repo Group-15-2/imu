@@ -55,7 +55,8 @@ export default function ProfileScreen({ navigation }) {
   const [generatedName, setGeneratedName] = useState();
 
   const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
-  const [isReAuthenticateModalOpen, setReAuthenticateModalOpen] = useState(false);
+  const [isReAuthenticateModalOpenPassword, setReAuthenticateModalOpenPassword] = useState(false);
+  const [isReAuthenticateModalOpenEmail, setReAuthenticateModalOpenEmail] = useState(false);
   const [isChangePasswordModalOpen, setChangePasswordModalOpen] = useState(false);
   const [isNameModalOpen, setNameModalOpen] = useState(false);
   const [isPhoneModalOpen, setPhoneModalOpen] = useState(false);
@@ -129,7 +130,7 @@ export default function ProfileScreen({ navigation }) {
             <Text style={styled.userd}>Your Email</Text>
             <View style={styled.input}>
               <Text style={styled.txtint}>{email}</Text>
-              <TouchableOpacity style={styled.editbtn} onPress={() => setReAuthenticateModalOpen(true)}>
+              <TouchableOpacity style={styled.editbtn} onPress={() => setReAuthenticateModalOpenEmail(true)}>
                 <Icon
                   name='square-edit-outline'
                   color='#000'
@@ -185,7 +186,7 @@ export default function ProfileScreen({ navigation }) {
           <Divider style={styled.divider} />
 
 
-          <TouchableOpacity activeOpacity={.7} style={[inStyle.txtInt, { marginBottom: 40 }]} onPress={() => setReAuthenticateModalOpen(true)}>
+          <TouchableOpacity activeOpacity={.7} style={[inStyle.txtInt, { marginBottom: 40 }]} onPress={() => setReAuthenticateModalOpenPassword(true)}>
             <Text style={inStyle.txt}>Change Password</Text>
           </TouchableOpacity>
 
@@ -201,14 +202,14 @@ export default function ProfileScreen({ navigation }) {
           />
 
           <ReAuthenticateModal
-            isReAuthenticateModalOpen={isReAuthenticateModalOpen}
-            setReAuthenticateModalOpen={setReAuthenticateModalOpen}
+            isReAuthenticateModalOpen={isReAuthenticateModalOpenPassword}
+            setReAuthenticateModalOpen={setReAuthenticateModalOpenPassword}
             setActionModalOpen={setChangePasswordModalOpen}
           />
 
           <ReAuthenticateModal
-            isReAuthenticateModalOpen={isReAuthenticateModalOpen}
-            setReAuthenticateModalOpen={setReAuthenticateModalOpen}
+            isReAuthenticateModalOpen={isReAuthenticateModalOpenEmail}
+            setReAuthenticateModalOpen={setReAuthenticateModalOpenEmail}
             setActionModalOpen={setEmailChangeModalOpen}
           />
 

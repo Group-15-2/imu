@@ -39,17 +39,7 @@ export default function ImagePickerScreen({ setIsLoaderOpen }) {
                 getDownloadURL(imageRef)
                     .then((url) => {
 
-                        updateProfile(auth.currentUser, {
-                            photoURL: url
-                        }).then(() => {
-
-                            setIsLoaderOpen(false);
-
-                        }).catch((error) => {
-                            // An error occurred
-                            // ...
-                            console.log(error);
-                        });
+                        authUpdatePFP(url);
 
                     })
                     .catch((error) => {
@@ -64,24 +54,34 @@ export default function ImagePickerScreen({ setIsLoaderOpen }) {
 
     };
 
+    const authUpdatePFP = (url) => {
+        updateProfile(auth.currentUser, {
+            photoURL: url
+        }).then(() => {
+
+            setIsLoaderOpen(false);
+
+        }).catch((error) => {
+            // An error occurred
+            // ...
+            console.log(error);
+        });
+    }
+
     const deletePhoto = () => {
+
         setIsLoaderOpen(true);
         setIsConfirmModalOpen(false);
         deleteObject(imageRef).then(() => {
-            updateProfile(auth.currentUser, {
-                photoURL: ''
-            }).then(() => {
-
-                setIsLoaderOpen(false);
-
-            }).catch((error) => {
-                // An error occurred
-                // ...
-                console.log(error);
-            });
+            authUpdatePFP('');
         }).catch((error) => {
             console.log(error);
+            if (error.code == 'storage/object-not-found') {
+                authUpdatePFP('');
+            }
         });
+
+        // console.log(auth.currentUser.photoURL);
     }
 
 
