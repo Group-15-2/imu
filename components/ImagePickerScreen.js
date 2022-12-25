@@ -9,15 +9,18 @@ import { async } from '@firebase/util';
 import { modalStyle } from '../styles/modalStyle';
 import { } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes, deleteObject, } from "firebase/storage";
+import ConfirmModal from '../components/ConfirmModal';
 
 export default function ImagePickerScreen({ setIsLoaderOpen }) {
 
 
     const [image, setImage] = useState(null);
-    const [isUploading, setIsUploading] = useState(null);
+    const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
     // const [imageFile, setImageFile] = useState(null);
     const [isSelectModalOpen, setSelectModalOpen] = useState(false);
     const [isPreviewModalOpen, setPreviewModalOpen] = useState(false);
+
+    const imageRef = ref(storage, auth.currentUser.uid);
 
     const uploadImage = async () => {
 
@@ -29,7 +32,6 @@ export default function ImagePickerScreen({ setIsLoaderOpen }) {
         setPreviewModalOpen(false);
         setImage(null);
 
-        const imageRef = ref(storage, auth.currentUser.uid);
         uploadBytes(imageRef, blob, {
             contentType: 'image/jpeg',
         })
@@ -61,6 +63,26 @@ export default function ImagePickerScreen({ setIsLoaderOpen }) {
             })
 
     };
+
+    const deletePhoto = () => {
+        setIsLoaderOpen(true);
+        setIsConfirmModalOpen(false);
+        deleteObject(imageRef).then(() => {
+            updateProfile(auth.currentUser, {
+                photoURL: ''
+            }).then(() => {
+
+                setIsLoaderOpen(false);
+
+            }).catch((error) => {
+                // An error occurred
+                // ...
+                console.log(error);
+            });
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
 
 
 
@@ -111,7 +133,19 @@ export default function ImagePickerScreen({ setIsLoaderOpen }) {
                 <View style={modalStyle.selectScreen}>
                     <View style={modalStyle.container}>
 
-                        <Text style={modalStyle.header}>Upload Profile Photo</Text>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                            <Text style={modalStyle.header}>Upload Profile Photo</Text>
+
+                            <TouchableOpacity onPress={() => { setIsConfirmModalOpen(true); setSelectModalOpen(false); }}>
+                                <Icon
+                                    name='delete'
+                                    color='#D9D9D9'
+                                    size={30}
+                                    style={{ bottom: 5 }}
+                                />
+                            </TouchableOpacity>
+
+                        </View>
 
                         <View style={{ flexDirection: 'row', justifyContent: 'space-around', paddingTop: 20 }}>
 
@@ -167,6 +201,15 @@ export default function ImagePickerScreen({ setIsLoaderOpen }) {
             <TouchableOpacity onPress={handleUploadImage}>
                 <Text style={inStyle.txt2}>Upload Profile Picture</Text>
             </TouchableOpacity>
+
+            <ConfirmModal
+                subject={'Remove Profile Photo?'}
+                setConfirmModalOpen={setIsConfirmModalOpen}
+                isConfirmModalOpen={isConfirmModalOpen}
+                onPress={deletePhoto}
+            />
+
         </View >
+
     )
 }

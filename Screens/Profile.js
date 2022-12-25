@@ -40,6 +40,11 @@ export default function ProfileScreen({ navigation }) {
     setPFP(auth.currentUser.photoURL);
     setPhoneNo(auth.currentUser.phoneNumber);
     setUID(auth.currentUser.uid);
+
+    if (auth.currentUser.photoURL == '' || auth.currentUser.photoURL == null) {
+      setPFP('https://firebasestorage.googleapis.com/v0/b/project-imu.appspot.com/o/profile_default%2Fprofile-image.png?alt=media&token=b77c1557-4e43-41e2-ad60-6ca0ecf07475');
+    }
+
   }, [auth.currentUser.email, auth.currentUser.phoneNumber, auth.currentUser.displayName, auth.currentUser.photoURL, auth.currentUser.uid]);
 
   const [name, setName] = useState();
