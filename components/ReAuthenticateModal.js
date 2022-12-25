@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View, Image, TouchableOpacity, Modal, StyleSheet, TextInput, Pressable } from 'react-native';
+import { Text, View, Image, TouchableOpacity, Modal, StyleSheet, TextInput, Pressable, ActivityIndicator } from 'react-native';
 import { inStyle } from '../styles/instyle';
 import { modalStyle } from '../styles/modalStyle';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -8,11 +8,15 @@ import { styled } from '../styles/feedStyle';
 import { EmailAuthProvider, reauthenticateWithCredential } from "firebase/auth";
 import { auth } from '../firebaseConfig';
 import AuthErrorCheck from './services/AuthErrorCheck';
+import InButtonLoader from './InButtonLoader';
 
 export default function ReAuthenticateModal({ isReAuthenticateModalOpen, setReAuthenticateModalOpen, setActionModalOpen }) {
 
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+
+    const [issmallLoaderOn, setIsSmallLoaderOn] = useState('none');
+    const [isBottonTextOn, setIsButtonTextOn] = useState('flex');
 
     const { passwordVisibility, rightIcon, handlePasswordVisibility } =
         useTogglePasswordVisibility();
@@ -20,19 +24,28 @@ export default function ReAuthenticateModal({ isReAuthenticateModalOpen, setReAu
     const closeReAuthenticateModal = () => {
         setReAuthenticateModalOpen(false);
         setPassword('');
+        setError('');
     }
 
     const handleNext = () => {
+        setIsButtonTextOn('none');
+        setIsSmallLoaderOn('flex');
+
         const credential = EmailAuthProvider.credential(auth.currentUser.email, password);
         reauthenticateWithCredential(auth.currentUser, credential).then(() => {
             console.log('re-authenticated');
             setReAuthenticateModalOpen(false);
             setActionModalOpen(true);
             setPassword('');
+            setIsButtonTextOn('flex');
+            setIsSmallLoaderOn('none');
+            setError('');
 
         }).catch((error) => {
             setError(error.code);
             console.log(error);
+            setIsButtonTextOn('flex');
+            setIsSmallLoaderOn('none');
         });
     }
 
@@ -76,7 +89,9 @@ export default function ReAuthenticateModal({ isReAuthenticateModalOpen, setReAu
                     </View>
 
                     <TouchableOpacity activeOpacity={.7} style={inStyle.txtInt} onPress={handleNext}>
-                        <Text style={inStyle.txt}>Next</Text>
+                        <Text style={[inStyle.txt, { display: isBottonTextOn }]}>Next</Text>
+                        <InButtonLoader isShow={issmallLoaderOn} />
+
                     </TouchableOpacity>
 
                     <AuthErrorCheck error={error} />

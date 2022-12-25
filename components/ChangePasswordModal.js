@@ -8,8 +8,13 @@ import { styled } from '../styles/feedStyle';
 import { EmailAuthProvider, reauthenticateWithCredential, updatePassword } from "firebase/auth";
 import { auth } from '../firebaseConfig';
 import AuthErrorCheck from './services/AuthErrorCheck';
+import InButtonLoader from './InButtonLoader';
 
 export default function ChangePasswordModal({ isChangePasswordModalOpen, setChangePasswordModalOpen }) {
+
+
+    const [issmallLoaderOn, setIsSmallLoaderOn] = useState('none');
+    const [isBottonTextOn, setIsButtonTextOn] = useState('flex');
 
     //real-time update password from field
     const [password, setPassword] = useState('');
@@ -26,9 +31,14 @@ export default function ChangePasswordModal({ isChangePasswordModalOpen, setChan
         setChangePasswordModalOpen(false);
         setPassword('');
         setRePassword('');
+        setError('');
     }
 
     const handleChangePassword = () => {
+
+        setIsButtonTextOn('none');
+        setIsSmallLoaderOn('flex');
+
         if (password.length > 0) {
             if (password == rePassword) {
                 updatePassword(auth.currentUser, password).then(() => {
@@ -36,15 +46,25 @@ export default function ChangePasswordModal({ isChangePasswordModalOpen, setChan
                     setChangePasswordModalOpen(false);
                     setPassword('');
                     setRePassword('');
+                    setIsButtonTextOn('flex');
+                    setIsSmallLoaderOn('none');
+                    setError('');
+
                 }).catch((error) => {
                     setError(error.code);
                     console.log(error);
+                    setIsButtonTextOn('flex');
+                    setIsSmallLoaderOn('none');
                 });
             } else {
                 setError('auth/password-not-match');
+                setIsButtonTextOn('flex');
+                setIsSmallLoaderOn('none');
             }
         } else {
             setError('auth/weak-password');
+            setIsButtonTextOn('flex');
+            setIsSmallLoaderOn('none');
         }
     }
 
@@ -111,7 +131,8 @@ export default function ChangePasswordModal({ isChangePasswordModalOpen, setChan
                     </View>
 
                     <TouchableOpacity activeOpacity={.7} style={inStyle.txtInt} onPress={handleChangePassword}>
-                        <Text style={inStyle.txt}>Change Password</Text>
+                        <Text style={[inStyle.txt, { display: isBottonTextOn }]}>Change Password</Text>
+                        <InButtonLoader isShow={issmallLoaderOn} />
                     </TouchableOpacity>
 
                     <AuthErrorCheck error={error} />
