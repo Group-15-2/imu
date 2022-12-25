@@ -14,6 +14,7 @@ import ConfirmModal from '../components/ConfirmModal';
 import ReAuthenticateModal from '../components/ReAuthenticateModal';
 import ChangePasswordModal from '../components/ChangePasswordModal';
 import EditDetailModal from '../components/EditDetailModal';
+import ChangeEmailModal from '../components/ChangeEmailModal';
 
 
 export default function ProfileScreen({ navigation }) {
@@ -38,7 +39,7 @@ export default function ProfileScreen({ navigation }) {
     setPFP(auth.currentUser.photoURL);
     setPhoneNo(auth.currentUser.phoneNumber);
     setUID(auth.currentUser.uid);
-  }, [auth.currentUser.displayName, auth.currentUser.email, auth.currentUser.phoneNumber, auth.currentUser.photoURL, auth.currentUser.uid]);
+  }, [auth.currentUser.email, auth.currentUser.phoneNumber, auth.currentUser.displayName, auth.currentUser.photoURL, auth.currentUser.uid]);
 
   const [name, setName] = useState();
   const [email, setEmail] = useState();
@@ -52,8 +53,7 @@ export default function ProfileScreen({ navigation }) {
   const [isChangePasswordModalOpen, setChangePasswordModalOpen] = useState(false);
   const [isNameModalOpen, setNameModalOpen] = useState(false);
   const [isPhoneModalOpen, setPhoneModalOpen] = useState(false);
-
-  const placeholderTextColor = '#242323';
+  const [isEmailChangeModalOpen, setEmailChangeModalOpen] = useState(false);
 
   const handleLogOut = () => {
     setisLogOut(true);
@@ -198,15 +198,20 @@ export default function ProfileScreen({ navigation }) {
             setActionModalOpen={setChangePasswordModalOpen}
           />
 
-          {/* <ReAuthenticateModal
+          <ReAuthenticateModal
             isReAuthenticateModalOpen={isReAuthenticateModalOpen}
             setReAuthenticateModalOpen={setReAuthenticateModalOpen}
-            setActionModalOpen={setChangePasswordModalOpen}
-          /> */}
+            setActionModalOpen={setEmailChangeModalOpen}
+          />
 
           <ChangePasswordModal
             isChangePasswordModalOpen={isChangePasswordModalOpen}
             setChangePasswordModalOpen={setChangePasswordModalOpen}
+          />
+
+          <ChangeEmailModal
+            visibility={isEmailChangeModalOpen}
+            setVisibility={setEmailChangeModalOpen}
           />
 
           <EditDetailModal

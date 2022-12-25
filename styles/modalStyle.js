@@ -41,6 +41,16 @@ const modalStyle = StyleSheet.create({
         top: '25%'
     },
 
+    changeEmailModal: {
+        position: 'relative',
+        minHeight: '25%',
+        width: '90%',
+        backgroundColor: '#25292e',
+        alignSelf: 'center',
+        borderRadius: 10,
+        top: '25%'
+    },
+
     container: {
         padding: 15
     },

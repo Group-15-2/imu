@@ -1,19 +1,63 @@
 import React, { useState } from 'react';
-import { Text, View, Image, TouchableOpacity, Modal, StyleSheet } from 'react-native';
+import { Text, View, Image, TouchableOpacity, Modal, StyleSheet, Alert } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { inStyle } from '../styles/instyle';
-import { auth } from '../firebaseConfig';
+import { auth, storage } from '../firebaseConfig';
 import { updateProfile } from 'firebase/auth';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { async } from '@firebase/util';
 import { modalStyle } from '../styles/modalStyle';
+import { } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytes, deleteObject, } from "firebase/storage";
 
 export default function ImagePickerScreen() {
 
 
     const [image, setImage] = useState(null);
+    const [imageData, setImageData] = useState(null);
+    // const [imageFile, setImageFile] = useState(null);
     const [isSelectModalOpen, setSelectModalOpen] = useState(false);
     const [isPreviewModalOpen, setPreviewModalOpen] = useState(false);
+
+    const uploadImage = async () => {
+
+        const response = await fetch(image);
+        const blob = await response.blob();
+
+        const imageRef = ref(storage, auth.currentUser.uid);
+        uploadBytes(imageRef, blob, {
+            contentType: 'image/jpeg',
+        })
+            .then((snapshot) => {
+                getDownloadURL(imageRef)
+                    .then((url) => {
+
+                        updateProfile(auth.currentUser, {
+                            photoURL: url
+                        }).then(() => {
+                            setPreviewModalOpen(false);
+                            setImage(null);
+                            console.log(auth.currentUser.photoURL);
+                        }).catch((error) => {
+                            // An error occurred
+                            // ...
+                            console.log(error);
+                        });
+
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+
+
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+
+    };
+
+
 
 
 
@@ -50,6 +94,8 @@ export default function ImagePickerScreen() {
     const handleUploadImage = () => {
         setSelectModalOpen(true);
     }
+
+
 
 
 
@@ -104,7 +150,7 @@ export default function ImagePickerScreen() {
                             <Text style={modalStyle.optionNo}>Cancel</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={uploadImage}>
                             <Text style={modalStyle.optionYes}>Upload</Text>
                         </TouchableOpacity>
                     </View>
