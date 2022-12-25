@@ -15,6 +15,7 @@ import ReAuthenticateModal from '../components/ReAuthenticateModal';
 import ChangePasswordModal from '../components/ChangePasswordModal';
 import EditDetailModal from '../components/EditDetailModal';
 import ChangeEmailModal from '../components/ChangeEmailModal';
+import LoadingModal from '../components/LoadingModal';
 
 
 export default function ProfileScreen({ navigation }) {
@@ -55,6 +56,8 @@ export default function ProfileScreen({ navigation }) {
   const [isPhoneModalOpen, setPhoneModalOpen] = useState(false);
   const [isEmailChangeModalOpen, setEmailChangeModalOpen] = useState(false);
 
+  const [isLoaderOpen, setIsLoaderOpen] = useState(false);
+
   const handleLogOut = () => {
     setisLogOut(true);
     auth.signOut();
@@ -91,7 +94,7 @@ export default function ProfileScreen({ navigation }) {
               <Image source={imgLink} style={styled.moodlet} />
             </View>
 
-            <ImagePickerScreen />
+            <ImagePickerScreen setIsLoaderOpen={setIsLoaderOpen} />
 
 
 
@@ -227,6 +230,8 @@ export default function ProfileScreen({ navigation }) {
             visibility={isPhoneModalOpen}
             value={phoneNo}
           />
+
+          <LoadingModal visibility={isLoaderOpen} />
 
         </ScrollView>
       </View>

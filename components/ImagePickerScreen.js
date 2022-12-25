@@ -10,19 +10,24 @@ import { modalStyle } from '../styles/modalStyle';
 import { } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes, deleteObject, } from "firebase/storage";
 
-export default function ImagePickerScreen() {
+export default function ImagePickerScreen({ setIsLoaderOpen }) {
 
 
     const [image, setImage] = useState(null);
-    const [imageData, setImageData] = useState(null);
+    const [isUploading, setIsUploading] = useState(null);
     // const [imageFile, setImageFile] = useState(null);
     const [isSelectModalOpen, setSelectModalOpen] = useState(false);
     const [isPreviewModalOpen, setPreviewModalOpen] = useState(false);
 
     const uploadImage = async () => {
 
+        setIsLoaderOpen(true);
+
         const response = await fetch(image);
         const blob = await response.blob();
+
+        setPreviewModalOpen(false);
+        setImage(null);
 
         const imageRef = ref(storage, auth.currentUser.uid);
         uploadBytes(imageRef, blob, {
@@ -35,9 +40,9 @@ export default function ImagePickerScreen() {
                         updateProfile(auth.currentUser, {
                             photoURL: url
                         }).then(() => {
-                            setPreviewModalOpen(false);
-                            setImage(null);
-                            console.log(auth.currentUser.photoURL);
+
+                            setIsLoaderOpen(false);
+
                         }).catch((error) => {
                             // An error occurred
                             // ...

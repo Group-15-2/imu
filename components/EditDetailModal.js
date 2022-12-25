@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, Image, TouchableOpacity, Modal, StyleSheet, TextInput, Pressable } from 'react-native';
+import { Text, View, Image, TouchableOpacity, Modal, StyleSheet, TextInput, Pressable, } from 'react-native';
 import { inStyle } from '../styles/instyle';
 import { modalStyle } from '../styles/modalStyle';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
