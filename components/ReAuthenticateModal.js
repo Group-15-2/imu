@@ -45,13 +45,15 @@ export default function ReAuthenticateModal({ isReAuthenticateModalOpen, setReAu
             setReAuthenticateModalOpen(false);
             setActionModalOpen(true);
             setPassword('');
+            setError('');
+
             setIsButtonTextOn('flex');
             setIsSmallLoaderOn('none');
-            setError('');
 
         }).catch((error) => {
             setError(error.code);
             console.log(error);
+
             setIsButtonTextOn('flex');
             setIsSmallLoaderOn('none');
         });

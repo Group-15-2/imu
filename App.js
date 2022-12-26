@@ -82,7 +82,7 @@ export function MyTabs({ navigation }) {
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='SignUp1' screenOptions={({ route }) => ({ headerShown: false })}>
+      <Stack.Navigator initialRouteName='SignIn' screenOptions={({ route }) => ({ headerShown: false })}>
         <Stack.Screen name='Home' component={MyTabs} />
         <Stack.Screen name='SignIn' component={SignIn} />
         <Stack.Screen name='PasswordResetVerify' component={PasswordResetVerify} />

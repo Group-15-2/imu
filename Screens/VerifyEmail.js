@@ -21,7 +21,7 @@ export default function VerifyEmail({ navigation }) {
             if (auth.currentUser.emailVerified) {
                 clearInterval(interval);
                 console.log('Account Verified!');
-                navigation.navigate('SignIn');
+                navigation.navigate('SignUp1');
             }
             await auth.currentUser.reload();
         }, 2000)
