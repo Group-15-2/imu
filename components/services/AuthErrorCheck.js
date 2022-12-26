@@ -15,7 +15,7 @@ export default function AuthErrorCheck({ error }) {
         }
 
         if (error === 'auth/invalid-email') {
-            setErrorMsg('Email address or password is invalid!');
+            setErrorMsg('Email address is invalid!');
         }
 
         if (error === 'auth/user-not-found') {
@@ -28,6 +28,14 @@ export default function AuthErrorCheck({ error }) {
 
         if (error === 'auth/internal-error') {
             setErrorMsg('Enter fields correctly!');
+        }
+
+        if (error === 'auth/requires-recent-login') {
+            setErrorMsg('Requires a Re-authentication!');
+        }
+
+        if (error === 'auth/user-not-found') {
+            setErrorMsg('User not found');
         }
 
         if (error === 'auth/password-not-match') {

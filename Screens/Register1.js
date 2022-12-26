@@ -23,9 +23,14 @@ export default function Register1({ navigation }) {
     const [name, setName] = useState('');
     const [isLoaderOpen, setIsLoaderOpen] = useState(false);
 
+    // const [isFinishPressed, setIsFinishPressed] = useState(false);
+
     //getters and setters for in-button loader display states
     const [issmallLoaderOn, setIsSmallLoaderOn] = useState('none');
     const [isBottonTextOn, setIsButtonTextOn] = useState('flex');
+
+    //indicate if next button pressed
+    let isFinishPressed = false;
 
     useEffect(() => {
         setPFP(auth.currentUser.photoURL);
@@ -43,6 +48,20 @@ export default function Register1({ navigation }) {
         }
     }, [auth.currentUser.photoURL]);
 
+    //desable go back
+    useEffect(() => {
+        navigation.addListener('beforeRemove', (e) => {
+            e.preventDefault();
+
+            //if next button pressed, back handler will remove
+            if (isFinishPressed) {
+                navigation.dispatch(e.data.action);
+            }
+        });
+
+    });
+
+
     const handleFinish = () => {
 
         if (name != '') {
@@ -52,6 +71,7 @@ export default function Register1({ navigation }) {
             updateProfile(auth.currentUser, {
                 displayName: name
             }).then(() => {
+                isFinishPressed = true;
                 navigation.navigate('SignIn');
 
                 setIsButtonTextOn('flex');
@@ -71,8 +91,6 @@ export default function Register1({ navigation }) {
     return (
         <View style={inStyle.container}>
             <View style={inStyle.wrapper}>
-
-
 
                 <Text style={inStyle.head}>Register</Text>
                 <View>
