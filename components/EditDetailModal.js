@@ -7,7 +7,6 @@ import { useTogglePasswordVisibility } from '../styles/useTogglePasswordVisibili
 import { styled } from '../styles/feedStyle';
 import { updateProfile } from "firebase/auth";
 import { auth } from '../firebaseConfig';
-import AuthErrorCheck from './services/AuthErrorCheck';
 
 
 let header;

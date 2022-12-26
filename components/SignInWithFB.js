@@ -5,29 +5,16 @@ import { FacebookAuthProvider, GoogleAuthProvider, onAuthStateChanged, signInWit
 import { auth } from '../firebaseConfig';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { AccessToken, LoginManager } from 'react-native-fbsdk-next';
+import { AccessToken, LoginManager, } from 'react-native-fbsdk-next';
 import { setisLogOut } from '../Screens/Home';
 
 export default function SignInWithFB({ navigation, setError }) {
 
-    // Set an initializing state whilst Firebase connects
-    // const [initializing, setInitializing] = useState(true);
-    // const [user, setUser] = useState('');
-
-    // Handle user state changes
-    // function onAuthStateChanged() {
-    //     setUser(user);
-    //     if (initializing) setInitializing(false);
-    // }
-
-    // useEffect(() => {
-    //     const subscriber = auth.onAuthStateChanged(onAuthStateChanged);
-    //     return subscriber; // unsubscribe on unmount
-    // }, []);
-
+    //login with fb
     const onFBButtonPress = async () => {
         LoginManager.logInWithPermissions(["public_profile", 'email']);
         const data = await AccessToken.getCurrentAccessToken();
+
 
         const facebookCredentials = FacebookAuthProvider.credential(data.accessToken);
         await signInWithCredential(auth, facebookCredentials).then(() => {
@@ -36,14 +23,9 @@ export default function SignInWithFB({ navigation, setError }) {
         }
         ).catch((e) => {
             setError(e.code);
-            console.log("Login fail with error: " + e)
+            console.log("Login fail with error: " + e);
         })
     }
-
-    // if (initializing) return null;
-
-
-
 
     return (
         <View>

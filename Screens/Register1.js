@@ -25,14 +25,11 @@ export default function Register1({ navigation }) {
                         <TextInput style={{ fontSize: 16 }} placeholder="Your Name" />
                     </View>
                 </View>
-                <View style={inStyle.inputContainer}>
-                    <View style={inStyle.inputField}>
-                        <TextInput style={{ fontSize: 16 }} placeholder="Home Address" />
-                    </View>
-                </View>
-                <View style={inStyle.inputContainer}>
+
+
+                {/* <View style={inStyle.inputContainer}>
                     <View style={inStyle.inputField1}>
-                        {/* Add phone input         */}
+                        
                         <PhoneInput
                             useRef={phoneInput}
                             defaultValue={value}
@@ -47,7 +44,8 @@ export default function Register1({ navigation }) {
                             }}
                         />
                     </View>
-                </View>
+                </View> */}
+
                 <TouchableOpacity activeOpacity={.7} style={inStyle.txtInt} onPress={() => navigation.navigate('SignUp2')}>
                     <Text style={inStyle.txt}>Register</Text>
                 </TouchableOpacity>

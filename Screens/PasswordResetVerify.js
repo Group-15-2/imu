@@ -1,34 +1,23 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { View, Text, ActivityIndicator, StyleSheet, TouchableOpacity, TextInput, Pressable } from 'react-native'
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, TextInput } from 'react-native'
 // import Timer from '../components/Timer';
 import { auth } from '../firebaseConfig'
 import { inStyle } from '../styles/instyle';
-import { sendEmailVerification, createUserWithEmailAndPassword, sendPasswordResetEmail, confirmPasswordReset } from "firebase/auth";
-import { emailLocal, passwordLocal } from './Register';
+import { sendPasswordResetEmail } from "firebase/auth";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useTogglePasswordVisibility } from '../styles/useTogglePasswordVisibility';
 import AuthErrorCheck from '../components/services/AuthErrorCheck';
 
 export default function PasswordResetVerify({ navigation }) {
 
+    // getter and setter for email
     const [email, setEmail] = useState('');
-    //real-time update password from field
 
+    //getter and setter or error
     const [error, setError] = useState('');
+
+    //getters and setters from display option of screen sections
     const [isShow1, setIsShow1] = useState('flex');
     const [isShow2, setIsShow2] = useState('none');
-
-
-    const { passwordVisibility, rightIcon, handlePasswordVisibility } =
-        useTogglePasswordVisibility();
-
-    //if email is verified navigating to the sing-in screen
-    useEffect(() => {
-
-
-
-    }, []);
-
 
     const [time, setTime] = useState(0);
     // const { timerColor, setTimerColor } = useState('#9A9A9A');
@@ -49,10 +38,6 @@ export default function PasswordResetVerify({ navigation }) {
 
 
     //triggers when Resend Email Button pressed
-    //in this, deleting user, who previously registered
-    //At the same time, creating a new user using the same credentials
-    //when resend button pressed, above functions happens over and over
-    //this technique was done to avoid some errors with firebase 
     const handleResendEmail = () => {
         sendPasswordResetEmail(auth, email)
             .then(() => {
@@ -61,6 +46,7 @@ export default function PasswordResetVerify({ navigation }) {
             })
     }
 
+    //triggers when send email button pressed
     const handleSendEmail = () => {
         sendPasswordResetEmail(auth, email)
             .then(() => {

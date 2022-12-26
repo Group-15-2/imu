@@ -1,93 +1,94 @@
 import React, { useState } from 'react';
-import { Text, View, Image, TouchableOpacity, Modal, StyleSheet, Alert } from 'react-native';
+import { Text, View, Image, TouchableOpacity, Modal } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { inStyle } from '../styles/instyle';
 import { auth, storage } from '../firebaseConfig';
 import { updateProfile } from 'firebase/auth';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { async } from '@firebase/util';
 import { modalStyle } from '../styles/modalStyle';
-import { } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes, deleteObject, } from "firebase/storage";
 import ConfirmModal from '../components/ConfirmModal';
 
+
 export default function ImagePickerScreen({ setIsLoaderOpen }) {
 
-
+    //getter and setter for picked image
     const [image, setImage] = useState(null);
+
+    //getters and setters for modal visibility state
     const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-    // const [imageFile, setImageFile] = useState(null);
     const [isSelectModalOpen, setSelectModalOpen] = useState(false);
     const [isPreviewModalOpen, setPreviewModalOpen] = useState(false);
 
+    //create a reference to the uploaded profile picture in firebase storage
     const imageRef = ref(storage, auth.currentUser.uid);
 
+    //upload image function
     const uploadImage = async () => {
 
         setIsLoaderOpen(true);
 
+        //create a blob
         const response = await fetch(image);
         const blob = await response.blob();
 
         setPreviewModalOpen(false);
         setImage(null);
 
+        //upload to firebase storage
         uploadBytes(imageRef, blob, {
             contentType: 'image/jpeg',
         })
             .then((snapshot) => {
+                //get the url for the image
                 getDownloadURL(imageRef)
                     .then((url) => {
-
+                        //update profile picture link
                         authUpdatePFP(url);
-
                     })
                     .catch((error) => {
                         console.log(error);
                     });
-
-
             })
             .catch((error) => {
                 console.log(error);
             })
-
     };
 
+    //update profile picture url in firebase auth function
     const authUpdatePFP = (url) => {
         updateProfile(auth.currentUser, {
             photoURL: url
         }).then(() => {
-
             setIsLoaderOpen(false);
-
         }).catch((error) => {
-            // An error occurred
-            // ...
             console.log(error);
         });
     }
 
+    //delete profile picture function
     const deletePhoto = () => {
 
         setIsLoaderOpen(true);
         setIsConfirmModalOpen(false);
+
+        //delete image from firebase storage
         deleteObject(imageRef).then(() => {
+            //clear profile picture url
             authUpdatePFP('');
         }).catch((error) => {
             console.log(error);
             if (error.code == 'storage/object-not-found') {
+                //clear profile picture url
                 authUpdatePFP('');
             }
         });
-
-        // console.log(auth.currentUser.photoURL);
     }
 
 
 
 
-
+    //pick image from gallery function
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -96,6 +97,7 @@ export default function ImagePickerScreen({ setIsLoaderOpen }) {
             quality: 1,
         });
 
+        //if image picked....
         if (!result.canceled) {
             setImage(result.assets[0].uri);
             setSelectModalOpen(false);
@@ -103,6 +105,7 @@ export default function ImagePickerScreen({ setIsLoaderOpen }) {
         };
     };
 
+    //pick image from camera function
     const pickCamera = async () => {
         let result = await ImagePicker.launchCameraAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -111,6 +114,7 @@ export default function ImagePickerScreen({ setIsLoaderOpen }) {
             quality: 1,
         });
 
+        //if image picked....
         if (!result.canceled) {
             setImage(result.assets[0].uri);
             setSelectModalOpen(false);
@@ -118,6 +122,7 @@ export default function ImagePickerScreen({ setIsLoaderOpen }) {
         };
     }
 
+    //choose photo pick options
     const handleUploadImage = () => {
         setSelectModalOpen(true);
     }

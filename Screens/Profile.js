@@ -4,10 +4,9 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { styled } from '../styles/feedStyle';
 import { useFocusEffect } from '@react-navigation/native';
 import { mood, setisLogOut } from './Home';
-import { Divider, SocialIcon } from '@rneui/themed';
+import { Divider } from '@rneui/themed';
 import { inStyle } from '../styles/instyle';
 import { auth } from '../firebaseConfig';
-import { GraphRequest, GraphRequestManager, AccessToken, LoginManager } from "react-native-fbsdk-next";
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import ImagePickerScreen from '../components/ImagePickerScreen';
 import ConfirmModal from '../components/ConfirmModal';
@@ -16,10 +15,17 @@ import ChangePasswordModal from '../components/ChangePasswordModal';
 import EditDetailModal from '../components/EditDetailModal';
 import ChangeEmailModal from '../components/ChangeEmailModal';
 import LoadingModal from '../components/LoadingModal';
+import { updateProfile } from 'firebase/auth';
 
+//default profile pic link from firebase storage
+export const defaultPFP = 'https://firebasestorage.googleapis.com/v0/b/project-imu.appspot.com/o/profile_default%2Fprofile-image.png?alt=media&token=b77c1557-4e43-41e2-ad60-6ca0ecf07475';
 
 export default function ProfileScreen({ navigation }) {
+
+  //anonomity on/off status
   const [isEnabled, setIsEnabled] = useState(false);
+
+  //on change of anonimity switch
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
   //update moodlet image link from the home
@@ -30,10 +36,10 @@ export default function ProfileScreen({ navigation }) {
   useFocusEffect(
     React.useCallback(() => {
       setImgLink(mood);
-
     }, [])
   );
 
+  //update profile details every time they change
   useEffect(() => {
     setName(auth.currentUser.displayName);
     setEmail(auth.currentUser.email);
@@ -41,12 +47,21 @@ export default function ProfileScreen({ navigation }) {
     setPhoneNo(auth.currentUser.phoneNumber);
     setUID(auth.currentUser.uid);
 
+    //if profile pic is black, set a default profile picture
     if (auth.currentUser.photoURL == '' || auth.currentUser.photoURL == null) {
-      setPFP('https://firebasestorage.googleapis.com/v0/b/project-imu.appspot.com/o/profile_default%2Fprofile-image.png?alt=media&token=b77c1557-4e43-41e2-ad60-6ca0ecf07475');
+      setIsLoaderOpen(true);
+      updateProfile(auth.currentUser, {
+        photoURL: defaultPFP
+      }).then(() => {
+        setIsLoaderOpen(false);
+      }).catch((error) => {
+        console.log(error);
+      });
     }
 
   }, [auth.currentUser.email, auth.currentUser.phoneNumber, auth.currentUser.displayName, auth.currentUser.photoURL, auth.currentUser.uid]);
 
+  //getters and setters for profile details
   const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [phoneNo, setPhoneNo] = useState();
@@ -54,6 +69,7 @@ export default function ProfileScreen({ navigation }) {
   const [UID, setUID] = useState();
   const [generatedName, setGeneratedName] = useState();
 
+  //getters and setters for modal visibility state
   const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
   const [isReAuthenticateModalOpenPassword, setReAuthenticateModalOpenPassword] = useState(false);
   const [isReAuthenticateModalOpenEmail, setReAuthenticateModalOpenEmail] = useState(false);
@@ -61,15 +77,24 @@ export default function ProfileScreen({ navigation }) {
   const [isNameModalOpen, setNameModalOpen] = useState(false);
   const [isPhoneModalOpen, setPhoneModalOpen] = useState(false);
   const [isEmailChangeModalOpen, setEmailChangeModalOpen] = useState(false);
-
   const [isLoaderOpen, setIsLoaderOpen] = useState(false);
 
-  const handleLogOut = () => {
+  //logout function
+  const handleLogOut = async () => {
+
+    //setIsLogout sets true to disable the prevention of back handler(defined in HomeScreen)
     setisLogOut(true);
-    auth.signOut();
+
+    setIsLoaderOpen(true);
     GoogleSignin.signOut();
+    auth.signOut().then(() => {
+      navigation.navigate('SignIn');
+      setIsLoaderOpen(false);
+    }).catch((error) => {
+      console.log(error);
+      setIsLoaderOpen(false);
+    })
     // LoginManager.logOut();
-    navigation.navigate('SignIn');
   }
 
 
@@ -192,7 +217,7 @@ export default function ProfileScreen({ navigation }) {
 
 
 
-
+          {/* Modals */}
 
           <ConfirmModal
             isConfirmModalOpen={isConfirmModalOpen}

@@ -11,30 +11,38 @@ import SignInWithGoogle from '../components/SignInWithGoogle';
 import SignInWithFB from '../components/SignInWithFB';
 import AuthErrorCheck from '../components/services/AuthErrorCheck';
 import { setisLogOut } from './Home';
+import InButtonLoader from '../components/InButtonLoader';
 
 
 export default function SignIn({ navigation }) {
-    // GoogleSignin.configure({
-    //     webClientId: '167329016926-g2mgqik6qno32g0a06uov8nm83219b80.apps.googleusercontent.com',
-    // });
+
+    //getters and setters for in-button loader display states
+    const [issmallLoaderOn, setIsSmallLoaderOn] = useState('none');
+    const [isBottonTextOn, setIsButtonTextOn] = useState('flex');
 
 
-
-
-
-
+    //toggle password visibility option
     const { passwordVisibility, rightIcon, handlePasswordVisibility } =
         useTogglePasswordVisibility();
 
+    // setters and getters for inputs
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
+
+    //getter and setter for error
     const [error, setError] = useState('');
 
     //register users when trigger
     const handleSignIn = () => {
+
+        setIsButtonTextOn('none');
+        setIsSmallLoaderOn('flex');
+
         signInWithEmailAndPassword(auth, email, password)
             .then(() => {
                 if (auth.currentUser.emailVerified) {
+                    setError('');
+
                     console.log('User signed in!');
                     setisLogOut(false);
                     navigation.navigate('Home');
@@ -42,11 +50,16 @@ export default function SignIn({ navigation }) {
                     auth.currentUser.delete();
                     setError('Email is not verified, register again!')
                 }
+                setIsButtonTextOn('flex');
+                setIsSmallLoaderOn('none');
 
             })
             .catch(error => {
                 setError(error.code);
                 console.error(error);
+
+                setIsButtonTextOn('flex');
+                setIsSmallLoaderOn('none');
             });
     };
 
@@ -86,10 +99,10 @@ export default function SignIn({ navigation }) {
                     </Pressable>
                 </View>
                 <TouchableOpacity activeOpacity={.7} style={inStyle.txtInt} onPress={handleSignIn}>
-                    <Text style={inStyle.txt}>Login</Text>
+                    <Text style={[inStyle.txt, { display: isBottonTextOn }]}>Login</Text>
+                    <InButtonLoader isShow={issmallLoaderOn} />
                 </TouchableOpacity>
 
-                {/* <Text style={inStyle.error}>{error}</Text> */}
                 <AuthErrorCheck error={error} />
 
                 <View style={{ paddingBottom: 25 }}>

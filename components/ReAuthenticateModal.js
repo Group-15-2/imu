@@ -12,25 +12,33 @@ import InButtonLoader from './InButtonLoader';
 
 export default function ReAuthenticateModal({ isReAuthenticateModalOpen, setReAuthenticateModalOpen, setActionModalOpen }) {
 
+    //getter and setter for password
     const [password, setPassword] = useState('');
+
+    //getter and setter for error
     const [error, setError] = useState('');
 
+    //getters and setters for in-button loader display states
     const [issmallLoaderOn, setIsSmallLoaderOn] = useState('none');
     const [isBottonTextOn, setIsButtonTextOn] = useState('flex');
 
+    //toggle password visibility
     const { passwordVisibility, rightIcon, handlePasswordVisibility } =
         useTogglePasswordVisibility();
 
+    //reauthenticate modal close function
     const closeReAuthenticateModal = () => {
         setReAuthenticateModalOpen(false);
         setPassword('');
         setError('');
     }
 
+    //next function
     const handleNext = () => {
         setIsButtonTextOn('none');
         setIsSmallLoaderOn('flex');
 
+        //reauthenticate user
         const credential = EmailAuthProvider.credential(auth.currentUser.email, password);
         reauthenticateWithCredential(auth.currentUser, credential).then(() => {
             console.log('re-authenticated');

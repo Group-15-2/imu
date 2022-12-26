@@ -12,7 +12,7 @@ import InButtonLoader from './InButtonLoader';
 
 export default function ChangePasswordModal({ isChangePasswordModalOpen, setChangePasswordModalOpen }) {
 
-
+    //getters and setters for in-button display states
     const [issmallLoaderOn, setIsSmallLoaderOn] = useState('none');
     const [isBottonTextOn, setIsButtonTextOn] = useState('flex');
 
@@ -22,11 +22,14 @@ export default function ChangePasswordModal({ isChangePasswordModalOpen, setChan
     //real-time update repassword from field
     const [rePassword, setRePassword] = useState('');
 
+    //getter and setter for error
     const [error, setError] = useState('');
 
+    //toggle password visibility
     const { passwordVisibility, rightIcon, handlePasswordVisibility } =
         useTogglePasswordVisibility();
 
+    //close modal
     const closeChangePasswordModal = () => {
         setChangePasswordModalOpen(false);
         setPassword('');
@@ -34,6 +37,9 @@ export default function ChangePasswordModal({ isChangePasswordModalOpen, setChan
         setError('');
     }
 
+    //change password function
+    //check password length
+    //check password and repassword match
     const handleChangePassword = () => {
 
         setIsButtonTextOn('none');

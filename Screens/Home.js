@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Text, View, SafeAreaView, TouchableOpacity, ScrollView, Image, FlatList, TouchableWithoutFeedback } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useFonts } from 'expo-font';
 import Card from '../components/card';
 import { styles } from '../styles/globalStyles';
-import { useFocusEffect } from '@react-navigation/native';
+
 
 //moodlet data
 const moodletDATA = [
@@ -60,6 +58,8 @@ const Item = ({ item, backgroundColor, onPress, onLongPress }) => {
 export let mood;
 export let isLogOut;
 
+//setter for isLogout vaiable
+//this will indicate the state of logged out or logged in
 export const setisLogOut = (value) => {
   isLogOut = value;
 }
@@ -79,10 +79,12 @@ export default function Home({ navigation }) {
     mood = imgLink;
   }, [imgLink]);
 
-
+  //this will disable the go back
+  //refresh every time isLogout variable change
   useEffect(() => {
     navigation.addListener('beforeRemove', (e) => {
       e.preventDefault();
+      //if isLogout true, disable the back handler
       if (isLogOut) {
         navigation.dispatch(e.data.action);
       }

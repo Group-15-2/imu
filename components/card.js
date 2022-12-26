@@ -1,8 +1,21 @@
-import React, { useState } from 'react'
+import { updateProfile } from 'firebase/auth';
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput } from "react-native";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { auth } from '../firebaseConfig';
+import { useFocusEffect } from '@react-navigation/native';
 
 export default function Card({ mood }) {
+
+    //setter and getter for profile image url
+    const [photoURL, setPhotoURL] = useState(null);
+
+    //everytime refocus the screen, this will rerendered
+    useFocusEffect(
+        React.useCallback(() => {
+            setPhotoURL(auth.currentUser.photoURL);
+        }, [])
+    );
 
     let viewCount = 270;
 
@@ -85,7 +98,7 @@ export default function Card({ mood }) {
                 <View style={cardStyles.picCommentContainer}>
 
                     <View>
-                        <Image source={require('../assets/test_profile_image.jpg')} style={cardStyles.userimg} />
+                        <Image source={{ uri: photoURL }} style={cardStyles.userimg} />
                         <Image source={mood} style={cardStyles.moodlet} />
                     </View>
 

@@ -7,6 +7,7 @@ import { useTogglePasswordVisibility } from '../styles/useTogglePasswordVisibili
 import { auth } from '../firebaseConfig';
 import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import AuthErrorCheck from '../components/services/AuthErrorCheck';
+import InButtonLoader from '../components/InButtonLoader';
 
 //exports two variable data to store email and password
 //this will use to resend email verification
@@ -15,6 +16,11 @@ export let passwordLocal;
 
 
 export default function Register({ navigation }) {
+
+
+  const [issmallLoaderOn, setIsSmallLoaderOn] = useState('none');
+  const [isBottonTextOn, setIsButtonTextOn] = useState('flex');
+
   const { passwordVisibility, rightIcon, handlePasswordVisibility } =
     useTogglePasswordVisibility();
 
@@ -42,6 +48,10 @@ export default function Register({ navigation }) {
 
   //register users when Register button pressed
   const handleRegister = () => {
+
+    setIsButtonTextOn('none');
+    setIsSmallLoaderOn('flex');
+
     if (isPasswordMatch()) {
 
       //create a user with firebase
@@ -52,10 +62,15 @@ export default function Register({ navigation }) {
           //sent email verification to the currunt user
           sendEmailVerification(auth.currentUser)
             .then(() => {
+              setIsButtonTextOn('flex');
+              setIsSmallLoaderOn('none');
+              setError('');
+
               console.log('Verification Sent!');
               emailLocal = email;
               passwordLocal = password;
               navigation.navigate('VerifyEmail');
+
             });
 
         })
@@ -64,9 +79,15 @@ export default function Register({ navigation }) {
         .catch(error => {
           setError(error.code);
           console.error(error);
+
+          setIsButtonTextOn('flex');
+          setIsSmallLoaderOn('none');
         });
     } else {
       setError('auth/password-not-match');
+
+      setIsButtonTextOn('flex');
+      setIsSmallLoaderOn('none');
     }
   };
 
@@ -133,7 +154,8 @@ export default function Register({ navigation }) {
         </View>
 
         <TouchableOpacity activeOpacity={.7} style={inStyle.txtInt} onPress={handleRegister}>
-          <Text style={inStyle.txt}>Next</Text>
+          <Text style={[inStyle.txt, { display: isBottonTextOn }]}>Next</Text>
+          <InButtonLoader isShow={issmallLoaderOn} />
         </TouchableOpacity>
 
         <AuthErrorCheck error={error} />

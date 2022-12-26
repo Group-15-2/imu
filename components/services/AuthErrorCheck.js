@@ -5,8 +5,10 @@ import { inStyle } from '../../styles/instyle';
 
 export default function AuthErrorCheck({ error }) {
 
+    //getter and setter for error massage
     const [errorMsg, setErrorMsg] = useState('');
 
+    //re run every tim errorMsg changes
     useEffect(() => {
         if (error === 'auth/user-disabled') {
             setErrorMsg(' Email has been disabled');

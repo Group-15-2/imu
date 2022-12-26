@@ -8,6 +8,10 @@ import { emailLocal, passwordLocal } from './Register';
 
 export default function VerifyEmail({ navigation }) {
 
+    //getters and setters for in-button loader display states
+    const [issmallLoaderOn, setIsSmallLoaderOn] = useState('none');
+    const [isBottonTextOn, setIsButtonTextOn] = useState('flex');
+
     //if email is verified navigating to the sing-in screen
     useEffect(() => {
         let interval = setInterval(async () => {
@@ -21,11 +25,14 @@ export default function VerifyEmail({ navigation }) {
             }
             await auth.currentUser.reload();
         }, 2000)
-    }, []);
+    }, [isAnotherEmailHandled]);
 
+    //desable go back
     useEffect(() => {
         navigation.addListener('beforeRemove', (e) => {
             e.preventDefault();
+
+            //if another email button pressed or email verified, back handler will remove
             if (isAnotherEmailHandled || auth.currentUser.emailVerified) {
                 navigation.dispatch(e.data.action);
             }
@@ -67,6 +74,10 @@ export default function VerifyEmail({ navigation }) {
     //when resend button pressed, above functions happens over and over
     //this technique was done to avoid some errors with firebase 
     const handleResendEmail = () => {
+
+        setIsButtonTextOn('none');
+        setIsSmallLoaderOn('flex');
+
         //reload user data
         auth.currentUser.reload();
 
@@ -84,10 +95,16 @@ export default function VerifyEmail({ navigation }) {
                     sendEmailVerification(auth.currentUser)
                         .then(() => {
                             console.log('Verification Resent!');
+
+                            setIsButtonTextOn('flex');
+                            setIsSmallLoaderOn('none');
                         });
                 })
                 .catch(error => {
                     console.error(error);
+
+                    setIsButtonTextOn('flex');
+                    setIsSmallLoaderOn('none');
                 });
         }
     }
@@ -112,9 +129,10 @@ export default function VerifyEmail({ navigation }) {
 
                 <View style={{ paddingTop: 20 }}>
                     <Text style={inStyle.txt3}>Haven’t Received it yet?</Text>
-                    <TouchableOpacity activeOpacity={.7} style={inStyle.v} onPress={handleResendEmail}>
+                    <TouchableOpacity activeOpacity={.7} style={[inStyle.v, { display: isBottonTextOn }]} onPress={handleResendEmail}>
                         <Text style={inStyle.txt2}>Resend Email</Text>
                     </TouchableOpacity>
+                    <ActivityIndicator size="small" color="#1877F2" style={{ display: issmallLoaderOn }} />
                 </View>
 
             </View>
