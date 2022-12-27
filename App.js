@@ -1,5 +1,5 @@
 import 'expo-dev-client';
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import { Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -19,6 +19,9 @@ import Messages from './Screens/Messages'
 import VerifyEmail from './Screens/VerifyEmail';
 import PasswordResetVerify from './Screens/PasswordResetVerify';
 import ProfileScreen from './Screens/Profile';
+import onboard from './Screens/Onboarding';
+import FirstScreen from './Screens/FirstScreen';
+import CheckAuthScreen from './Screens/CheckAuthScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -82,13 +85,16 @@ export function MyTabs({ navigation }) {
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='SignIn' screenOptions={({ route }) => ({ headerShown: false })}>
-        <Stack.Screen name='Home' component={MyTabs} />
+      <Stack.Navigator initialRouteName='FirstScreen' screenOptions={({ route }) => ({ headerShown: false })}>
+        <Stack.Screen name='FirstScreen' component={FirstScreen} />
+        <Stack.Screen name='Onboard' component={onboard} />
+        {/* <Stack.Screen name='CheckAuthScreen' component={CheckAuthScreen} /> */}
         <Stack.Screen name='SignIn' component={SignIn} />
         <Stack.Screen name='PasswordResetVerify' component={PasswordResetVerify} />
         <Stack.Screen name='SignUp' component={Register} />
         <Stack.Screen name='VerifyEmail' component={VerifyEmail} />
         <Stack.Screen name='SignUp1' component={Register1} />
+        <Stack.Screen name='Home' component={MyTabs} />
         <Stack.Screen name='SignUp2' component={Register2} />
         <Stack.Screen name='ChatBox' component={ChatBox} />
       </Stack.Navigator>
