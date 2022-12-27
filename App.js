@@ -84,21 +84,33 @@ export function MyTabs({ navigation }) {
 
 export default function App() {
   return (
-    <NavigationContainer>
+    <NavigationContainer >
       <Stack.Navigator initialRouteName='FirstScreen' screenOptions={({ route }) => ({ headerShown: false })}>
         <Stack.Screen name='FirstScreen' component={FirstScreen} />
         <Stack.Screen name='Onboard' component={onboard} />
-        {/* <Stack.Screen name='CheckAuthScreen' component={CheckAuthScreen} /> */}
+        <Stack.Screen name='CheckAuthScreen' component={CheckAuthScreen} />
+        <Stack.Screen name='Home' component={MyTabs} />
         <Stack.Screen name='SignIn' component={SignIn} />
         <Stack.Screen name='PasswordResetVerify' component={PasswordResetVerify} />
         <Stack.Screen name='SignUp' component={Register} />
         <Stack.Screen name='VerifyEmail' component={VerifyEmail} />
         <Stack.Screen name='SignUp1' component={Register1} />
-        <Stack.Screen name='Home' component={MyTabs} />
         <Stack.Screen name='SignUp2' component={Register2} />
         <Stack.Screen name='ChatBox' component={ChatBox} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
+
+// export default function App() {
+//   return (
+//     <NavigationContainer >
+//       <Stack.Navigator initialRouteName='FirstScreen' screenOptions={({ route }) => ({ headerShown: false })}>
+//         <Stack.Screen name='FirstScreen' component={FirstScreen} />
+//         <Stack.Screen name='Onboard' component={onboard} />
+//         <Stack.Screen name='CheckAuthScreen' component={CheckAuthScreen} />
+//       </Stack.Navigator>
+//     </NavigationContainer>
+//   );
+// }
 

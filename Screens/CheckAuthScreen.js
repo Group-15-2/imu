@@ -2,6 +2,8 @@ import { View, Image, ActivityIndicator } from 'react-native'
 import { useEffect } from 'react'
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebaseConfig';
+import { isAnotherEmailHandled } from './VerifyEmail';
+
 
 export default function CheckAuthScreen({ navigation }) {
 
@@ -9,17 +11,29 @@ export default function CheckAuthScreen({ navigation }) {
     useEffect(() => {
         navigation.addListener('beforeRemove', (e) => {
             e.preventDefault();
+
+            // if (status) {
+            //     navigation.dispatch(e.data.action);
+            // }
         });
     });
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
+            console.log('runned!');
             if (user) {
-                navigation.navigate('Home');
+                if (auth.currentUser.emailVerified) {
+                    navigation.navigate('Home');
+                    console.log(user);
+                }
             } else {
-                navigation.navigate('SignIn');
+                if (isAnotherEmailHandled == false) {
+                    navigation.navigate('SignIn');
+                    console.log(user);
+
+                }
             }
-        }, []);
+        });
 
         return unsubscribe;
     });

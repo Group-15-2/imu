@@ -22,6 +22,10 @@ export const defaultPFP = 'https://firebasestorage.googleapis.com/v0/b/project-i
 
 export default function ProfileScreen({ navigation }) {
 
+  GoogleSignin.configure({
+    webClientId: '167329016926-g2mgqik6qno32g0a06uov8nm83219b80.apps.googleusercontent.com',
+  });
+
   //anonomity on/off status
   const [isEnabled, setIsEnabled] = useState(false);
 
@@ -88,7 +92,7 @@ export default function ProfileScreen({ navigation }) {
     setIsLoaderOpen(true);
     GoogleSignin.signOut();
     auth.signOut().then(() => {
-      navigation.navigate('SignIn');
+      navigation.navigate('CheckAuthScreen');
       setIsLoaderOpen(false);
     }).catch((error) => {
       console.log(error);

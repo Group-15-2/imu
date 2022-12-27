@@ -10,7 +10,7 @@ export default function FirstScreen({ navigation }) {
         const getData = async () => {
             const hasLaunched = await getItemFor(HAS_LAUNCHED);
             if (hasLaunched) {
-                navigation.navigate('SignIn');
+                navigation.navigate('CheckAuthScreen');
             }
             else {
                 await storeData(HAS_LAUNCHED, 'true');
