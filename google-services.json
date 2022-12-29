@@ -14,19 +14,19 @@
       },
       "oauth_client": [
         {
-          "client_id": "167329016926-98b0vkr9tk03d1ql6dcrusicv4na3abb.apps.googleusercontent.com",
+          "client_id": "167329016926-4actso4ntcfo085dv26ha2n2ls900uih.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.beetlejuice.imu",
-            "certificate_hash": "48ef03e88ac64cf8d056f39d556d5d3456951ded"
+            "certificate_hash": "04da2daa253086c3543d478951d55a59465845f7"
           }
         },
         {
-          "client_id": "167329016926-en14plss847pbck79uukb0set3jldbui.apps.googleusercontent.com",
+          "client_id": "167329016926-sgg393e29vhua3v00ggjhn3e8bugf8c5.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.beetlejuice.imu",
-            "certificate_hash": "b47552f1f64a2efca918565c7d2dc5d76a1f1780"
+            "certificate_hash": "c96104d98f1b56933a1f81a30f66309c891b3ffa"
           }
         },
         {

@@ -30,7 +30,6 @@ export default function CheckAuthScreen({ navigation }) {
                 if (isAnotherEmailHandled == false) {
                     navigation.navigate('SignIn');
                     console.log(user);
-
                 }
             }
         });

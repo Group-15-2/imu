@@ -16,6 +16,8 @@ import EditDetailModal from '../components/EditDetailModal';
 import ChangeEmailModal from '../components/ChangeEmailModal';
 import LoadingModal from '../components/LoadingModal';
 import { updateProfile } from 'firebase/auth';
+import { LoginManager } from 'react-native-fbsdk-next';
+import { faker } from '@faker-js/faker';
 
 //default profile pic link from firebase storage
 export const defaultPFP = 'https://firebasestorage.googleapis.com/v0/b/project-imu.appspot.com/o/profile_default%2Fprofile-image.png?alt=media&token=b77c1557-4e43-41e2-ad60-6ca0ecf07475';
@@ -98,9 +100,14 @@ export default function ProfileScreen({ navigation }) {
       console.log(error);
       setIsLoaderOpen(false);
     })
-    // LoginManager.logOut();
+    LoginManager.logOut();
   }
 
+  //fake name generator
+  const nameGenerator = () => {
+    setGeneratedName(faker.random.words(2));
+
+  }
 
 
   return (
@@ -169,7 +176,7 @@ export default function ProfileScreen({ navigation }) {
             </View>
           </View>
 
-          <View style={styled.details}>
+          {/* <View style={styled.details}>
             <Text style={styled.userd}>Phone Number</Text>
             <View style={styled.input}>
               <Text style={styled.txtint}>{phoneNo}</Text>
@@ -181,7 +188,7 @@ export default function ProfileScreen({ navigation }) {
                 />
               </TouchableOpacity>
             </View>
-          </View>
+          </View> */}
 
           <Divider style={styled.divider} />
 
@@ -202,7 +209,7 @@ export default function ProfileScreen({ navigation }) {
             <Text style={styled.userd}>Generated Name</Text>
             <View style={styled.input}>
               <Text style={styled.txtint}>{generatedName}</Text>
-              <TouchableOpacity style={styled.editbtn}>
+              <TouchableOpacity style={styled.editbtn} onPress={nameGenerator}>
                 <Icon
                   name='refresh'
                   color='#000'
