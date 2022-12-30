@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, TextInput } from 'react-native'
+import { View, Text, TouchableOpacity, TextInput, ActivityIndicator } from 'react-native'
 // import Timer from '../components/Timer';
 import { auth } from '../firebaseConfig'
 import { inStyle } from '../styles/instyle';
 import { sendPasswordResetEmail } from "firebase/auth";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import AuthErrorCheck from '../components/services/AuthErrorCheck';
+import InButtonLoader from '../components/InButtonLoader';
 
 export default function PasswordResetVerify({ navigation }) {
 
@@ -18,6 +19,14 @@ export default function PasswordResetVerify({ navigation }) {
     //getters and setters from display option of screen sections
     const [isShow1, setIsShow1] = useState('flex');
     const [isShow2, setIsShow2] = useState('none');
+
+    //getters and setters for in-button loader display states
+    const [issmallLoaderOn, setIsSmallLoaderOn] = useState('none');
+    const [isBottonTextOn, setIsButtonTextOn] = useState('flex');
+
+    //getters and setters for in-button loader display states
+    const [issmallLoaderOn1, setIsSmallLoaderOn1] = useState('none');
+    const [isBottonTextOn1, setIsButtonTextOn1] = useState('flex');
 
     const [time, setTime] = useState(0);
     // const { timerColor, setTimerColor } = useState('#9A9A9A');
@@ -39,23 +48,35 @@ export default function PasswordResetVerify({ navigation }) {
 
     //triggers when Resend Email Button pressed
     const handleResendEmail = () => {
+        setIsButtonTextOn('none');
+        setIsSmallLoaderOn('flex');
+
         sendPasswordResetEmail(auth, email)
             .then(() => {
-                setIsShow1('none');
-                setIsShow2('flex');
+                setIsButtonTextOn('flex');
+                setIsSmallLoaderOn('none');
             })
     }
 
     //triggers when send email button pressed
     const handleSendEmail = () => {
+        setIsButtonTextOn1('none');
+        setIsSmallLoaderOn1('flex');
+
         sendPasswordResetEmail(auth, email)
             .then(() => {
                 setIsShow1('none');
                 setIsShow2('flex');
+
+                setIsButtonTextOn1('flex');
+                setIsSmallLoaderOn1('none');
             })
             .catch((error) => {
                 setError(error.code);
                 console.log(error);
+
+                setIsButtonTextOn1('flex');
+                setIsSmallLoaderOn1('none');
             });
     }
 
@@ -83,7 +104,8 @@ export default function PasswordResetVerify({ navigation }) {
                     </View>
 
                     <TouchableOpacity activeOpacity={.7} style={inStyle.txtInt} onPress={handleSendEmail}>
-                        <Text style={inStyle.txt}>Send Verification</Text>
+                        <Text style={[inStyle.txt, { display: isBottonTextOn1 }]}>Send Verification</Text>
+                        <InButtonLoader isShow={issmallLoaderOn1} />
                     </TouchableOpacity>
 
                     <AuthErrorCheck error={error} />
@@ -106,7 +128,8 @@ export default function PasswordResetVerify({ navigation }) {
                     <View style={{ paddingTop: 20 }}>
                         <Text style={inStyle.txt3}>Haven’t Received it yet?</Text>
                         <TouchableOpacity activeOpacity={.7} style={inStyle.v} onPress={handleResendEmail}>
-                            <Text style={inStyle.txt2}>Resend Email</Text>
+                            <Text style={[inStyle.txt2, { display: isBottonTextOn }]}>Resend Email</Text>
+                            <ActivityIndicator size="small" color="#1877F2" style={{ display: issmallLoaderOn }} />
                         </TouchableOpacity>
                     </View>
 
