@@ -6,6 +6,9 @@ import { inStyle } from '../styles/instyle';
 import { sendEmailVerification, createUserWithEmailAndPassword } from "firebase/auth";
 import { emailLocal, passwordLocal } from './Register';
 
+//indicates whether the change Another Email Button pressed or not
+export let isAnotherEmailHandled = false;
+
 export default function VerifyEmail({ navigation }) {
 
     //getters and setters for in-button loader display states
@@ -58,8 +61,7 @@ export default function VerifyEmail({ navigation }) {
     //     };
     // }
 
-    //indicates whether the change Another Email Button pressed or not
-    let isAnotherEmailHandled = false;
+
 
     //triggers when Another Email Button pressed
     const handleAnotherEmail = () => {

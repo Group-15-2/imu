@@ -2,8 +2,11 @@
 import { View, Text } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { inStyle } from '../../styles/instyle';
+import ReAuthenticateModal from '../ReAuthenticateModal';
 
 export default function AuthErrorCheck({ error }) {
+
+    const [isReAuthenticateModalOpenEmail, setReAuthenticateModalOpenEmail] = useState(false);
 
     //getter and setter for error massage
     const [errorMsg, setErrorMsg] = useState('');
@@ -14,7 +17,15 @@ export default function AuthErrorCheck({ error }) {
             setErrorMsg(' Email has been disabled');
         }
 
+        // if (error === 'auth/user-token-expired') {
+        //     setReAuthenticateModalOpenEmail(true);
+        // }
+
         if (error === 'auth/invalid-email') {
+            setErrorMsg('Email address is invalid!');
+        }
+
+        if (error === 'auth/invalid-new-email') {
             setErrorMsg('Email address is invalid!');
         }
 
@@ -70,6 +81,7 @@ export default function AuthErrorCheck({ error }) {
     return (
         <View>
             <Text style={inStyle.error}>{errorMsg}</Text>
+            {/* <ReAuthenticateModal isReAuthenticateModalOpen={isReAuthenticateModalOpenEmail} setReAuthenticateModalOpen={setReAuthenticateModalOpenEmail} /> */}
         </View>
     )
 }

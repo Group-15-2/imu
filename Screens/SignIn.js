@@ -3,7 +3,7 @@ import { Pressable, TextInput, View, Text, TouchableOpacity, Image } from 'react
 import { Divider, SocialIcon } from '@rneui/themed';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { inStyle } from '../styles/instyle';
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from '../firebaseConfig';
 import { useTogglePasswordVisibility } from '../styles/useTogglePasswordVisibility';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
@@ -15,6 +15,13 @@ import InButtonLoader from '../components/InButtonLoader';
 
 
 export default function SignIn({ navigation }) {
+
+    //desable go back
+    useEffect(() => {
+        navigation.addListener('beforeRemove', (e) => {
+            e.preventDefault();
+        });
+    });
 
     //getters and setters for in-button loader display states
     const [issmallLoaderOn, setIsSmallLoaderOn] = useState('none');
@@ -31,6 +38,8 @@ export default function SignIn({ navigation }) {
 
     //getter and setter for error
     const [error, setError] = useState('');
+
+
 
     //register users when trigger
     const handleSignIn = () => {
