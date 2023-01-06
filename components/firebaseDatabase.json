@@ -1,0 +1,42 @@
+{
+    "messagesGlobal": {
+        "id": {
+            "chatHead": [
+                {
+                    "senderId": "",
+                    "userName": "",
+                    "userImg": "",
+                    "moodlet": "",
+                    "messageTime": "",
+                    "messageText": ""
+                }
+            ],
+            "messageRoom": [
+                {
+                    "senderId": [
+                        {
+                            "senderHeader": {
+                                "userName": "",
+                                "userImg": "",
+                                "moodlet": "",
+                                "online": true
+                            }
+                        },
+                        {
+                            "messages": [
+                                {
+                                    "_id": 1,
+                                    "text": "Hello developer",
+                                    "createdAt": "",
+                                    "user": {
+                                        "_id": 2
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}
