@@ -5,8 +5,7 @@ const thStyles = StyleSheet.create({
     header: {
         fontSize: 30, 
         fontWeight: 'bold',  
-        marginLeft: 16, 
-        paddingTop: 30, 
+        marginLeft: 16,
         color: '#1877F2', 
     },
 

@@ -118,7 +118,7 @@ export default function ProfileScreen({ navigation }) {
         </Text>
 
         <TouchableOpacity onPress={() => setConfirmModalOpen(true)}>
-          <View style={{ flexDirection: 'row', marginRight: 16, paddingTop: 33, }}>
+          <View style={{ flexDirection: 'row', marginRight: 16, marginTop:8 }}>
             <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#504F4F', paddingRight: 10 }}>Logout</Text>
             <Image source={require('../assets/logout.png')} style={{ height: 30, width: 30 }} />
           </View>

@@ -11,9 +11,10 @@ import Register from './Screens/Register';
 import Register1 from './Screens/Register1';
 import Register2 from './Screens/Register2';
 import ChatBox from './Screens/ChatBox';
+import ThoughtC from './components/thought'
 
 import Home from './Screens/Home'
-import AddPost from './Screens/AddPost'
+import AddPost from './Screens/Addpost'
 import Thoughts from './Screens/Thoughts'
 import Messages from './Screens/Messages'
 import VerifyEmail from './Screens/VerifyEmail';
@@ -97,6 +98,7 @@ export default function App() {
         <Stack.Screen name='SignUp1' component={Register1} />
         <Stack.Screen name='SignUp2' component={Register2} />
         <Stack.Screen name='ChatBox' component={ChatBox} />
+        <Stack.Screen name='Thought' component={ThoughtC} />
       </Stack.Navigator>
     </NavigationContainer>
   );
