@@ -13,7 +13,7 @@ import Register2 from './Screens/Register2';
 import ChatBox from './Screens/ChatBox';
 
 import Home from './Screens/Home'
-import AddPost from './Screens/AddPost'
+import AddPost from './Screens/Addpost'
 import Thoughts from './Screens/Thoughts'
 import Messages from './Screens/Messages'
 import VerifyEmail from './Screens/VerifyEmail';
