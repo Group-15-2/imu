@@ -6,7 +6,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import { mood, setisLogOut } from './Home';
 import { Divider } from '@rneui/themed';
 import { inStyle } from '../styles/instyle';
-import { auth } from '../firebaseConfig';
+import { auth, database } from '../firebaseConfig';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import ImagePickerScreen from '../components/ImagePickerScreen';
 import ConfirmModal from '../components/ConfirmModal';
@@ -18,6 +18,7 @@ import LoadingModal from '../components/LoadingModal';
 import { updateProfile } from 'firebase/auth';
 import { LoginManager } from 'react-native-fbsdk-next';
 import { faker } from '@faker-js/faker';
+import { get, ref, set, update } from 'firebase/database';
 
 //default profile pic link from firebase storage
 export const defaultPFP = 'https://firebasestorage.googleapis.com/v0/b/project-imu.appspot.com/o/profile_default%2Fprofile-image.png?alt=media&token=b77c1557-4e43-41e2-ad60-6ca0ecf07475';
@@ -28,11 +29,32 @@ export default function ProfileScreen({ navigation }) {
     webClientId: '167329016926-g2mgqik6qno32g0a06uov8nm83219b80.apps.googleusercontent.com',
   });
 
+  //getters and setters for profile details
+  const [name, setName] = useState();
+  const [email, setEmail] = useState();
+  const [phoneNo, setPhoneNo] = useState();
+  const [PFP, setPFP] = useState();
+  const [UID, setUID] = useState();
+  const [generatedName, setGeneratedName] = useState(null);
+
+  //getters and setters for modal visibility state
+  const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
+  const [isReAuthenticateModalOpenPassword, setReAuthenticateModalOpenPassword] = useState(false);
+  const [isReAuthenticateModalOpenEmail, setReAuthenticateModalOpenEmail] = useState(false);
+  const [isChangePasswordModalOpen, setChangePasswordModalOpen] = useState(false);
+  const [isNameModalOpen, setNameModalOpen] = useState(false);
+  const [isPhoneModalOpen, setPhoneModalOpen] = useState(false);
+  const [isEmailChangeModalOpen, setEmailChangeModalOpen] = useState(false);
+  const [isLoaderOpen, setIsLoaderOpen] = useState(false);
+
+
   //anonomity on/off status
-  const [isEnabled, setIsEnabled] = useState(false);
+  const [isEnabled, setIsEnabled] = useState(true);
 
   //on change of anonimity switch
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  const toggleSwitch = () => {
+    setIsEnabled(previousState => !previousState);
+  };
 
   //update moodlet image link from the home
   const [imgLink, setImgLink] = useState(null);
@@ -45,6 +67,20 @@ export default function ProfileScreen({ navigation }) {
     }, [])
   );
 
+  //get data drom db
+  useEffect(() => {
+    setIsLoaderOpen(true);
+
+    get(userDataRef).then((snapshot) => {
+      setGeneratedName(snapshot.val().generatedName);
+      setIsEnabled(snapshot.val().anonimity);
+      setIsLoaderOpen(false);
+    })
+  }, []);
+
+  //realtime database ref for userData
+  const userDataRef = ref(database, 'userData/' + auth.currentUser.uid);
+
   //update profile details every time they change
   useEffect(() => {
     setName(auth.currentUser.displayName);
@@ -53,7 +89,9 @@ export default function ProfileScreen({ navigation }) {
     setPhoneNo(auth.currentUser.phoneNumber);
     setUID(auth.currentUser.uid);
 
-    //if profile pic is black, set a default profile picture
+
+
+    //if profile pic is blank, set a default profile picture
     if (auth.currentUser.photoURL == '' || auth.currentUser.photoURL == null) {
       setIsLoaderOpen(true);
       updateProfile(auth.currentUser, {
@@ -65,25 +103,16 @@ export default function ProfileScreen({ navigation }) {
       });
     }
 
-  }, [auth.currentUser.email, auth.currentUser.phoneNumber, auth.currentUser.displayName, auth.currentUser.photoURL, auth.currentUser.uid]);
+    //updates data in firebase realtime db
+    update(userDataRef, {
+      id: auth.currentUser.uid,
+      userName: auth.currentUser.displayName,
+      userImg: auth.currentUser.photoURL,
+      anonimity: isEnabled
+    });
 
-  //getters and setters for profile details
-  const [name, setName] = useState();
-  const [email, setEmail] = useState();
-  const [phoneNo, setPhoneNo] = useState();
-  const [PFP, setPFP] = useState();
-  const [UID, setUID] = useState();
-  const [generatedName, setGeneratedName] = useState();
+  }, [auth.currentUser.email, auth.currentUser.phoneNumber, auth.currentUser.displayName, auth.currentUser.photoURL, auth.currentUser.uid, isEnabled]);
 
-  //getters and setters for modal visibility state
-  const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
-  const [isReAuthenticateModalOpenPassword, setReAuthenticateModalOpenPassword] = useState(false);
-  const [isReAuthenticateModalOpenEmail, setReAuthenticateModalOpenEmail] = useState(false);
-  const [isChangePasswordModalOpen, setChangePasswordModalOpen] = useState(false);
-  const [isNameModalOpen, setNameModalOpen] = useState(false);
-  const [isPhoneModalOpen, setPhoneModalOpen] = useState(false);
-  const [isEmailChangeModalOpen, setEmailChangeModalOpen] = useState(false);
-  const [isLoaderOpen, setIsLoaderOpen] = useState(false);
 
   //logout function
   const handleLogOut = async () => {
@@ -105,8 +134,11 @@ export default function ProfileScreen({ navigation }) {
 
   //fake name generator
   const nameGenerator = () => {
-    setGeneratedName(faker.random.words(2));
-
+    const name = faker.random.words(2);
+    setGeneratedName(name);
+    update(userDataRef, {
+      generatedName: name
+    });
   }
 
 

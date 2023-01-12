@@ -1,6 +1,8 @@
+import { update } from 'firebase/database';
 import React, { useState, useEffect } from 'react'
 import { Text, View, SafeAreaView, TouchableOpacity, ScrollView, Image, FlatList, TouchableWithoutFeedback } from 'react-native';
 import Card from '../components/card';
+import { userDataRef } from '../components/services/updateBackEndUserData';
 import { styles } from '../styles/globalStyles';
 import { isExpired } from './CheckAuthScreen';
 
@@ -78,6 +80,9 @@ export default function Home({ navigation }) {
   //everytime imgLink change, mood will update
   useEffect(() => {
     mood = imgLink;
+    update(userDataRef, {
+      moodlet: imgLink
+    })
   }, [imgLink]);
 
   //this will disable the go back

@@ -5,6 +5,7 @@ import { GoogleAuthProvider, onAuthStateChanged, signInWithCredential } from "fi
 import { auth } from '../firebaseConfig';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { setisLogOut } from '../Screens/Home';
+import { updateBackEndUserData } from './services/updateBackEndUserData';
 
 
 export default function SignInWithGoogle({ navigation, setError }) {
@@ -28,6 +29,7 @@ export default function SignInWithGoogle({ navigation, setError }) {
 
         // Sign-in the user with the credential
         await signInWithCredential(auth, googleCredential).then(() => {
+            updateBackEndUserData();
             setisLogOut(false);
             navigation.navigate('Home');
 
