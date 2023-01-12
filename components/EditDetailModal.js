@@ -7,6 +7,7 @@ import { useTogglePasswordVisibility } from '../styles/useTogglePasswordVisibili
 import { styled } from '../styles/feedStyle';
 import { updateProfile } from "firebase/auth";
 import { auth } from '../firebaseConfig';
+import AuthErrorCheck from './services/AuthErrorCheck';
 
 
 let header;
@@ -19,6 +20,8 @@ let keyboardType;
 export default function EditDetailModal({ type, value, visibility, setVisibility }) {
 
     const [text, setText] = useState('');
+
+    // const [error, setError] = useState('');
 
     useEffect(() => {
         setText(value);
@@ -64,6 +67,8 @@ export default function EditDetailModal({ type, value, visibility, setVisibility
                     // An error occurred
                     // ...
                     console.log(error);
+                    // setError(error.code);
+
                 });
             }
 
@@ -103,6 +108,10 @@ export default function EditDetailModal({ type, value, visibility, setVisibility
                             />
                         </View>
                     </View>
+
+                    {/* <View style={{ display: 'none' }}>
+                        <AuthErrorCheck error={error} />
+                    </View> */}
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-around', paddingTop: 10 }}>
                         <TouchableOpacity onPress={closeModal}>

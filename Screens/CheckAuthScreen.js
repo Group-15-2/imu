@@ -4,6 +4,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebaseConfig';
 import { isAnotherEmailHandled } from './VerifyEmail';
 
+export let isExpired = false;
 
 export default function CheckAuthScreen({ navigation }) {
 
@@ -23,11 +24,13 @@ export default function CheckAuthScreen({ navigation }) {
             console.log('runned!');
             if (user) {
                 if (auth.currentUser.emailVerified) {
+                    isExpired = false;
                     navigation.navigate('Home');
                     console.log(user);
                 }
             } else {
                 if (isAnotherEmailHandled == false) {
+                    isExpired = true;
                     navigation.navigate('SignIn');
                     console.log(user);
                 }

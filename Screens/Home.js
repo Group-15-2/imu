@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Text, View, SafeAreaView, TouchableOpacity, ScrollView, Image, FlatList, TouchableWithoutFeedback } from 'react-native';
 import Card from '../components/card';
 import { styles } from '../styles/globalStyles';
+import { isExpired } from './CheckAuthScreen';
 
 
 //moodlet data
@@ -85,11 +86,11 @@ export default function Home({ navigation }) {
     navigation.addListener('beforeRemove', (e) => {
       e.preventDefault();
       //if isLogout true, disable the back handler
-      if (isLogOut) {
+      if (isLogOut || isExpired) {
         navigation.dispatch(e.data.action);
       }
     });
-  }, [isLogOut]);
+  }, [isLogOut, isExpired]);
 
 
   const renderItem = ({ item }) => {

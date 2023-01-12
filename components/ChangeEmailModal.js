@@ -5,7 +5,7 @@ import { modalStyle } from '../styles/modalStyle';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTogglePasswordVisibility } from '../styles/useTogglePasswordVisibility';
 import { styled } from '../styles/feedStyle';
-import { updateEmail, updateProfile } from "firebase/auth";
+import { updateEmail, updateProfile, verifyBeforeUpdateEmail } from "firebase/auth";
 import { auth } from '../firebaseConfig';
 import AuthErrorCheck from './services/AuthErrorCheck';
 import ConfirmModal from './ConfirmModal';
@@ -19,12 +19,17 @@ export default function ChangeEmailModal({ visibility, setVisibility }) {
     const [issmallLoaderOn, setIsSmallLoaderOn] = useState('none');
     const [isBottonTextOn, setIsButtonTextOn] = useState('flex');
 
+    //getters and setters for in-button loader display states(resend email button)
+    const [issmallLoaderOn1, setIsSmallLoaderOn1] = useState('none');
+    const [isBottonTextOn1, setIsButtonTextOn1] = useState('flex');
+
     const [email, setEmail] = useState('');
 
     const [error, setError] = useState('');
 
     const [isChildModalOpen, setIsChildModalOpen] = useState(false);
     const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
+    const [isLastModalOpen, setIsLastModalOpen] = useState(false);
 
     const closeModal = () => {
         setVisibility(false);
@@ -34,6 +39,12 @@ export default function ChangeEmailModal({ visibility, setVisibility }) {
     const closeChildModal = () => {
         setError('');
         setIsChildModalOpen(false);
+    }
+
+    const closeLastModal = () => {
+        setEmail('');
+        setError('');
+        setIsLastModalOpen(false);
     }
 
     const handleNext = () => {
@@ -60,9 +71,10 @@ export default function ChangeEmailModal({ visibility, setVisibility }) {
         setIsButtonTextOn('none');
         setIsSmallLoaderOn('flex');
 
-        updateEmail(auth.currentUser, email).then(() => {
+        verifyBeforeUpdateEmail(auth.currentUser, email).then(() => {
             setIsChildModalOpen(false);
-            setEmail('');
+            setIsLastModalOpen(true);
+
             setError('');
 
             setIsButtonTextOn('flex');
@@ -80,6 +92,23 @@ export default function ChangeEmailModal({ visibility, setVisibility }) {
     const handleYes = () => {
         setConfirmModalOpen(false);
         changeEmail();
+    }
+
+    const handleResendEmail = () => {
+        setIsButtonTextOn1('none');
+        setIsSmallLoaderOn1('flex');
+        verifyBeforeUpdateEmail(auth.currentUser, email).then(() => {
+            setError('');
+
+            setIsButtonTextOn1('flex');
+            setIsSmallLoaderOn1('none');
+        }).catch((error) => {
+            console.log(error);
+            setError(error.code);
+
+            setIsButtonTextOn1('flex');
+            setIsSmallLoaderOn1('none');
+        });
     }
 
     return (
@@ -135,7 +164,7 @@ export default function ChangeEmailModal({ visibility, setVisibility }) {
 
                         </View>
 
-                        <Text style={[styled.userd, { color: 'red', fontSize: 15, fontWeight: 'bold', paddingTop: 10 }]}>Make sure you entered your email correct. This will be permanent and you can't undo!</Text>
+                        <Text style={[styled.userd, { color: 'red', fontSize: 15, fontWeight: 'bold', paddingTop: 10 }]}>Make sure you entered your email correctly!</Text>
 
 
                         <TouchableOpacity activeOpacity={.7} style={[inStyle.txtInt, { backgroundColor: 'red' }]} onPress={handleUpdateEmail}>
@@ -153,6 +182,27 @@ export default function ChangeEmailModal({ visibility, setVisibility }) {
                             <Text style={inStyle.txt}>Use Another Email</Text>
                         </TouchableOpacity>
 
+                    </View>
+                </View>
+            </Modal>
+
+            <Modal visible={isLastModalOpen} transparent={true} onRequestClose={closeLastModal}>
+                <View style={modalStyle.changeEmailModal}>
+                    <View style={modalStyle.container}>
+
+                        <Text style={modalStyle.header}>Verify Email</Text>
+                        <Text style={styled.userd}>We've sent a verification email to {email}</Text>
+
+                        <Text style={[styled.userd, { color: 'white', fontSize: 15, fontWeight: 'bold', paddingTop: 10 }]}>Go to your email and verify it to update your new email</Text>
+
+                        <TouchableOpacity activeOpacity={.7} style={inStyle.v} onPress={handleResendEmail}>
+                            <Text style={[inStyle.txt2, { display: isBottonTextOn1 }]}>Resend Email</Text>
+                            <InButtonLoader isShow={issmallLoaderOn1} />
+                        </TouchableOpacity>
+
+                        <TouchableOpacity activeOpacity={.7} style={inStyle.txtInt} onPress={closeLastModal}>
+                            <Text style={inStyle.txt}>Done</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </Modal>
