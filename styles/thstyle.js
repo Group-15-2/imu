@@ -61,8 +61,26 @@ const thStyles = StyleSheet.create({
 
     thought: {
         fontSize: 16,
+    },
+    txtinput: {
+        height:'80%',
+        margin:5,
+        padding:10, 
+        fontSize:16, 
+        textAlignVertical:'top', 
+        borderRadius: 10,
+        borderWidth:2,
+        borderColor: '#6C6C6C'
+    },
+    txtinput1: {
+        margin:5,
+        padding:10, 
+        fontSize:16,  
+        borderRadius: 10,
+        borderWidth:2,
+        borderColor: '#6C6C6C'
     }
-
+    
 })
 
 export { thStyles }

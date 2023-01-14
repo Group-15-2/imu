@@ -1,10 +1,11 @@
-import * as React from 'react';
+import React,{ useState, useEffect} from 'react';
 import { Text, View, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { thStyles } from '../styles/thstyle';
 
 export default function Thoughts({navigation}) {
+
   return (
     <SafeAreaView>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
