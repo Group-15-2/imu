@@ -1,10 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import { Text, View, ScrollView, TouchableOpacity, TextInput } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { thStyles } from '../styles/thstyle';
 import { auth, database } from '../firebaseConfig';
-import { ref, set, update } from 'firebase/database';
+import { ref, set, update, push, child } from 'firebase/database';
 import moment from 'moment/moment';
 
 export default function Thought({navigation}) {
@@ -12,32 +12,35 @@ export default function Thought({navigation}) {
   const [title, setTitle] = useState('');
   const [note, setNote] = useState('');
   const [time, setTime] = useState('');
-  const [date, setDate] = useState('');
+  //Generate new key
+  const newKey = push(child(ref(database), 'notes')).key
+
 
   useEffect(() => {
-    var time = moment()
+    var time = moment()//Set Current Time
       .utcOffset('+05:30')
-      .format(' hh:mm a');
+      .format(' hh:mm A');
     setTime(time);
-    var date = new Date().getDate(); //Current Date
-    var month = new Date().getMonth() + 1; //Current Month
-    var year = new Date().getFullYear(); //Current Year
-    setDate( date + '/' + month + '/' + year );
+    
   }, []);
 
   function save() {
-    set(ref(database, '/notes'), {
+    //Set Data in database
+    set(ref(database, 'notes/' + newKey), {
       title: title,
       note: note,
-      date: date,
       time: time
     }).then(() => {
       alert('Note Saved');
     })
       .catch((error) => {
         alert(error)
-      });
+      })
+    navigation.navigate('Thoughts'); 
+    setTitle('');
+    setNote(''); 
   };
+
 
   return (
     <SafeAreaView>
@@ -74,4 +77,4 @@ export default function Thought({navigation}) {
       </View>
     </SafeAreaView>
   );
-}  
+}

@@ -97,6 +97,7 @@ export default function App() {
         <Stack.Screen name='VerifyEmail' component={VerifyEmail} />
         <Stack.Screen name='SignUp1' component={Register1} />
         <Stack.Screen name='SignUp2' component={Register2} />
+        <Stack.Screen name='Thoughts' component={Thoughts} />
         <Stack.Screen name='ChatBox' component={ChatBox} />
         <Stack.Screen name='Thought' component={ThoughtC} />
       </Stack.Navigator>

@@ -1,10 +1,32 @@
 import React,{ useState, useEffect} from 'react';
-import { Text, View, ScrollView, TouchableOpacity, Image } from 'react-native';
+import { Text, View, ScrollView, TouchableOpacity, FlatList } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { database } from '../firebaseConfig';
+import { ref, set, onValue, push } from '@firebase/database';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { thStyles } from '../styles/thstyle';
 
 export default function Thoughts({navigation}) {
+
+  const [ noteData, setNoteData ] = useState('');
+  const [ date, setDate ] = useState('');
+
+  useEffect(() => {
+    const starCounRef = ref(database, 'notes/');
+    onValue(starCounRef, (snapshot) => {
+      const data = snapshot.val();
+      const newNotes = Object.keys(data).map(key => ({
+        id:key,
+        ...data[key]
+      }));
+    var date = new Date().getDate(); //Current Date
+    var month = new Date().getMonth() + 1; //Current Month
+    var year = new Date().getFullYear(); //Current Year
+    setDate( date + '/' + month + '/' + year );
+    console.log(newNotes);
+    setNoteData(newNotes);
+    })
+  }, []);
 
   return (
     <SafeAreaView>
@@ -20,26 +42,32 @@ export default function Thoughts({navigation}) {
       </TouchableOpacity>
       </View>  
       <View style={thStyles.card}>
-        <ScrollView>
-        <View style={thStyles.content}>
-          <Text style={thStyles.date}>Today</Text>
-        </View>
-        <View >
-        <View style={{flexDirection:'row'}}>
-            <View style={thStyles.c1}>
-              <View style={thStyles.nameContainer}>
-                <View>
-                    <Text style={thStyles.thought}>People Need Help</Text>
-                    <Text style={thStyles.t}>People need help People expect alot and end up havin none</Text>
-                </View>
+      <View>
+      <FlatList
+            data={noteData}
+            keyExtractor={item => item.id}
+            renderItem={({ item, index }) => (
+              <View key={index}>
+              <View style={thStyles.content}>
+                <Text style={thStyles.date}>{date}</Text>
               </View>
-            </View>
-            <View style={thStyles.c2}>
-            <Text style={thStyles.txt}>15.02 PM</Text>
-            </View>  
-          </View>
-        </View>
-        </ScrollView>
+              <View style={{ flexDirection: 'row' }}>
+                  <View style={thStyles.c1}>
+                    <View style={thStyles.nameContainer}>
+                      <View>
+                        <Text style={thStyles.thought}>{item.title}</Text>
+                        <Text style={thStyles.t}>{item.note}</Text>
+                      </View>
+                    </View>
+                  </View>
+                  <View style={thStyles.c2}>
+                    <Text style={thStyles.txt}>{item.time}</Text>
+                  </View>
+              </View>
+              </View>
+            )}
+        />
+      </View> 
       </View>
     </SafeAreaView>
   );
