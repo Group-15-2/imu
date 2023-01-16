@@ -9,7 +9,6 @@ import { thStyles } from '../styles/thstyle';
 export default function Thoughts({navigation}) {
 
   const [ noteData, setNoteData ] = useState('');
-  const [ date, setDate ] = useState('');
 
   useEffect(() => {
     const starCounRef = ref(database, 'notes/');
@@ -19,10 +18,6 @@ export default function Thoughts({navigation}) {
         id:key,
         ...data[key]
       }));
-    var date = new Date().getDate(); //Current Date
-    var month = new Date().getMonth() + 1; //Current Month
-    var year = new Date().getFullYear(); //Current Year
-    setDate( date + '/' + month + '/' + year );
     console.log(newNotes);
     setNoteData(newNotes);
     })
@@ -49,7 +44,7 @@ export default function Thoughts({navigation}) {
             renderItem={({ item, index }) => (
               <View key={index}>
               <View style={thStyles.content}>
-                <Text style={thStyles.date}>{date}</Text>
+                <Text style={thStyles.date}>{item.date}</Text>
               </View>
               <View style={{ flexDirection: 'row' }}>
                   <View style={thStyles.c1}>

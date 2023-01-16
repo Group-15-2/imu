@@ -12,6 +12,7 @@ export default function Thought({navigation}) {
   const [title, setTitle] = useState('');
   const [note, setNote] = useState('');
   const [time, setTime] = useState('');
+  const [date, setDate] = useState('');
   //Generate new key
   const newKey = push(child(ref(database), 'notes')).key
 
@@ -21,7 +22,10 @@ export default function Thought({navigation}) {
       .utcOffset('+05:30')
       .format(' hh:mm A');
     setTime(time);
-    
+    var date = new Date().getDate(); //Current Date
+    var month = new Date().getMonth() + 1; //Current Month
+    var year = new Date().getFullYear(); //Current Year
+    setDate( date + '/' + month + '/' + year );
   }, []);
 
   function save() {
@@ -29,14 +33,15 @@ export default function Thought({navigation}) {
     set(ref(database, 'notes/' + newKey), {
       title: title,
       note: note,
-      time: time
+      time: time,
+      date: date
     }).then(() => {
       alert('Note Saved');
     })
       .catch((error) => {
         alert(error)
       })
-    navigation.navigate('Thoughts'); 
+    navigation.navigate('Home'); 
     setTitle('');
     setNote(''); 
   };
