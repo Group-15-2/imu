@@ -33,6 +33,7 @@ export default function SignInWithGoogle({ navigation, setError }) {
             setisLogOut(false);
             navigation.navigate('Home');
 
+
         }).catch((e) => {
             setError(e.code);
 

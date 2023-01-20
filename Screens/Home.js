@@ -84,6 +84,9 @@ export default function Home({ navigation }) {
     mood = imgLink;
   }, [imgLink]);
 
+  //identify the status of get info from backend
+  const [isGetSuccess, setIsGetSuccess] = useState(null);
+
   //get data from backend and update
   useEffect(() => {
     get(userDataRef).then((snapshot) => {
@@ -91,7 +94,10 @@ export default function Home({ navigation }) {
       setImgLink(snapshot.val().moodlet);
       setSelectedMood(snapshot.val().mood);
     })
-  }, []);
+      .catch((e) => {
+        setIsGetSuccess(e);
+      })
+  }, [isGetSuccess]);
 
   //this will disable the go back
   //refresh every time isLogout variable change
