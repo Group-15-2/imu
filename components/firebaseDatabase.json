@@ -1,42 +1,66 @@
 {
     "messagesGlobal": {
-        "id": {
-            "chatHead": [
-                {
-                    "senderId": "",
-                    "userName": "",
-                    "userImg": "",
-                    "moodlet": "",
-                    "messageTime": "",
-                    "messageText": ""
-                }
-            ],
-            "messageRoom": [
-                {
-                    "senderId": [
-                        {
-                            "senderHeader": {
-                                "userName": "",
-                                "userImg": "",
-                                "moodlet": "",
-                                "online": true
-                            }
-                        },
-                        {
-                            "messages": [
-                                {
-                                    "_id": 1,
-                                    "text": "Hello developer",
-                                    "createdAt": "",
-                                    "user": {
-                                        "_id": 2
-                                    }
+        "chatHead": [
+            {
+                "id": [
+                    {
+                        "senderId": "",
+                        "userName": "",
+                        "userImg": "",
+                        "moodlet": "",
+                        "messageTime": "",
+                        "messageText": "",
+                        "chatRoomId": ""
+                    }
+                ]
+            }
+        ],
+        "chatRoom": [
+            {
+                "chatRoomId": [
+                    {
+                        "chatRoomHeader": [
+                            {
+                                "id1": {
+                                    "userName": "",
+                                    "userImg": "",
+                                    "moodlet": "",
+                                    "online": true
                                 }
-                            ]
-                        }
-                    ]
-                }
-            ]
+                            },
+                            {
+                                "id2": {
+                                    "userName": "",
+                                    "userImg": "",
+                                    "moodlet": "",
+                                    "online": true
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "messages": [
+                            {
+                                "_id": 1,
+                                "text": "Hello developer",
+                                "createdAt": "",
+                                "user": {
+                                    "_id": 2
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "userData": [
+        {
+            "id": "",
+            "userName": "",
+            "GeneratedName": "",
+            "userImg": "",
+            "moodlet": ""
         }
-    }
+    ]
 }

@@ -1,6 +1,8 @@
+import { get, ref, update } from 'firebase/database';
 import React, { useState, useEffect } from 'react'
 import { Text, View, SafeAreaView, TouchableOpacity, ScrollView, Image, FlatList, TouchableWithoutFeedback } from 'react-native';
 import Card from '../components/card';
+import { auth, database } from '../firebaseConfig';
 import { styles } from '../styles/globalStyles';
 import { isExpired } from './CheckAuthScreen';
 
@@ -75,10 +77,20 @@ export default function Home({ navigation }) {
   //update selectedColor of the FlatList
   const [selectedMood, setSelectedMood] = useState('How are you Feeling \ntoday?');
 
+  const userDataRef = ref(database, 'userData/' + auth.currentUser.uid);
+
   //everytime imgLink change, mood will update
   useEffect(() => {
     mood = imgLink;
   }, [imgLink]);
+
+  useEffect(() => {
+    get(userDataRef).then((snapshot) => {
+      setSelectedId(snapshot.val().moodId);
+      setImgLink(snapshot.val().moodlet);
+      setSelectedMood(snapshot.val().mood);
+    })
+  }, []);
 
   //this will disable the go back
   //refresh every time isLogout variable change
@@ -103,6 +115,11 @@ export default function Home({ navigation }) {
       setSelectedId(item.id);
       setImgLink(item.link);
       setSelectedMood(item.mood);
+      update(userDataRef, {
+        moodlet: item.link,
+        mood: item.mood,
+        moodId: item.id
+      })
     };
 
     //deselects an item from the flatlist on press hold
@@ -110,6 +127,11 @@ export default function Home({ navigation }) {
       setSelectedId(null);
       setImgLink(require('../assets/moodlets/add.png'));
       setSelectedMood('How are you Feeling \ntoday?');
+      update(userDataRef, {
+        moodlet: require('../assets/moodlets/add.png'),
+        mood: "How are you Feeling \ntoday?",
+        moodId: null
+      })
     };
 
     return (
