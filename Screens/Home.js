@@ -75,8 +75,8 @@ export default function Home({ navigation }) {
   const [selectedId, setSelectedId] = useState(null);
 
   //update selectedColor of the FlatList
-  const [selectedMood, setSelectedMood] = useState('How are you Feeling \ntoday?');
-
+  const [selectedMood, setSelectedMood] = useState("Loading");
+  //backend database ref
   const userDataRef = ref(database, 'userData/' + auth.currentUser.uid);
 
   //everytime imgLink change, mood will update
@@ -84,6 +84,7 @@ export default function Home({ navigation }) {
     mood = imgLink;
   }, [imgLink]);
 
+  //get data from backend and update
   useEffect(() => {
     get(userDataRef).then((snapshot) => {
       setSelectedId(snapshot.val().moodId);
@@ -115,6 +116,8 @@ export default function Home({ navigation }) {
       setSelectedId(item.id);
       setImgLink(item.link);
       setSelectedMood(item.mood);
+
+      //update in backend
       update(userDataRef, {
         moodlet: item.link,
         mood: item.mood,
@@ -127,6 +130,8 @@ export default function Home({ navigation }) {
       setSelectedId(null);
       setImgLink(require('../assets/moodlets/add.png'));
       setSelectedMood('How are you Feeling \ntoday?');
+
+      //update in backend
       update(userDataRef, {
         moodlet: require('../assets/moodlets/add.png'),
         mood: "How are you Feeling \ntoday?",
