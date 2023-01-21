@@ -61,6 +61,7 @@ export default function Thoughts({navigation}) {
               </View>
               </View>
             )}
+            inverted='true'
         />
       </View> 
       </View>
