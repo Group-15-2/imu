@@ -14,7 +14,7 @@ import ChatBox from './Screens/ChatBox';
 import ThoughtC from './components/thought'
 
 import Home from './Screens/Home'
-import AddPost from './Screens/AddPost'
+import AddPost from './Screens/Addpost'
 import Thoughts from './Screens/Thoughts'
 import Messages from './Screens/Messages'
 import VerifyEmail from './Screens/VerifyEmail';

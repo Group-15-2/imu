@@ -65,14 +65,9 @@ export default function Thoughts({ navigation }) {
                 </View>
               </View>
             )}
-<<<<<<< HEAD
             inverted='true'
         />
       </View> 
-=======
-          />
-        </View>
->>>>>>> 751df84634aa50b1f21c2dbf0562ddd377c44e33
       </View>
     </SafeAreaView>
   );
