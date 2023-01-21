@@ -4,25 +4,88 @@ import { Bubble, GiftedChat, Send, InputToolbar, Time } from 'react-native-gifte
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { auth, database } from '../firebaseConfig';
-import { get, off, onValue, push, ref, set, update } from 'firebase/database';
+import { equalTo, get, off, onValue, orderByChild, orderByValue, push, query, ref, set, update } from 'firebase/database';
+import { useFocusEffect } from '@react-navigation/native';
+import { selectedChatRoomIdGlobal, selectedUserIDGlobal } from './Messages';
 
-const ChatScreen = () => {
+const ChatScreen = ({ getUserData }) => {
   const [messages, setMessages] = useState([]);
 
+  const [userData, setUserData] = useState([]);
+
+  const [selectedUserID, setSelectedUserID] = useState(selectedUserIDGlobal);
+  const [selectedChatRoomId, setSelectedchatRoomId] = useState(selectedChatRoomIdGlobal);
+
+  let chatRoomId;
+
+  // useFocusEffect(
+  //   React.useCallback(() => {
+
+  //     setSelectedUserID(selectedUserIDGlobal);
+  //     console.log(selectedUserID);
+
+  //     setSelectedchatRoomId(selectedChatRoomIdGlobal);
+  //     console.log(selectedChatRoomId);
+
+  //     getUserData(userData);
+
+  //   }, [selectedUserIDGlobal, selectedChatRoomIdGlobal])
+  // );
+
+  useEffect(
+    () => {
+
+      const getId = async () => {
+        setSelectedUserID(selectedUserIDGlobal);
+        console.log(selectedUserID);
+
+        setSelectedchatRoomId(selectedChatRoomIdGlobal);
+        console.log(selectedChatRoomId);
+
+        getUserData(userData);
+      }
+
+      getId();
+    }
+  );
 
   useEffect(() => {
 
     const loadData = async () => {
-      const snapshot = await get(msgDb);
-      setMessages(snapshot.val().reverse());
+
+
+      get(ref(database, 'messagesGlobal/' + '/chatRoom/' + selectedChatRoomId + '/messages')).then((snapshot) => {
+        setMessages(snapshot.val().reverse());
+      }).catch((e) => {
+        console.log(e);
+      });
+
+      get(ref(database, 'userData/' + selectedUserID)).then((snapshot) => {
+        setUserData(snapshot.val());
+        console.log(userData);
+      }).catch((e) => {
+        console.log(e);
+      });
     }
 
+    // const loadUserData = async () => {
+    //   get(ref(database, 'userData/' + selectedUserID)).then((snapshot) => {
+    //     setUserData(snapshot.val());
+    //     console.log(userData);
+    //   }).catch((e) => {
+    //     console.log(e);
+    //   });
+    // }
+
     loadData();
+    // loadUserData();
 
 
     onValue(msgDb, (snapshot) => {
-      const msgData = snapshot.val().reverse();
-      setMessages(msgData);
+      if (snapshot == null) {
+        const msgData = snapshot.val().reverse();
+        setMessages(msgData);
+      }
       // console.log(messages);
     })
 
@@ -32,16 +95,19 @@ const ChatScreen = () => {
 
   }, []);
 
-  const msgDb = ref(database, 'messagesGlobal/' + auth.currentUser.uid + '/messageRoom/' + auth.currentUser.uid + '/messages');
+  const msgDb = ref(database, 'messagesGlobal/' + '/chatRoom/' + selectedChatRoomId + '/messages');
+  const userDb = ref(database, 'userData/' + selectedUserID);
 
   const fetchMessages = async () => {
-
     const snapshot = await get(msgDb);
     const data = snapshot.val();
-    // setMessages([data]);
-    // console.log(data);
     return data;
+  }
 
+  const fetchChatHeaders = async (id) => {
+    const snapshot = await get(ref(database, 'messagesGlobal/chatHead/' + id));
+    const data = snapshot.val();
+    return data;
   }
 
   const onSend = useCallback(async (messages = []) => {
@@ -49,30 +115,154 @@ const ChatScreen = () => {
     //   GiftedChat.append(previousMessages, messages),
     // );
 
+    if (selectedChatRoomId === null) {
+      const chatRoomRef = push(ref(database, 'messagesGlobal/chatRoom'));
+      setSelectedchatRoomId(chatRoomRef.key);
+    }
 
     const currentChatRoom = await fetchMessages();
-
     const lastMessages = currentChatRoom || [];
+
+    const currentChatHeadersOfUser = await fetchChatHeaders(auth.currentUser.uid);
+    const currentChatHeadersOfSender = await fetchChatHeaders(selectedUserID);
+
+    const oldChatHeadersOfUser = currentChatHeadersOfUser || [];
+    const oldChatHeadersOfSender = currentChatHeadersOfSender || [];
+
+
+
 
     // console.log(lastMessages);
 
-    set(ref(database, 'messagesGlobal/' + auth.currentUser.uid + '/chatHead'), {
-      "senderId": auth.currentUser.uid,
+    // set(ref(database, 'messagesGlobal/' + '/chatHead/' + selectedUserID), [...oldChatHeadersOfSender,
+    // {
+    //   "senderId": auth.currentUser.uid,
+    //   "userName": auth.currentUser.displayName,
+    //   "userImg": auth.currentUser.photoURL,
+    //   "moodlet": "",
+    //   "messageTime": Date(),
+    //   "messageText": messages[0].text,
+    //   "chatRoomId": selectedChatRoomId
+    // }
+    // ]);
+
+    // set(ref(database, 'messagesGlobal/' + '/chatHead/' + auth.currentUser.uid), [...oldChatHeadersOfUser,
+    // {
+    //   "senderId": userData.id,
+    //   "userName": userData.userName,
+    //   "userImg": userData.userImg,
+    //   "moodlet": userData.moodlet,
+    //   "messageTime": Date(),
+    //   "messageText": messages[0].text,
+    //   "chatRoomId": selectedChatRoomId
+    // }
+    // ]);
+
+    //query
+
+    // const findChild = (id) => {
+    //   const filterChild = query(ref(database, 'messagesGlobal/' + '/chatHead/' + id), orderByChild('senderId'), equalTo(id));
+
+    //   if (filterChild === null) {
+    //     if (id == auth.currentUser.uid) {
+    //       set(ref(database, 'messagesGlobal/' + '/chatHead/' + auth.currentUser.uid), [...oldChatHeadersOfUser,
+    //       {
+    //         "senderId": userData.id,
+    //         "userName": userData.userName,
+    //         "userImg": userData.userImg,
+    //         "moodlet": userData.moodlet,
+    //         "messageTime": Date(),
+    //         "messageText": messages[0].text,
+    //         "chatRoomId": selectedChatRoomId
+    //       }
+    //       ]);
+    //     }
+
+    //     if (id == selectedUserID) {
+    //       set(ref(database, 'messagesGlobal/' + '/chatHead/' + selectedUserID), [...oldChatHeadersOfSender,
+    //       {
+    //         "senderId": auth.currentUser.uid,
+    //         "userName": auth.currentUser.displayName,
+    //         "userImg": auth.currentUser.photoURL,
+    //         "moodlet": "",
+    //         "messageTime": Date(),
+    //         "messageText": messages[0].text,
+    //         "chatRoomId": selectedChatRoomId
+    //       }
+    //       ]);
+    //     }
+    //   } else {
+    //     return filterChild;
+    //   }
+    // }
+
+    // if (findChild(selectedUserID) !== null) {
+    //   update(findChild(selectedUserID),
+    //     {
+    //       "senderId": auth.currentUser.uid,
+    //       "userName": auth.currentUser.displayName,
+    //       "userImg": auth.currentUser.photoURL,
+    //       "moodlet": "",
+    //       "messageTime": Date(),
+    //       "messageText": messages[0].text,
+    //       "chatRoomId": selectedChatRoomId
+    //     }
+    //   );
+    // }
+
+    // if (findChild(auth.currentUser.uid) !== null) {
+    //   update(findChild(auth.currentUser.uid),
+    //     {
+    //       "senderId": userData.id,
+    //       "userName": userData.userName,
+    //       "userImg": userData.userImg,
+    //       "moodlet": userData.moodlet,
+    //       "messageTime": Date(),
+    //       "messageText": messages[0].text,
+    //       "chatRoomId": selectedChatRoomId
+    //     }
+    //       );
+    // }
+
+    set(ref(database, 'messagesGlobal/' + '/chatHead/' + selectedUserID + '/' + auth.currentUser.uid),
+      {
+        "senderId": auth.currentUser.uid,
+        "userName": auth.currentUser.displayName,
+        "userImg": auth.currentUser.photoURL,
+        "moodlet": "",
+        "messageTime": Date(),
+        "messageText": messages[0].text,
+        "chatRoomId": selectedChatRoomId
+      }
+    );
+
+    set(ref(database, 'messagesGlobal/' + '/chatHead/' + auth.currentUser.uid + '/' + selectedUserID),
+      {
+        "senderId": userData.id,
+        "userName": userData.userName,
+        "userImg": userData.userImg,
+        "moodlet": userData.moodlet,
+        "messageTime": Date(),
+        "messageText": messages[0].text,
+        "chatRoomId": selectedChatRoomId
+      }
+    );
+
+
+
+    set(ref(database, 'messagesGlobal/' + '/chatRoom/' + selectedChatRoomId + '/chatRoomHeader/' + auth.currentUser.uid), {
       "userName": auth.currentUser.displayName,
       "userImg": auth.currentUser.photoURL,
-      "moodlet": "",
-      "messageTime": Date(),
-      "messageText": messages[0].text
+      "moodlet": ""
     });
 
-    set(ref(database, 'messagesGlobal/' + auth.currentUser.uid + '/messageRoom/' + auth.currentUser.uid + '/senderHeader'), {
-      "userName": auth.currentUser.displayName,
-      "userImg": auth.currentUser.photoURL,
-      "moodlet": "",
-      "online": true
+    set(ref(database, 'messagesGlobal/' + '/chatRoom/' + selectedChatRoomId + '/chatRoomHeader/' + selectedUserID), {
+      "userName": userData.userName,
+      "userImg": userData.userImg,
+      "moodlet": userData.moodlet
     });
 
-    update(ref(database, 'messagesGlobal/' + auth.currentUser.uid + '/messageRoom/' + auth.currentUser.uid),
+    update(ref(database, 'messagesGlobal/' + '/chatRoom/' + selectedChatRoomId),
       {
         "messages": [...lastMessages, {
           _id: messages[0]._id,
@@ -183,6 +373,13 @@ const ChatScreen = () => {
 };
 
 export default function ChatBox({ navigation }) {
+
+  const [userData, setUserData] = useState(null);
+
+  const getUserData = (data) => {
+    setUserData(data);
+  }
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.topSelector}>
@@ -192,7 +389,7 @@ export default function ChatBox({ navigation }) {
         <View style={styles.c1}>
           <View style={styles.namePicContainer}>
             <View>
-              <Image style={styles.userimg} source={require('../assets/4.jpg')} />
+              <Image style={styles.userimg} />
               <Image source={require('../assets/moodlets/good.png')} style={styles.moodlet} />
             </View>
             <View>
@@ -205,7 +402,7 @@ export default function ChatBox({ navigation }) {
           <MaterialCommunityIcons name='dots-vertical' size={34} />
         </TouchableOpacity>
       </View>
-      <ChatScreen />
+      <ChatScreen getUserData={getUserData} />
     </SafeAreaView>
   );
 }

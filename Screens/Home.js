@@ -1,6 +1,8 @@
+import { get, ref, update } from 'firebase/database';
 import React, { useState, useEffect } from 'react'
 import { Text, View, SafeAreaView, TouchableOpacity, ScrollView, Image, FlatList, TouchableWithoutFeedback } from 'react-native';
 import Card from '../components/card';
+import { auth, database } from '../firebaseConfig';
 import { styles } from '../styles/globalStyles';
 import { isExpired } from './CheckAuthScreen';
 
@@ -73,12 +75,29 @@ export default function Home({ navigation }) {
   const [selectedId, setSelectedId] = useState(null);
 
   //update selectedColor of the FlatList
-  const [selectedMood, setSelectedMood] = useState('How are you Feeling \ntoday?');
+  const [selectedMood, setSelectedMood] = useState("Loading");
+  //backend database ref
+  const userDataRef = ref(database, 'userData/' + auth.currentUser.uid);
 
   //everytime imgLink change, mood will update
   useEffect(() => {
     mood = imgLink;
   }, [imgLink]);
+
+  //identify the status of get info from backend
+  const [isGetSuccess, setIsGetSuccess] = useState(null);
+
+  //get data from backend and update
+  useEffect(() => {
+    get(userDataRef).then((snapshot) => {
+      setSelectedId(snapshot.val().moodId);
+      setImgLink(snapshot.val().moodlet);
+      setSelectedMood(snapshot.val().mood);
+    })
+      .catch((e) => {
+        setIsGetSuccess(e);
+      })
+  }, [isGetSuccess]);
 
   //this will disable the go back
   //refresh every time isLogout variable change
@@ -103,6 +122,13 @@ export default function Home({ navigation }) {
       setSelectedId(item.id);
       setImgLink(item.link);
       setSelectedMood(item.mood);
+
+      //update in backend
+      update(userDataRef, {
+        moodlet: item.link,
+        mood: item.mood,
+        moodId: item.id
+      })
     };
 
     //deselects an item from the flatlist on press hold
@@ -110,6 +136,13 @@ export default function Home({ navigation }) {
       setSelectedId(null);
       setImgLink(require('../assets/moodlets/add.png'));
       setSelectedMood('How are you Feeling \ntoday?');
+
+      //update in backend
+      update(userDataRef, {
+        moodlet: require('../assets/moodlets/add.png'),
+        mood: "How are you Feeling \ntoday?",
+        moodId: null
+      })
     };
 
     return (

@@ -11,6 +11,7 @@ import { defaultPFP } from './Profile';
 import { updateProfile } from 'firebase/auth';
 import InButtonLoader from '../components/InButtonLoader';
 import AuthErrorCheck from '../components/services/AuthErrorCheck';
+import { updateBackEndUserData } from '../components/services/updateBackEndUserData';
 
 export default function Register1({ navigation }) {
 
@@ -72,6 +73,7 @@ export default function Register1({ navigation }) {
                 displayName: name
             }).then(() => {
                 isFinishPressed = true;
+                updateBackEndUserData();
                 navigation.navigate('SignIn');
 
                 setIsButtonTextOn('flex');

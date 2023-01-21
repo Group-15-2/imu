@@ -18,6 +18,7 @@ export default function SignInWithFB({ navigation, setError }) {
 
         const facebookCredentials = FacebookAuthProvider.credential(data.accessToken);
         await signInWithCredential(auth, facebookCredentials).then(() => {
+            updateBackEndUserData();
             setisLogOut(false);
             navigation.navigate('Home');
         }
