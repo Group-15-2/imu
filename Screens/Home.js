@@ -202,11 +202,9 @@ export default function Home({ navigation }) {
           />
         </View>
       </View>
-      <ScrollView>
-        <Card mood={imgLink} />
-        <Card mood={imgLink} />
-        <Card mood={imgLink} />
-      </ScrollView>
+
+      <Card mood={imgLink} />
+
     </SafeAreaView>
 
   );

@@ -1,77 +1,31 @@
 import { updateProfile } from 'firebase/auth';
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput, FlatList, ScrollView, TouchableWithoutFeedback } from "react-native";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { auth } from '../firebaseConfig';
+import { auth, database } from '../firebaseConfig';
 import { useFocusEffect } from '@react-navigation/native';
+import { get, ref } from 'firebase/database';
 
-export default function Card({ mood }) {
-
-    //setter and getter for profile image url
-    const [photoURL, setPhotoURL] = useState(null);
-
-    //everytime refocus the screen, this will rerendered
-    useFocusEffect(
-        React.useCallback(() => {
-            setPhotoURL(auth.currentUser.photoURL);
-        }, [])
-    );
-
-    let viewCount = 270;
-
-    //postTextOriginal stores the raw string of post
-    //postTextProcessed stores the max characters of the post text
-    //TouchableOpacityValue holds the opacity value of TouchableOpacity Element
-
-    var postTextOriginal = "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ffffffffffffffffffffffffffffff";
-    var postTextProcessed;
-    var TouchableOpacityValue;
-
-    //Process the max characters of the original post text to show in the post
-    //If characters are larger than 100, postTextOriginal slices to first 100 characters with '...' string
-    //TouchableOpacityValue sets to 0.6
-    if (postTextOriginal.length > 100) {
-        postTextProcessed = postTextOriginal.slice(0, 100) + '....';
-        TouchableOpacityValue = 0.6;
-    }
-
-    //Show postTextOriginal else
-    //TouchableOpacityValue sets to 1
-    else {
-        postTextProcessed = postTextOriginal;
-        TouchableOpacityValue = 1;
-    }
-
-    //This function makes post to touch and expand to view full text of the post
-    //on full post, hides the view count
-    const viewFullPost = () => {
-        if (isShowing == false) { setPostTextProcessed(postTextOriginal); setIsShowing(true); setViewCountShow('none'); }
-        else { setPostTextProcessed(postTextProcessed); setIsShowing(false); setViewCountShow('flex'); }
-    };
-
-    //update real-time isShowing state and fullPost text to show
-    const [fullPost, setPostTextProcessed] = useState(postTextProcessed);
-    const [isShowing, setIsShowing] = useState(false);
-
-    //update display property of the view count to show and hide
-    const [isViewCountShow, setViewCountShow] = useState('flex');
-
-
-
+const Item = ({ userDATA, item, userName, userImage, moodText, isViewCountShow, viewFullPost, photoURL, mood, viewCount, TouchableOpacityValue, fullPost, backgroundColor }) => {
     return (
+        // <View>
+        //     <Text>{item.post}</Text>
+        // </View>
+
+        // <TouchableWithoutFeedback onPress={() => onTouch()}>
         <View style={cardStyles.card}>
 
             <View style={cardStyles.cardHead}>
                 <TouchableOpacity>
                     <View style={cardStyles.namePicContainer}>
                         <View>
-                            <Image source={require('../assets/4.jpg')} style={cardStyles.userimg} />
-                            <Image source={require('../assets/moodlets/good.png')} style={cardStyles.moodlet} />
+                            <Image source={{ uri: userImage }} style={cardStyles.userimg} />
+                            <Image source={userDATA.moodlet} style={cardStyles.moodlet} />
                         </View>
 
                         <View>
-                            <Text style={cardStyles.name}>Confused Unga Bunga</Text>
-                            <Text style={cardStyles.mood}>Happy</Text>
+                            <Text style={cardStyles.name}>{userName}</Text>
+                            <Text style={cardStyles.mood}>{moodText}</Text>
                         </View>
                     </View>
                 </TouchableOpacity>
@@ -83,7 +37,7 @@ export default function Card({ mood }) {
             </View>
 
             <TouchableOpacity activeOpacity={TouchableOpacityValue} onPress={viewFullPost}>
-                <View style={{ backgroundColor: '#8EDD81', width: '100%', minHeight: 290 }}>
+                <View style={{ backgroundColor: backgroundColor, width: '100%', minHeight: 290 }}>
                     <Text style={cardStyles.post_text}>{fullPost}</Text>
 
                     <View style={[cardStyles.viewCount, { display: isViewCountShow }]}>
@@ -109,8 +63,197 @@ export default function Card({ mood }) {
                 </View>
 
             </View>
-
         </View>
+        // </TouchableWithoutFeedback>
+    )
+
+}
+
+export default function Card({ mood }) {
+
+    const [DATA, setDATA] = useState([]);
+    const [postDATA, setPostDATA] = useState(null);
+
+    useEffect(() => {
+        get(ref(database, 'postsGlobal')).then((snapshot) => {
+            const data = snapshot.val();
+            const posts = Object.keys(data).map(key => ({
+                id: key,
+                ...data[key]
+            }));
+            setPostDATA(posts);
+            // console.log(postDATA);
+
+            Object.values(postDATA).map(element => {
+                // console.log(element.uid);
+
+                get(ref(database, 'userData/' + element.uid)).then((snapshot) => {
+                    const userData = snapshot.val();
+                    // console.log(userData.userName);
+
+                    const lastData = [{ element, userData }];
+                    setDATA(lastData);
+                    // console.log(DATA);
+                })
+            });
+            //console.log(userIds);
+            // setUserIds([]);
+        });
+    }, [])
+
+    const [userIds, setUserIds] = useState([]);
+
+    console.log(DATA)
+
+    //setter and getter for profile image url
+    const [photoURL, setPhotoURL] = useState(null);
+
+    //everytime refocus the screen, this will rerendered
+    useFocusEffect(
+        React.useCallback(() => {
+            setPhotoURL(auth.currentUser.photoURL);
+        }, [])
+    );
+
+    // const [userDATA, setUserDATA] = useState(null);
+
+    const [selectedId, setSelectedId] = useState(null);
+
+    //update real-time isShowing state and fullPost text to show
+    // const [fullPost, setPostTextProcessed] = useState(null);
+    // const [isShowing, setIsShowing] = useState(false);
+
+    //update display property of the view count to show and hide
+    // const [isViewCountShow, setViewCountShow] = useState('flex');
+
+    const renderItem = ({ item }) => {
+
+
+        // const userDATA = [];
+
+        // const getUserData = () => {
+        //     get(ref(database, 'userData/' + item.uid)).then((snapshot) => {
+        //         userDATA.push(snapshot.val());
+        //         // console.log(userDATA[0].userName);
+        //     })
+        // }
+
+        // getUserData();
+
+        // setTimeout(() => {
+
+        var isShowing = item.postId === selectedId ? true : false;
+
+
+        let viewCount = 270;
+
+        //postTextOriginal stores the raw string of post
+        //postTextProcessed stores the max characters of the post text
+        //TouchableOpacityValue holds the opacity value of TouchableOpacity Element
+
+        var postTextOriginal = item.element.post;
+        var postTextProcessed;
+        var TouchableOpacityValue;
+
+        var post;
+        var isViewCountShow = 'flex';
+
+        //Process the max characters of the original post text to show in the post
+        //If characters are larger than 100, postTextOriginal slices to first 100 characters with '...' string
+        //TouchableOpacityValue sets to 0.6
+        if (postTextOriginal.length > 100) {
+            postTextProcessed = postTextOriginal.slice(0, 100) + '....';
+            TouchableOpacityValue = 0.6;
+        }
+
+        //Show postTextOriginal else
+        //TouchableOpacityValue sets to 1
+        else {
+            postTextProcessed = postTextOriginal;
+            TouchableOpacityValue = 1;
+        }
+
+        post = postTextProcessed;
+
+        var userName, userImage, moodText;
+
+        if (item.userData.anonimity) {
+            userName = item.userData.generatedName;
+            userImage = "https://firebasestorage.googleapis.com/v0/b/project-imu.appspot.com/o/profile_default%2Fprofile-image.png?alt=media&token=b77c1557-4e43-41e2-ad60-6ca0ecf07475";
+        } else {
+            userName = item.userData.userName;
+            userImage = item.userData.userImg;
+        }
+
+        if (item.userData.mood == 'How are you Feeling \ntoday?') {
+            moodText = 'Not Selected';
+        } else {
+            moodText = item.userData.mood;
+        }
+
+        //This function makes post to touch and expand to view full text of the post
+        //on full post, hides the view count
+        const viewFullPost = () => {
+
+            setSelectedId(item.element.postId);
+            // if (isShowing == false) { setPostTextProcessed(postTextOriginal); setIsShowing(true); setViewCountShow('none'); }
+            // else { setPostTextProcessed(postTextProcessed); setIsShowing(false); setViewCountShow('flex'); }
+
+            if (isShowing == false) {
+                post = postTextOriginal;
+                isShowing = true;
+                isViewCountShow = 'none';
+            } else {
+                post = postTextProcessed;
+                isShowing = false;
+                isViewCountShow = 'flex';
+            }
+            console.log(post);
+            console.log(isShowing);
+        };
+
+        // if (typeof userDATA[0] == 'undefined') {
+        //     getUserData();
+        //     console.log(userDATA[0]);
+        // }
+        // console.log(typeof userDATA[0] == 'undefined');
+        // setPostTextProcessed(postTextProcessed);
+
+
+        return (
+            <Item
+                fullPost={post}
+                mood={mood}
+                TouchableOpacityValue={TouchableOpacityValue}
+                isViewCountShow={isViewCountShow}
+                photoURL={photoURL}
+                viewCount={viewCount}
+                viewFullPost={viewFullPost}
+                backgroundColor={item.element.color}
+                userDATA={item.userData}
+                item={item}
+                userImage={userImage}
+                userName={userName}
+                moodText={moodText}
+            />
+        )
+        // }, 1000);
+
+
+    }
+
+
+
+
+    return (
+
+        <FlatList
+            data={DATA}
+            renderItem={renderItem}
+            keyExtractor={item => item.element.postId}
+            extraData={selectedId}
+        />
+
     );
 };
 

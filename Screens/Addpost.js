@@ -1,5 +1,7 @@
+import { child, push, ref, set } from 'firebase/database';
 import React, { useState, useEffect } from 'react'
 import { Dimensions, Text, View, StyleSheet, FlatList, TouchableWithoutFeedback, TextInput, ScrollView, TouchableOpacity, Alert, KeyboardAvoidingView } from 'react-native';
+import { auth, database } from '../firebaseConfig';
 import { addStyles } from '../styles/addstyle';
 
 //color picker data
@@ -87,19 +89,42 @@ export default function AddPost() {
 
 
   const postFunction = () => {
-    if (isEmpty) {
+    if (isEmpty()) {
       Alert.alert(
-        "Alert Title",
-        "My Alert Msg",
+        "Empty Post!",
+        "You can't post empty thoughts!",
         [
-          {
-            text: "Cancel",
-            onPress: () => console.log("Cancel Pressed"),
-            style: "cancel"
-          },
           { text: "OK", onPress: () => console.log("OK Pressed") }
         ]
       );
+    } else {
+      //Generate new key
+      const newKey = push(child(ref(database), 'posts')).key;
+
+      set(ref(database, 'postsGlobal/' + newKey), {
+        postId: newKey,
+        uid: auth.currentUser.uid,
+        post: text,
+        color: selectedColor,
+        colorId: selectedId
+      }).then(() => {
+
+        set(ref(database, 'UserPosts/' + auth.currentUser.uid + '/' + newKey), {
+          postId: newKey,
+          uid: auth.currentUser.uid,
+          post: text,
+          color: selectedColor,
+          colorId: selectedId
+        }).then(() => {
+          Alert.alert(
+            "Post Published Successfully!",
+            "",
+            [
+              { text: "OK", onPress: () => console.log("OK Pressed") }
+            ]
+          );
+        })
+      })
     }
   };
 

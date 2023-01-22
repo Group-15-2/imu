@@ -66,8 +66,8 @@ export default function Thoughts({ navigation }) {
               </View>
             )}
             inverted='true'
-        />
-      </View> 
+          />
+        </View>
       </View>
     </SafeAreaView>
   );
