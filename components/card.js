@@ -73,6 +73,7 @@ export default function Card({ mood }) {
 
     const [DATA, setDATA] = useState([]);
     const [postDATA, setPostDATA] = useState(null);
+    const [isDataProcessed, setIsDataProcessed] = useState(null);
 
     useEffect(() => {
         get(ref(database, 'postsGlobal')).then((snapshot) => {
@@ -84,24 +85,31 @@ export default function Card({ mood }) {
             setPostDATA(posts);
             // console.log(postDATA);
 
+            const FD = [];
+
             Object.values(postDATA).map(element => {
                 // console.log(element.uid);
 
                 get(ref(database, 'userData/' + element.uid)).then((snapshot) => {
                     const userData = snapshot.val();
                     // console.log(userData.userName);
+                    const lastData = { element, userData };
+                    FD.push(lastData)
 
-                    const lastData = [{ element, userData }];
-                    setDATA(lastData);
+                    setDATA(FD);
+
+
                     // console.log(DATA);
                 })
             });
             //console.log(userIds);
             // setUserIds([]);
         });
-    }, [])
+    }, [isDataProcessed])
 
-    const [userIds, setUserIds] = useState([]);
+    if (DATA == []) {
+        setIsDataProcessed(false);
+    }
 
     console.log(DATA)
 
