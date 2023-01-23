@@ -72,6 +72,8 @@ export default function Card({ mood }) {
     const [isDataProcessed, setIsDataProcessed] = useState(null);
 
     const getDataBackEnd = () => {
+        setRefreshing(true);
+
         get(ref(database, 'postsGlobal')).then((snapshot) => {
             const data = snapshot.val();
             const posts = Object.keys(data).map(key => ({
@@ -100,8 +102,12 @@ export default function Card({ mood }) {
                 FD.push(lastData)
 
                 setDATA(FD);
+
+                setRefreshing(false);
             })
         });
+
+
     }, [postDATA])
 
     console.log(DATA);
@@ -132,9 +138,6 @@ export default function Card({ mood }) {
     const renderItem = ({ item }) => {
 
         var isShowing = item.postId === selectedId ? true : false;
-
-
-        let viewCount = 270;
 
         //postTextOriginal stores the raw string of post
         //postTextProcessed stores the max characters of the post text
@@ -226,11 +229,7 @@ export default function Card({ mood }) {
     const [refreshing, setRefreshing] = useState(false);
 
     const onRefresh = React.useCallback(() => {
-        setRefreshing(true);
         getDataBackEnd();
-        setTimeout(() => {
-            setRefreshing(false);
-        }, 2000);
     }, []);
 
 
