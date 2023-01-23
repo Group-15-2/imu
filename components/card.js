@@ -1,6 +1,6 @@
 import { updateProfile } from 'firebase/auth';
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput, FlatList, ScrollView, TouchableWithoutFeedback } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput, FlatList, ScrollView, TouchableWithoutFeedback, RefreshControl } from "react-native";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { auth, database } from '../firebaseConfig';
 import { useFocusEffect } from '@react-navigation/native';
@@ -71,7 +71,7 @@ export default function Card({ mood }) {
     const [postDATA, setPostDATA] = useState([]);
     const [isDataProcessed, setIsDataProcessed] = useState(null);
 
-    useEffect(() => {
+    const getDataBackEnd = () => {
         get(ref(database, 'postsGlobal')).then((snapshot) => {
             const data = snapshot.val();
             const posts = Object.keys(data).map(key => ({
@@ -81,6 +81,10 @@ export default function Card({ mood }) {
             setPostDATA(posts);
 
         });
+    }
+
+    useEffect(() => {
+        getDataBackEnd();
     }, [])
 
     useEffect(() => {
@@ -205,7 +209,7 @@ export default function Card({ mood }) {
                 TouchableOpacityValue={TouchableOpacityValue}
                 isViewCountShow={isViewCountShow}
                 photoURL={photoURL}
-                viewCount={viewCount}
+                viewCount={item.element.viewCount}
                 viewFullPost={viewFullPost}
                 backgroundColor={item.element.color}
                 userDATA={item.userData}
@@ -219,6 +223,15 @@ export default function Card({ mood }) {
 
     }
 
+    const [refreshing, setRefreshing] = useState(false);
+
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        getDataBackEnd();
+        setTimeout(() => {
+            setRefreshing(false);
+        }, 2000);
+    }, []);
 
 
 
@@ -229,6 +242,9 @@ export default function Card({ mood }) {
             renderItem={renderItem}
             keyExtractor={item => item.element.postId}
             extraData={selectedId}
+            refreshControl={
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
         />
 
     );

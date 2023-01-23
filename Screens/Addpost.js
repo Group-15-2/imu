@@ -106,7 +106,8 @@ export default function AddPost() {
         uid: auth.currentUser.uid,
         post: text,
         color: selectedColor,
-        colorId: selectedId
+        colorId: selectedId,
+        viewCount: 0
       }).then(() => {
 
         set(ref(database, 'UserPosts/' + auth.currentUser.uid + '/' + newKey), {
@@ -114,7 +115,8 @@ export default function AddPost() {
           uid: auth.currentUser.uid,
           post: text,
           color: selectedColor,
-          colorId: selectedId
+          colorId: selectedId,
+          viewCount: 0
         }).then(() => {
           Alert.alert(
             "Post Published Successfully!",
