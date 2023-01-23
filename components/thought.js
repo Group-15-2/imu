@@ -15,6 +15,7 @@ export default function Thought({ navigation }) {
   const [date, setDate] = useState('');
   //Generate new key
   const newKey = push(child(ref(database), 'notes')).key
+  const [characterLimit] = useState(1000);
 
 
   useEffect(() => {
@@ -74,11 +75,14 @@ export default function Thought({ navigation }) {
           numberOfLines={100}
           maxLength={1000}
           value={note}
-          onChangeText={(note) => { setNote(note) }}
+          onChangeText={(note) => { setNote(note)}}
           placeholder='Jot your thoughts here.........'
           placeholderTextColor={'#6C6C6C'}
           style={thStyles.txtinput}
         />
+        <View style={{flexDirection:'row', justifyContent:'flex-end', marginRight:10}}>
+         <Text>{note.length}/{characterLimit}</Text>
+        </View>
       </View>
     </SafeAreaView>
   );
