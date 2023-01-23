@@ -8,11 +8,7 @@ import { get, ref } from 'firebase/database';
 
 const Item = ({ userDATA, item, userName, userImage, moodText, isViewCountShow, viewFullPost, photoURL, mood, viewCount, TouchableOpacityValue, fullPost, backgroundColor }) => {
     return (
-        // <View>
-        //     <Text>{item.post}</Text>
-        // </View>
 
-        // <TouchableWithoutFeedback onPress={() => onTouch()}>
         <View style={cardStyles.card}>
 
             <View style={cardStyles.cardHead}>
@@ -64,7 +60,7 @@ const Item = ({ userDATA, item, userName, userImage, moodText, isViewCountShow, 
 
             </View>
         </View>
-        // </TouchableWithoutFeedback>
+
     )
 
 }
@@ -72,7 +68,7 @@ const Item = ({ userDATA, item, userName, userImage, moodText, isViewCountShow, 
 export default function Card({ mood }) {
 
     const [DATA, setDATA] = useState([]);
-    const [postDATA, setPostDATA] = useState(null);
+    const [postDATA, setPostDATA] = useState([]);
     const [isDataProcessed, setIsDataProcessed] = useState(null);
 
     useEffect(() => {
@@ -83,35 +79,30 @@ export default function Card({ mood }) {
                 ...data[key]
             }));
             setPostDATA(posts);
-            // console.log(postDATA);
 
-            const FD = [];
-
-            Object.values(postDATA).map(element => {
-                // console.log(element.uid);
-
-                get(ref(database, 'userData/' + element.uid)).then((snapshot) => {
-                    const userData = snapshot.val();
-                    // console.log(userData.userName);
-                    const lastData = { element, userData };
-                    FD.push(lastData)
-
-                    setDATA(FD);
-
-
-                    // console.log(DATA);
-                })
-            });
-            //console.log(userIds);
-            // setUserIds([]);
         });
-    }, [isDataProcessed])
+    }, [])
 
-    if (DATA == []) {
-        setIsDataProcessed(false);
-    }
+    useEffect(() => {
+        const FD = [];
 
-    console.log(DATA)
+        Object.values(postDATA).map(element => {
+
+
+            get(ref(database, 'userData/' + element.uid)).then((snapshot) => {
+                const userData = snapshot.val();
+
+                const lastData = { element, userData };
+                FD.push(lastData)
+
+                setDATA(FD);
+            })
+        });
+    }, [postDATA])
+
+    console.log(DATA);
+
+
 
     //setter and getter for profile image url
     const [photoURL, setPhotoURL] = useState(null);
@@ -135,20 +126,6 @@ export default function Card({ mood }) {
     // const [isViewCountShow, setViewCountShow] = useState('flex');
 
     const renderItem = ({ item }) => {
-
-
-        // const userDATA = [];
-
-        // const getUserData = () => {
-        //     get(ref(database, 'userData/' + item.uid)).then((snapshot) => {
-        //         userDATA.push(snapshot.val());
-        //         // console.log(userDATA[0].userName);
-        //     })
-        // }
-
-        // getUserData();
-
-        // setTimeout(() => {
 
         var isShowing = item.postId === selectedId ? true : false;
 
@@ -220,13 +197,6 @@ export default function Card({ mood }) {
             console.log(isShowing);
         };
 
-        // if (typeof userDATA[0] == 'undefined') {
-        //     getUserData();
-        //     console.log(userDATA[0]);
-        // }
-        // console.log(typeof userDATA[0] == 'undefined');
-        // setPostTextProcessed(postTextProcessed);
-
 
         return (
             <Item
@@ -245,7 +215,6 @@ export default function Card({ mood }) {
                 moodText={moodText}
             />
         )
-        // }, 1000);
 
 
     }
