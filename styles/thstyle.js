@@ -63,7 +63,7 @@ const thStyles = StyleSheet.create({
         fontSize: 16,
     },
     txtinput: {
-        height:'80%',
+        height:'75%',
         margin:5,
         padding:10, 
         fontSize:16, 
