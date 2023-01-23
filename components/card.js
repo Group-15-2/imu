@@ -6,7 +6,7 @@ import { auth, database } from '../firebaseConfig';
 import { useFocusEffect } from '@react-navigation/native';
 import { get, ref } from 'firebase/database';
 
-const Item = ({ userDATA, item, userName, userImage, moodText, isViewCountShow, viewFullPost, photoURL, mood, viewCount, TouchableOpacityValue, fullPost, backgroundColor }) => {
+const Item = ({ userDATA, onChat, item, userName, userImage, moodText, isViewCountShow, viewFullPost, photoURL, mood, viewCount, TouchableOpacityValue, fullPost, backgroundColor }) => {
     return (
 
         <View style={cardStyles.card}>
@@ -27,7 +27,7 @@ const Item = ({ userDATA, item, userName, userImage, moodText, isViewCountShow, 
                 </TouchableOpacity>
 
 
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => onChat()}>
                     <MaterialCommunityIcons name="message-text-outline" color={'#1877F2'} size={42} />
                 </TouchableOpacity>
             </View>
@@ -65,11 +65,10 @@ const Item = ({ userDATA, item, userName, userImage, moodText, isViewCountShow, 
 
 }
 
-export default function Card({ mood }) {
+export default function Card({ mood, navigation }) {
 
     const [DATA, setDATA] = useState([]);
     const [postDATA, setPostDATA] = useState([]);
-    const [isDataProcessed, setIsDataProcessed] = useState(null);
 
     const getDataBackEnd = () => {
         setRefreshing(true);
@@ -83,6 +82,7 @@ export default function Card({ mood }) {
             setPostDATA(posts);
 
         });
+
     }
 
     useEffect(() => {
@@ -98,7 +98,7 @@ export default function Card({ mood }) {
             get(ref(database, 'userData/' + element.uid)).then((snapshot) => {
                 const userData = snapshot.val();
 
-                const lastData = { element, userData };
+                const lastData = { element, userData, isShowing: false };
                 FD.push(lastData)
 
                 setDATA(FD);
@@ -110,7 +110,7 @@ export default function Card({ mood }) {
 
     }, [postDATA])
 
-    console.log(DATA);
+    // console.log(DATA);
 
 
 
@@ -130,14 +130,16 @@ export default function Card({ mood }) {
 
     //update real-time isShowing state and fullPost text to show
     // const [fullPost, setPostTextProcessed] = useState(null);
-    // const [isShowing, setIsShowing] = useState(false);
+    const [isShowing, setIsShowing] = useState(null);
 
     //update display property of the view count to show and hide
     // const [isViewCountShow, setViewCountShow] = useState('flex');
 
+
+
     const renderItem = ({ item }) => {
 
-        var isShowing = item.postId === selectedId ? true : false;
+
 
         //postTextOriginal stores the raw string of post
         //postTextProcessed stores the max characters of the post text
@@ -147,8 +149,8 @@ export default function Card({ mood }) {
         var postTextProcessed;
         var TouchableOpacityValue;
 
-        var post;
-        var isViewCountShow = 'flex';
+        // var post;
+        // var isViewCountShow = 'flex';
 
         //Process the max characters of the original post text to show in the post
         //If characters are larger than 100, postTextOriginal slices to first 100 characters with '...' string
@@ -165,9 +167,9 @@ export default function Card({ mood }) {
             TouchableOpacityValue = 1;
         }
 
-        post = postTextProcessed;
+        // post = postTextProcessed;
 
-        var userName, userImage, moodText;
+        var userName, userImage, moodText, chatRoomId;
 
         if (item.userData.anonimity) {
             userName = item.userData.generatedName;
@@ -183,25 +185,57 @@ export default function Card({ mood }) {
             moodText = item.userData.mood;
         }
 
+
+        get(ref(database, 'messagesGlobal/chatHead/' + auth.currentUser.uid + '/' + item.userData.id)).then((snapshot) => {
+            if (snapshot.exists()) {
+                chatRoomId = snapshot.val().chatRoomId;
+            } else {
+                chatRoomId = null;
+            }
+        })
+
+        const checkUserId = () => {
+            var e = false;
+            // if (item.element.postId === selectedId) {
+            e = !e;
+            return e;
+            // } else {
+            //     return false;
+            // }
+        }
+
+        const isSameId = item.element.postId === selectedId ? true : false;
+        const doThat = isSameId === false ? () => { setIsShowing(item.isShowing); item.isShowing = !item.isShowing; } : () => { return; };
+        // doThat();
+        const post = isShowing === true ? postTextOriginal : postTextProcessed;
+        const isViewCountShow = isShowing === true ? 'none' : 'flex';
+
+        // console.log(item.isShowing);
+        console.log(isViewCountShow);
+
+
+
         //This function makes post to touch and expand to view full text of the post
         //on full post, hides the view count
         const viewFullPost = () => {
 
             setSelectedId(item.element.postId);
+            // item.isShowing = !item.isShowing;
             // if (isShowing == false) { setPostTextProcessed(postTextOriginal); setIsShowing(true); setViewCountShow('none'); }
             // else { setPostTextProcessed(postTextProcessed); setIsShowing(false); setViewCountShow('flex'); }
 
-            if (isShowing == false) {
-                post = postTextOriginal;
-                isShowing = true;
-                isViewCountShow = 'none';
-            } else {
-                post = postTextProcessed;
-                isShowing = false;
-                isViewCountShow = 'flex';
-            }
-            console.log(post);
-            console.log(isShowing);
+            // if (item.isShowing == false) {
+            //     post = postTextOriginal;
+            //     isViewCountShow = 'none';
+            //     item.isShowing = true;
+            // } else {
+            //     post = postTextProcessed;
+            //     isViewCountShow = 'flex';
+            //     item.isShowing = false;
+            // }
+            // console.log(selectedId);
+            // console.log(item.isShowing);
+            // console.log(isViewCountShow);
         };
 
 
@@ -220,6 +254,7 @@ export default function Card({ mood }) {
                 userImage={userImage}
                 userName={userName}
                 moodText={moodText}
+                onChat={() => navigation.navigate('ChatBox', { userId: item.userData.id, chatRoomId: chatRoomId })}
             />
         )
 

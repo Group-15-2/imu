@@ -203,7 +203,7 @@ export default function Home({ navigation }) {
         </View>
       </View>
 
-      <Card mood={imgLink} />
+      <Card mood={imgLink} navigation={navigation} />
 
     </SafeAreaView>
 
