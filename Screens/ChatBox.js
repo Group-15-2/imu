@@ -86,7 +86,7 @@ const ChatScreen = ({ userData, userId, chatRoomId }) => {
 
 
     onValue(msgDb, (snapshot) => {
-      if (snapshot == null) {
+      if (snapshot.val() !== null) {
         const msgData = snapshot.val().reverse();
         setMessages(msgData);
       }
@@ -327,6 +327,21 @@ export default function ChatBox({ navigation, route }) {
     }).catch((e) => {
       console.log(e);
     });
+
+    onValue(ref(database, 'userData/' + userId), (snapshot) => {
+      if (snapshot.val() !== null) {
+        setUserData(snapshot.val());
+        console.log(userData);
+
+        if (userData.anonimity) {
+          setUserName(userData.generatedName);
+          setUserImage("https://firebasestorage.googleapis.com/v0/b/project-imu.appspot.com/o/profile_default%2Fprofile-image.png?alt=media&token=b77c1557-4e43-41e2-ad60-6ca0ecf07475");
+        } else {
+          setUserName(userData.userName);
+          setUserImage(userData.userImg);
+        }
+      }
+    })
 
 
   }, [userName])

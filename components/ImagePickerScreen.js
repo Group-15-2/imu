@@ -163,7 +163,7 @@ export default function ImagePickerScreen({ setIsLoaderOpen }) {
                                             size={30}
                                         />
                                     </View>
-                                    <Text style={modalStyle.fontText}>Gallery</Text>
+                                    <Text style={modalStyle.fontText}>Camera</Text>
                                 </View>
                             </TouchableOpacity>
 

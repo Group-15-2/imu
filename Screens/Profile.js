@@ -18,7 +18,7 @@ import LoadingModal from '../components/LoadingModal';
 import { updateProfile } from 'firebase/auth';
 import { LoginManager } from 'react-native-fbsdk-next';
 import { faker } from '@faker-js/faker';
-import { get, ref, set, update } from 'firebase/database';
+import { get, onValue, ref, set, update } from 'firebase/database';
 
 //default profile pic link from firebase storage
 export const defaultPFP = 'https://firebasestorage.googleapis.com/v0/b/project-imu.appspot.com/o/profile_default%2Fprofile-image.png?alt=media&token=b77c1557-4e43-41e2-ad60-6ca0ecf07475';
@@ -110,6 +110,11 @@ export default function ProfileScreen({ navigation }) {
       userImg: auth.currentUser.photoURL,
       anonimity: isEnabled
     });
+
+    onValue(userDataRef, (snapshot) => {
+      setIsEnabled(snapshot.val().anonimity);
+      setGeneratedName(snapshot.val().generatedName);
+    })
 
   }, [auth.currentUser.email, auth.currentUser.phoneNumber, auth.currentUser.displayName, auth.currentUser.photoURL, auth.currentUser.uid, isEnabled]);
 

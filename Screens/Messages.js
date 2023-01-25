@@ -3,7 +3,7 @@ import { Text, View, ScrollView, TouchableOpacity, Image, FlatList, Card } from 
 import { chatStyles } from '../styles/chatstyle';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { auth, database } from '../firebaseConfig';
-import { get, ref } from 'firebase/database';
+import { get, onValue, ref } from 'firebase/database';
 
 const MessagesData = [
   {
@@ -58,6 +58,20 @@ export default function Messages({ navigation }) {
     }
 
     loadData();
+
+
+    onValue(ref(database, 'messagesGlobal/chatHead/' + auth.currentUser.uid), (snapshot) => {
+      if (snapshot.val() !== null) {
+        const data = snapshot.val();
+        const msgs = Object.keys(data).map((key) => ({
+          id: key,
+          ...data[key]
+        }))
+        setStarterHeaderData(msgs);
+      }
+    })
+
+
   }, [])
 
 
@@ -65,6 +79,8 @@ export default function Messages({ navigation }) {
     const FD = [];
 
     Object.values(StarterHeaderData).map(element => {
+
+      // onValue(ref(database, 'userData/' + element.senderId), () => {
 
       get(ref(database, 'userData/' + element.senderId)).then((snapshot) => {
         const userData = snapshot.val();
@@ -76,8 +92,34 @@ export default function Messages({ navigation }) {
 
         console.log(chatHeaders);
       })
+      // })
+
     })
+
   }, [StarterHeaderData])
+
+  // useEffect(() => {
+
+  //   const FD = [];
+
+  //   Object.values(StarterHeaderData).map(element => {
+
+  //     onValue(ref(database, 'userData/' + element.senderId), (snapshot) => {
+  //       // setChatHeaders([]);
+  //       if (snapshot.val() !== null) {
+
+  //         const userData = snapshot.val();
+
+  //         const lastData = { msgs: element, userName: userData.userName, userImage: userData.userImg, moodlet: userData.moodlet, anonimity: userData.anonimity, generatedName: userData.generatedName };
+  //         FD.push(lastData);
+
+  //         setChatHeaders(FD);
+
+  //         console.log(chatHeaders);
+  //       }
+  //     })
+  //   })
+  // })
 
   const handlePress = (item) => {
     setSelectedUserID(item.senderId);

@@ -1,4 +1,4 @@
-import { get, ref, update } from 'firebase/database';
+import { get, onValue, ref, update } from 'firebase/database';
 import React, { useState, useEffect } from 'react'
 import { Text, View, SafeAreaView, TouchableOpacity, ScrollView, Image, FlatList, TouchableWithoutFeedback } from 'react-native';
 import Card from '../components/card';
@@ -89,14 +89,16 @@ export default function Home({ navigation }) {
 
   //get data from backend and update
   useEffect(() => {
-    get(userDataRef).then((snapshot) => {
-      setSelectedId(snapshot.val().moodId);
-      setImgLink(snapshot.val().moodlet);
-      setSelectedMood(snapshot.val().mood);
-    })
-      .catch((e) => {
-        setIsGetSuccess(e);
+    onValue(userDataRef, () => {
+      get(userDataRef).then((snapshot) => {
+        setSelectedId(snapshot.val().moodId);
+        setImgLink(snapshot.val().moodlet);
+        setSelectedMood(snapshot.val().mood);
       })
+        .catch((e) => {
+          setIsGetSuccess(e);
+        })
+    })
   }, [isGetSuccess]);
 
   //this will disable the go back
