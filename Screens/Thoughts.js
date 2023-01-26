@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, ScrollView, TouchableOpacity, FlatList } from 'react-native';
+import { Text, View, Alert, TouchableOpacity, FlatList } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { auth, database } from '../firebaseConfig';
 import { ref, set, onValue, push } from '@firebase/database';
@@ -50,12 +50,13 @@ export default function Thoughts({ navigation }) {
                 <View style={thStyles.content}>
                   <Text style={thStyles.date}>{item.date}</Text>
                 </View>
+                <TouchableOpacity onPress={() => { Alert.alert(item.title, item.note); }}>
                 <View style={{ flexDirection: 'row' }}>
                   <View style={thStyles.c1}>
                     <View style={thStyles.nameContainer}>
                       <View>
                         <Text style={thStyles.thought}>{item.title}</Text>
-                        <Text style={thStyles.t}>{item.note}</Text>
+                        <Text numberOfLines={1} ellipsizeMode="tail" style={thStyles.t}>{item.note}</Text>
                       </View>
                     </View>
                   </View>
@@ -63,6 +64,7 @@ export default function Thoughts({ navigation }) {
                     <Text style={thStyles.txt}>{item.time}</Text>
                   </View>
                 </View>
+                </TouchableOpacity>
               </View>
             )}
             inverted='true'
