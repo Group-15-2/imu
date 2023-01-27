@@ -45,10 +45,10 @@ const thStyles = StyleSheet.create({
     },
 
     t: {
-        fontSize: 10,
+        fontSize: 12,
         fontWeight: '300',
         color: "#504F4F",
-        marginTop: 5
+        marginTop: 5,
     },
 
     txt: {
