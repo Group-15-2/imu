@@ -34,7 +34,7 @@ const chatStyles = StyleSheet.create({
     },
 
     c2: {
-        width: '15%'
+        width: '20%'
     },
 
     userimg: {

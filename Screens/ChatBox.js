@@ -6,7 +6,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { auth, database } from '../firebaseConfig';
 import { equalTo, get, off, onValue, orderByChild, orderByValue, push, query, ref, set, update } from 'firebase/database';
 import { useFocusEffect } from '@react-navigation/native';
-import { selectedChatRoomIdGlobal, selectedUserIDGlobal } from './Messages';
 import { useRoute } from '@react-navigation/native';
 
 const ChatScreen = ({ userData, userId, chatRoomId }) => {
@@ -17,22 +16,31 @@ const ChatScreen = ({ userData, userId, chatRoomId }) => {
   const [selectedUserID, setSelectedUserID] = useState(null);
   const [selectedChatRoomId, setSelectedchatRoomId] = useState(null);
 
+  var unreadCount;
 
-  // useFocusEffect(
-  //   React.useCallback(() => {
-
-  //     setSelectedUserID(selectedUserIDGlobal);
-  //     console.log(selectedUserID);
-
-  //     setSelectedchatRoomId(selectedChatRoomIdGlobal);
-  //     console.log(selectedChatRoomId);
-
-  //     getUserData(userData);
-
-  //   }, [selectedUserIDGlobal, selectedChatRoomIdGlobal])
-  // );
+  useEffect(() => {
 
 
+    get(ref(database, 'messagesGlobal/' + '/chatHead/' + userId + '/' + auth.currentUser.uid)).then((snapshot) => {
+      if (snapshot.exists()) {
+        unreadCount = snapshot.val().unreadCount;
+      } else {
+        unreadCount = 0;
+      }
+      // console.log(unreadCount);
+    }).catch((e) => {
+      console.log(e);
+    })
+
+    // onValue(ref(database, 'messagesGlobal/' + '/chatHead/' + userId + '/' + auth.currentUser.uid), (snapshot) => {
+    //   if (snapshot.exists()) {
+    //     unreadCount = snapshot.val().unreadCount;
+    //   } else {
+    //     unreadCount = 0;
+    //   }
+    // })
+
+  })
 
   useEffect(
     () => {
@@ -42,12 +50,13 @@ const ChatScreen = ({ userData, userId, chatRoomId }) => {
         setSelectedUserID(userId);
         setSelectedchatRoomId(chatRoomId);
 
-        console.log(selectedUserID);
+        // console.log(selectedUserID);
 
         // getUserData(userData);
       }
 
       getId();
+
     });
 
   useEffect(() => {
@@ -90,6 +99,19 @@ const ChatScreen = ({ userData, userId, chatRoomId }) => {
         const msgData = snapshot.val().reverse();
         setMessages(msgData);
       }
+
+      // onValue(ref(database, 'messagesGlobal/' + '/chatHead/' + auth.currentUser.uid + '/' + selectedUserID), (snapshot) => {
+      //   if (snapshot.val() !== null) {
+      //     setSelectedchatRoomId(snapshot.val().chatRoomId);
+      //   }
+      // })
+
+      // update(ref(database, 'messagesGlobal/' + '/chatHead/' + auth.currentUser.uid + '/' + userId), {
+      //   unreadCount: 0
+      // }).then(() => {
+      //   unreadCount = 0;
+      // })
+
       // console.log(messages);
     })
 
@@ -122,6 +144,8 @@ const ChatScreen = ({ userData, userId, chatRoomId }) => {
     const checkNull = async () => {
       if (selectedChatRoomId === null) {
         const chatRoomRef = push(ref(database, 'messagesGlobal/chatRoom'));
+        setSelectedchatRoomId(chatRoomRef.key);
+        console.log(selectedChatRoomId);
         return chatRoomRef.key;
       } else {
         return selectedChatRoomId;
@@ -130,6 +154,8 @@ const ChatScreen = ({ userData, userId, chatRoomId }) => {
 
     const key = await checkNull();
     // setSelectedchatRoomId(key);
+
+    console.log(selectedChatRoomId);
 
 
     const currentChatRoom = await fetchMessages();
@@ -141,14 +167,15 @@ const ChatScreen = ({ userData, userId, chatRoomId }) => {
     const oldChatHeadersOfUser = currentChatHeadersOfUser || [];
     const oldChatHeadersOfSender = currentChatHeadersOfSender || [];
 
-
+    unreadCount = unreadCount + 1;
 
     set(ref(database, 'messagesGlobal/' + '/chatHead/' + selectedUserID + '/' + auth.currentUser.uid),
       {
         "senderId": auth.currentUser.uid,
         "messageTime": Date(),
         "messageText": messages[0].text,
-        "chatRoomId": key
+        "chatRoomId": key,
+        "unreadCount": unreadCount
       }
     );
 

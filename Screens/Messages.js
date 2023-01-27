@@ -3,7 +3,9 @@ import { Text, View, ScrollView, TouchableOpacity, Image, FlatList, Card } from 
 import { chatStyles } from '../styles/chatstyle';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { auth, database } from '../firebaseConfig';
-import { get, onValue, ref } from 'firebase/database';
+import { get, onValue, ref, update } from 'firebase/database';
+import moment from 'moment/moment';
+import { FormatTime } from '../components/services/FormatTime';
 
 const MessagesData = [
   {
@@ -28,20 +30,11 @@ const MessagesData = [
   },
 ];
 
-export let selectedUserIDGlobal, selectedChatRoomIdGlobal;
-
 export default function Messages({ navigation }) {
 
   const [chatHeaders, setChatHeaders] = useState([]);
   const [StarterHeaderData, setStarterHeaderData] = useState([]);
-  const [selectedUserID, setSelectedUserID] = useState(null);
-  const [selectedChatRoomId, setSelectedchatRoomId] = useState(null);
   // setChatHeaders(MessagesData);
-
-  useEffect(() => {
-    selectedUserIDGlobal = selectedUserID;
-    selectedChatRoomIdGlobal = selectedChatRoomId;
-  }, [selectedChatRoomId, selectedUserID]);
 
   useEffect(() => {
     const loadData = async () => {
@@ -122,14 +115,18 @@ export default function Messages({ navigation }) {
   // })
 
   const handlePress = (item) => {
-    setSelectedUserID(item.senderId);
-    setSelectedchatRoomId(item.chatRoomId);
-    navigation.navigate('ChatBox', { userId: item.msgs.senderId, chatRoomId: item.msgs.chatRoomId });
+
+    update(ref(database, 'messagesGlobal/' + '/chatHead/' + auth.currentUser.uid + '/' + item.msgs.senderId), {
+      unreadCount: 0
+    }).then(() => {
+
+      navigation.navigate('ChatBox', { userId: item.msgs.senderId, chatRoomId: item.msgs.chatRoomId });
+    })
   }
 
   const renderItem = ({ item }) => {
 
-    var userName, userImage;
+    var userName, userImage, msgTime, unreadCount;
 
     if (item.anonimity) {
       userName = item.generatedName;
@@ -138,6 +135,12 @@ export default function Messages({ navigation }) {
       userName = item.userName;
       userImage = item.userImage;
     }
+
+    //check date and change format
+
+    msgTime = FormatTime(item.msgs.messageTime);
+
+    unreadCount = item.msgs.unreadCount;
 
     return (
       <TouchableOpacity onPress={() => handlePress(item)}>
@@ -155,7 +158,8 @@ export default function Messages({ navigation }) {
             </View>
           </View>
           <View style={chatStyles.c2}>
-            <Text style={chatStyles.txt}>{item.msgs.messageTime}</Text>
+            <Text style={chatStyles.txt}>{msgTime}</Text>
+            <Text style={chatStyles.txt}>{unreadCount}</Text>
           </View>
         </View>
       </TouchableOpacity>

@@ -23,6 +23,9 @@ import ProfileScreen from './Screens/Profile';
 import onboard from './Screens/Onboarding';
 import FirstScreen from './Screens/FirstScreen';
 import CheckAuthScreen from './Screens/CheckAuthScreen';
+import YourComments from './Screens/YourComments';
+import ViewComments from './Screens/ViewComments';
+import OtherProfile from './Screens/OtherProfile';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -91,6 +94,9 @@ export default function App() {
         <Stack.Screen name='Onboard' component={onboard} />
         <Stack.Screen name='CheckAuthScreen' component={CheckAuthScreen} />
         <Stack.Screen name='Home' component={MyTabs} />
+        <Stack.Screen name='YourComments' component={YourComments} />
+        <Stack.Screen name='ViewComments' component={ViewComments} />
+        <Stack.Screen name='OtherProfile' component={OtherProfile} />
         <Stack.Screen name='SignIn' component={SignIn} />
         <Stack.Screen name='PasswordResetVerify' component={PasswordResetVerify} />
         <Stack.Screen name='SignUp' component={Register} />

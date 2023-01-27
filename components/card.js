@@ -1,22 +1,73 @@
-import { updateProfile } from 'firebase/auth';
+import { SAMLAuthProvider, updateProfile } from 'firebase/auth';
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput, FlatList, ScrollView, TouchableWithoutFeedback, RefreshControl } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput, FlatList, ScrollView, TouchableWithoutFeedback, RefreshControl, Alert } from "react-native";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { auth, database } from '../firebaseConfig';
 import { useFocusEffect } from '@react-navigation/native';
-import { get, ref } from 'firebase/database';
+import { get, onValue, ref, set, update } from 'firebase/database';
+import { async } from '@firebase/util';
+import { defaultPFP } from '../Screens/Profile';
 
-const Item = ({ userDATA, onChat, item, userName, userImage, moodText, isViewCountShow, viewFullPost, photoURL, mood, viewCount, TouchableOpacityValue, fullPost, backgroundColor }) => {
+const Item = ({ userDATA, otherProfile, yourComments, postComments, postCommentsVisibility, setCommentText, sendComment, onChat, commentSectionVisibility, item, photoURL, mood, viewCount, postTextOriginal, postTextProcessed, TouchableOpacityValue }) => {
+    const [text, setText] = useState(null);
+
+    const [userData, setUserData] = useState([]);
+    const [userImage, setUserImage] = useState(null);
+    const [userName, setUserName] = useState(null);
+    const [moodText, setMoodText] = useState(null);
+
+    //update real-time isShowing state and fullPost text to show
+    const [fullPost, setPostTextProcessed] = useState(postTextProcessed);
+    const [isShowing, setIsShowing] = useState(false);
+
+    //update display property of the view count to show and hide
+    const [isViewCountShow, setViewCountShow] = useState('flex');
+
+
+    useEffect(() => {
+
+        get(ref(database, 'userData/' + item.uid)).then((snapshot) => {
+            setUserData(snapshot.val());
+            checkAnonimity(snapshot.val());
+        });
+
+        onValue(ref(database, 'userData/' + item.uid), (snapshot) => {
+            setUserData(snapshot.val());
+            checkAnonimity(snapshot.val());
+        })
+    }, [])
+
+    const viewFullPost = () => {
+        if (isShowing == false) { setPostTextProcessed(postTextOriginal); setIsShowing(true); setViewCountShow('none'); }
+        else { setPostTextProcessed(postTextProcessed); setIsShowing(false); setViewCountShow('flex'); }
+    };
+
+    const checkAnonimity = (data) => {
+        if (data.anonimity) {
+            setUserName(data.generatedName);
+            setUserImage(defaultPFP);
+        } else {
+            setUserName(data.userName);
+            setUserImage(data.userImg);
+        }
+
+        if (data.mood == 'How are you Feeling \ntoday?') {
+            setMoodText('Not Selected');
+        } else {
+            setMoodText(data.mood);
+        }
+    }
+
     return (
 
         <View style={cardStyles.card}>
 
             <View style={cardStyles.cardHead}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={otherProfile}>
                     <View style={cardStyles.namePicContainer}>
                         <View>
                             <Image source={{ uri: userImage }} style={cardStyles.userimg} />
-                            <Image source={userDATA.moodlet} style={cardStyles.moodlet} />
+                            <Image source={userData.moodlet} style={cardStyles.moodlet} />
                         </View>
 
                         <View>
@@ -33,7 +84,7 @@ const Item = ({ userDATA, onChat, item, userName, userImage, moodText, isViewCou
             </View>
 
             <TouchableOpacity activeOpacity={TouchableOpacityValue} onPress={viewFullPost}>
-                <View style={{ backgroundColor: backgroundColor, width: '100%', minHeight: 290 }}>
+                <View style={{ backgroundColor: item.color, width: '100%', minHeight: 290 }}>
                     <Text style={cardStyles.post_text}>{fullPost}</Text>
 
                     <View style={[cardStyles.viewCount, { display: isViewCountShow }]}>
@@ -43,21 +94,39 @@ const Item = ({ userDATA, onChat, item, userName, userImage, moodText, isViewCou
                 </View>
             </TouchableOpacity>
 
-            <View style={cardStyles.cardBottom}>
+            <View style={{ display: commentSectionVisibility }}>
 
-                <View style={cardStyles.picCommentContainer}>
+                <TouchableOpacity onPress={yourComments}>
+                    <Text style={commentStyles.yourComments}>View Your Comments</Text>
+                </TouchableOpacity>
 
-                    <View>
-                        <Image source={{ uri: photoURL }} style={cardStyles.userimg} />
-                        <Image source={mood} style={cardStyles.moodlet} />
+                <View style={cardStyles.cardBottom}>
+
+                    <View style={cardStyles.picCommentContainer}>
+
+                        <View>
+                            <Image source={{ uri: photoURL }} style={commentStyles.userimg} />
+                            <Image source={mood} style={commentStyles.moodlet} />
+                        </View>
+
+                        <TextInput
+                            placeholder="Your Thoughts ?"
+                            style={cardStyles.commentBox}
+                            onChangeText={(value) => { setCommentText(value); setText(value); }}
+                            value={text}
+                        />
+
+                        <TouchableOpacity onPress={() => { sendComment(); setText(''); }}>
+                            <MaterialCommunityIcons name="send" color={'#1877F2'} size={25} />
+                        </TouchableOpacity>
                     </View>
-
-                    <TextInput
-                        placeholder="Your Thoughts ?"
-                        style={cardStyles.commentBox}
-                    />
                 </View>
+            </View>
 
+            <View style={{ display: postCommentsVisibility }}>
+                <TouchableOpacity onPress={postComments}>
+                    <Text style={commentStyles.yourComments}>View Comments</Text>
+                </TouchableOpacity>
             </View>
         </View>
 
@@ -65,7 +134,7 @@ const Item = ({ userDATA, onChat, item, userName, userImage, moodText, isViewCou
 
 }
 
-export default function Card({ mood, navigation }) {
+export default function Card({ mood, navigation, postDataRef }) {
 
     const [DATA, setDATA] = useState([]);
     const [postDATA, setPostDATA] = useState([]);
@@ -73,13 +142,14 @@ export default function Card({ mood, navigation }) {
     const getDataBackEnd = () => {
         setRefreshing(true);
 
-        get(ref(database, 'postsGlobal')).then((snapshot) => {
+        get(ref(database, postDataRef)).then((snapshot) => {
             const data = snapshot.val();
             const posts = Object.keys(data).map(key => ({
                 id: key,
                 ...data[key]
             }));
             setPostDATA(posts);
+            setRefreshing(false);
 
         });
 
@@ -89,26 +159,25 @@ export default function Card({ mood, navigation }) {
         getDataBackEnd();
     }, [])
 
-    useEffect(() => {
-        const FD = [];
-
-        Object.values(postDATA).map(element => {
 
 
-            get(ref(database, 'userData/' + element.uid)).then((snapshot) => {
-                const userData = snapshot.val();
+    // useEffect(() => {
+    //     const FD = [];
 
-                const lastData = { element, userData, isShowing: false };
-                FD.push(lastData)
+    //     Object.values(postDATA).map(element => {
+    //         get(ref(database, 'userData/' + element.uid)).then((snapshot) => {
+    //             const userData = snapshot.val();
 
-                setDATA(FD);
+    //             const lastData = { element, userData, isShowing: false };
+    //             FD.push(lastData)
 
-                setRefreshing(false);
-            })
-        });
+    //             setDATA(FD);
 
+    //             setRefreshing(false);
+    //         })
+    //     });
 
-    }, [postDATA])
+    // }, [postDATA])
 
     // console.log(DATA);
 
@@ -129,11 +198,12 @@ export default function Card({ mood, navigation }) {
     const [selectedId, setSelectedId] = useState(null);
 
     //update real-time isShowing state and fullPost text to show
-    // const [fullPost, setPostTextProcessed] = useState(null);
+    const [fullPost, setPostTextProcessed] = useState(null);
     const [isShowing, setIsShowing] = useState(null);
 
     //update display property of the view count to show and hide
-    // const [isViewCountShow, setViewCountShow] = useState('flex');
+    const [isViewCountShow, setViewCountShow] = useState('flex');
+
 
 
 
@@ -145,9 +215,10 @@ export default function Card({ mood, navigation }) {
         //postTextProcessed stores the max characters of the post text
         //TouchableOpacityValue holds the opacity value of TouchableOpacity Element
 
-        var postTextOriginal = item.element.post;
-        var postTextProcessed;
-        var TouchableOpacityValue;
+        var postTextOriginal = '';
+        postTextOriginal = item.post;
+        var postTextProcessed = '';
+        var TouchableOpacityValue = 0;
 
         // var post;
         // var isViewCountShow = 'flex';
@@ -167,94 +238,143 @@ export default function Card({ mood, navigation }) {
             TouchableOpacityValue = 1;
         }
 
-        // post = postTextProcessed;
 
-        var userName, userImage, moodText, chatRoomId;
+        var commentSectionVisibility, commentText, postCommentsVisibility;
 
-        if (item.userData.anonimity) {
-            userName = item.userData.generatedName;
-            userImage = "https://firebasestorage.googleapis.com/v0/b/project-imu.appspot.com/o/profile_default%2Fprofile-image.png?alt=media&token=b77c1557-4e43-41e2-ad60-6ca0ecf07475";
+        // if (item.userData.anonimity) {
+        //     userName = item.userData.generatedName;
+        //     userImage = "https://firebasestorage.googleapis.com/v0/b/project-imu.appspot.com/o/profile_default%2Fprofile-image.png?alt=media&token=b77c1557-4e43-41e2-ad60-6ca0ecf07475";
+        // } else {
+        //     userName = item.userData.userName;
+        //     userImage = item.userData.userImg;
+        // }
+
+        // if (item.userData.mood == 'How are you Feeling \ntoday?') {
+        //     moodText = 'Not Selected';
+        // } else {
+        //     moodText = item.userData.mood;
+        // }
+
+
+        if (item.uid === auth.currentUser.uid) {
+            commentSectionVisibility = 'none';
+            postCommentsVisibility = 'flex';
         } else {
-            userName = item.userData.userName;
-            userImage = item.userData.userImg;
+            commentSectionVisibility = 'flex';
+            postCommentsVisibility = 'none'
         }
 
-        if (item.userData.mood == 'How are you Feeling \ntoday?') {
-            moodText = 'Not Selected';
-        } else {
-            moodText = item.userData.mood;
+
+
+        const onChatPress = () => {
+
+            get(ref(database, 'messagesGlobal/chatHead/' + auth.currentUser.uid + '/' + item.uid)).then((snapshot) => {
+                if (snapshot.exists()) {
+
+                    update(ref(database, 'messagesGlobal/' + '/chatHead/' + auth.currentUser.uid + '/' + item.uid), {
+                        unreadCount: 0
+                    }).then(() => {
+
+                        navigation.navigate('ChatBox', { userId: item.uid, chatRoomId: chatRoomId });
+                    })
+                } else {
+                    navigation.navigate('ChatBox', { userId: item.uid, chatRoomId: chatRoomId });
+                }
+            })
         }
 
+        const setCommentText = (value) => {
+            commentText = value;
+        }
 
-        get(ref(database, 'messagesGlobal/chatHead/' + auth.currentUser.uid + '/' + item.userData.id)).then((snapshot) => {
-            if (snapshot.exists()) {
-                chatRoomId = snapshot.val().chatRoomId;
-            } else {
-                chatRoomId = null;
+        const sendComment = () => {
+            if (commentText != '') {
+
+                var commentData;
+                get(ref(database, 'comments/' + item.postId + '/' + auth.currentUser.uid)).then((snapshot) => {
+                    if (snapshot.exists()) {
+                        commentData = snapshot.val();
+                    } else {
+                        commentData = [];
+                    }
+
+                    set(ref(database, 'comments/' + item.postId + '/' + auth.currentUser.uid), [
+                        ...commentData,
+                        {
+                            userId: auth.currentUser.uid,
+                            comment: commentText,
+                            time: Date()
+                        }
+                    ])
+                })
             }
-        })
-
-        const checkUserId = () => {
-            var e = false;
-            // if (item.element.postId === selectedId) {
-            e = !e;
-            return e;
-            // } else {
-            //     return false;
-            // }
         }
 
-        const isSameId = item.element.postId === selectedId ? true : false;
-        const doThat = isSameId === false ? () => { setIsShowing(item.isShowing); item.isShowing = !item.isShowing; } : () => { return; };
-        // doThat();
-        const post = isShowing === true ? postTextOriginal : postTextProcessed;
-        const isViewCountShow = isShowing === true ? 'none' : 'flex';
+        const yourComments = () => {
+            get(ref(database, 'comments/' + item.postId + '/' + auth.currentUser.uid)).then((snapshot) => {
+                if (snapshot.exists()) {
+                    navigation.navigate("YourComments", { postId: item.postId });
+                } else {
+                    Alert.alert(
+                        "You haven't commented yet!",
+                        "",
+                        [
+                            { text: "OK", onPress: () => console.log("OK Pressed") }
+                        ]
+                    );
+                }
+            })
+        }
 
-        // console.log(item.isShowing);
-        console.log(isViewCountShow);
+        const postComments = () => {
+            get(ref(database, 'comments/' + item.postId)).then((snapshot) => {
+                if (snapshot.exists()) {
+                    navigation.navigate("ViewComments", { postId: item.postId });
+                } else {
+                    Alert.alert(
+                        "Don't have comments yet!",
+                        "",
+                        [
+                            { text: "OK", onPress: () => console.log("OK Pressed") }
+                        ]
+                    );
+                }
+            })
+        }
 
-
-
-        //This function makes post to touch and expand to view full text of the post
-        //on full post, hides the view count
-        const viewFullPost = () => {
-
-            setSelectedId(item.element.postId);
-            // item.isShowing = !item.isShowing;
-            // if (isShowing == false) { setPostTextProcessed(postTextOriginal); setIsShowing(true); setViewCountShow('none'); }
-            // else { setPostTextProcessed(postTextProcessed); setIsShowing(false); setViewCountShow('flex'); }
-
-            // if (item.isShowing == false) {
-            //     post = postTextOriginal;
-            //     isViewCountShow = 'none';
-            //     item.isShowing = true;
-            // } else {
-            //     post = postTextProcessed;
-            //     isViewCountShow = 'flex';
-            //     item.isShowing = false;
-            // }
-            // console.log(selectedId);
-            // console.log(item.isShowing);
-            // console.log(isViewCountShow);
-        };
+        const otherProfile = () => {
+            navigation.navigate("OtherProfile", { userId: item.uid });
+        }
 
 
         return (
             <Item
-                fullPost={post}
+                // fullPost={post}
                 mood={mood}
-                TouchableOpacityValue={TouchableOpacityValue}
-                isViewCountShow={isViewCountShow}
+                // TouchableOpacityValue={TouchableOpacityValue}
+                // isViewCountShow={isViewCountShow}
                 photoURL={photoURL}
-                viewCount={item.element.viewCount}
-                viewFullPost={viewFullPost}
-                backgroundColor={item.element.color}
-                userDATA={item.userData}
+                // viewCount={item.element.viewCount}
+                // viewFullPost={viewFullPost}
+                // backgroundColor={item.element.color}
+                // userDATA={item.userData}
+                // item={item}
+                // userImage={userImage}
+                // userName={userName}
+                // moodText={moodText}
+                // onChat={onChatPress}
+                commentSectionVisibility={commentSectionVisibility}
+                setCommentText={setCommentText}
+                sendComment={sendComment}
+                yourComments={yourComments}
+                postCommentsVisibility={postCommentsVisibility}
+                postComments={postComments}
+                postTextProcessed={postTextProcessed}
+                postTextOriginal={postTextOriginal}
+                TouchableOpacityValue={TouchableOpacityValue}
+                otherProfile={otherProfile}
+
                 item={item}
-                userImage={userImage}
-                userName={userName}
-                moodText={moodText}
-                onChat={() => navigation.navigate('ChatBox', { userId: item.userData.id, chatRoomId: chatRoomId })}
             />
         )
 
@@ -272,9 +392,9 @@ export default function Card({ mood, navigation }) {
     return (
 
         <FlatList
-            data={DATA}
+            data={postDATA}
             renderItem={renderItem}
-            keyExtractor={item => item.element.postId}
+            keyExtractor={item => item.postId}
             extraData={selectedId}
             refreshControl={
                 <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
@@ -284,12 +404,12 @@ export default function Card({ mood, navigation }) {
     );
 };
 
-const cardStyles = StyleSheet.create({
+export const cardStyles = StyleSheet.create({
 
     commentBox: {
         flex: 1,
         backgroundColor: '#ECECEC',
-        padding: 10,
+        padding: 5,
         borderRadius: 50
     },
 
@@ -394,5 +514,26 @@ const cardStyles = StyleSheet.create({
         color: '#FFFFFF',
         minHeight: 290,
         paddingHorizontal: 5,
+    }
+})
+
+const commentStyles = StyleSheet.create({
+    userimg: {
+        width: 40,
+        height: 40,
+        borderRadius: 30,
+        marginRight: 13
+    },
+    moodlet: {
+        right: -30,
+        bottom: 15,
+        width: 15,
+        height: 15,
+        marginBottom: -20
+    },
+    yourComments: {
+        padding: 5,
+        color: '#1877F2',
+        fontWeight: 'bold'
     }
 })
