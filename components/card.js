@@ -307,10 +307,10 @@ export default function Card({ mood, navigation, postDataRef }) {
                         unreadCount: 0
                     }).then(() => {
 
-                        navigation.navigate('ChatBox', { userId: item.uid, chatRoomId: chatRoomId });
+                        navigation.navigate('ChatBox', { userId: item.uid, chatRoomId: snapshot.val().chatRoomId });
                     })
                 } else {
-                    navigation.navigate('ChatBox', { userId: item.uid, chatRoomId: chatRoomId });
+                    navigation.navigate('ChatBox', { userId: item.uid, chatRoomId: null });
                 }
             })
         }
@@ -394,7 +394,7 @@ export default function Card({ mood, navigation, postDataRef }) {
                 // userImage={userImage}
                 // userName={userName}
                 // moodText={moodText}
-                // onChat={onChatPress}
+                onChat={onChatPress}
                 commentSectionVisibility={commentSectionVisibility}
                 setCommentText={setCommentText}
                 sendComment={sendComment}
