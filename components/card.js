@@ -15,6 +15,8 @@ const Item = ({ userDATA, otherProfile, yourComments, postComments, postComments
     const [userImage, setUserImage] = useState(null);
     const [userName, setUserName] = useState(null);
     const [moodText, setMoodText] = useState(null);
+    const [postCommentsVisibilityMain, setPostCommentsVisibilityMain] = useState(postCommentsVisibility);
+    const [noCommentsVisibility, setNoCommentsVisibility] = useState('none');
 
     //update real-time isShowing state and fullPost text to show
     const [fullPost, setPostTextProcessed] = useState(postTextProcessed);
@@ -35,6 +37,26 @@ const Item = ({ userDATA, otherProfile, yourComments, postComments, postComments
             setUserData(snapshot.val());
             checkAnonimity(snapshot.val());
         })
+
+        // get(ref(database, 'postsGlobal/' + item.postId)).then((snapshot) => {
+        //     if (snapshot.exists()) {
+        //         setNoCommentsVisibility('none');
+        //     } else {
+        //         setNoCommentsVisibility('flex');
+        //         setPostCommentsVisibilityMain('none');
+        //     }
+        // })
+
+        if (commentSectionVisibility == 'none') {
+            onValue(ref(database, 'comments/' + item.postId), (snapshot) => {
+                if (snapshot.exists()) {
+                    setNoCommentsVisibility('none');
+                } else {
+                    setNoCommentsVisibility('flex');
+                    setPostCommentsVisibilityMain('none');
+                }
+            })
+        }
     }, [])
 
     const viewFullPost = () => {
@@ -123,10 +145,14 @@ const Item = ({ userDATA, otherProfile, yourComments, postComments, postComments
                 </View>
             </View>
 
-            <View style={{ display: postCommentsVisibility }}>
+            <View style={{ display: postCommentsVisibilityMain }}>
                 <TouchableOpacity onPress={postComments}>
                     <Text style={commentStyles.yourComments}>View Comments</Text>
                 </TouchableOpacity>
+            </View>
+
+            <View style={{ display: noCommentsVisibility }}>
+                <Text style={commentStyles.noComments}>No Comments</Text>
             </View>
         </View>
 
@@ -148,7 +174,7 @@ export default function Card({ mood, navigation, postDataRef }) {
                 id: key,
                 ...data[key]
             }));
-            setPostDATA(posts);
+            setPostDATA(posts.reverse());
             setRefreshing(false);
 
         });
@@ -399,7 +425,6 @@ export default function Card({ mood, navigation, postDataRef }) {
             refreshControl={
                 <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             }
-            inverted='true'
         />
 
     );
@@ -536,5 +561,9 @@ const commentStyles = StyleSheet.create({
         padding: 5,
         color: '#1877F2',
         fontWeight: 'bold'
-    }
+    },
+    noComments: {
+        padding: 5,
+        color: '#1877F2',
+    },
 })
