@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Text, View, Alert, TouchableOpacity, FlatList } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { auth, database } from '../firebaseConfig';
-import { ref, set, onValue, push } from '@firebase/database';
+import { ref, set, onValue, push, remove, child } from '@firebase/database';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { thStyles } from '../styles/thstyle';
+
 
 export default function Thoughts({ navigation }) {
 
@@ -27,6 +28,11 @@ export default function Thoughts({ navigation }) {
     })
   }, []);
 
+  function deleteData () {
+    remove(ref(database, 'notes/' + auth.currentUser.uid + '/' ));
+    alert('Successfully Removed');
+  }
+
   return (
     <SafeAreaView>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -47,10 +53,19 @@ export default function Thoughts({ navigation }) {
             keyExtractor={item => item.id}
             renderItem={({ item, index }) => (
               <View key={index}>
+                <TouchableOpacity onPress={() => 
+                  Alert.alert(
+                    item.title, 
+                    item.note,
+                    [
+                      {text: 'Delete', onPress: () => console.log('Deleted')},
+                      {},
+                      {text: 'Cancel', onPress: () => console.log('OK Pressed')},
+                    ],
+                    )}>
                 <View style={thStyles.content}>
                   <Text style={thStyles.date}>{item.date}</Text>
                 </View>
-                <TouchableOpacity onPress={() => { Alert.alert(item.title, item.note); }}>
                 <View style={{ flexDirection: 'row' }}>
                   <View style={thStyles.c1}>
                     <View style={thStyles.nameContainer}>
