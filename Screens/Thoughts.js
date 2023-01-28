@@ -58,9 +58,7 @@ export default function Thoughts({ navigation }) {
                     item.title, 
                     item.note,
                     [
-                      {text: 'Delete', onPress: () => console.log('Deleted')},
-                      {},
-                      {text: 'Cancel', onPress: () => console.log('OK Pressed')},
+                      {text: 'Cancel', onPress: () => console.log('OK Pressed')}
                     ],
                     )}>
                 <View style={thStyles.content}>

@@ -399,6 +399,7 @@ export default function Card({ mood, navigation, postDataRef }) {
             refreshControl={
                 <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             }
+            inverted='true'
         />
 
     );
