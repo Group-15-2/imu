@@ -11,7 +11,7 @@ import { cardStyles } from '../components/card';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { defaultPFP } from './Profile';
 
-const Item = ({ time, item, postId }) => {
+const Item = ({ time, item, postId, otherProfile }) => {
 
     const [comments, setComments] = useState([]);
     const [userData, setUserData] = useState([]);
@@ -46,10 +46,11 @@ const Item = ({ time, item, postId }) => {
     }
 
 
+
     return (
         <View >
             <View style={cardStyles.cardHead}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={otherProfile}>
                     <View style={cardStyles.namePicContainer}>
                         <View>
                             <Image source={{ uri: userImage }} style={cardStyles.userimg} />
@@ -63,10 +64,6 @@ const Item = ({ time, item, postId }) => {
                     </View>
                 </TouchableOpacity>
 
-
-                <TouchableOpacity onPress={() => onChat()}>
-                    <MaterialCommunityIcons name="message-text-outline" color={'#1877F2'} size={42} />
-                </TouchableOpacity>
             </View>
 
             <View style={styles.cardBottom}>
@@ -86,7 +83,7 @@ const Item = ({ time, item, postId }) => {
     )
 }
 
-export default function ViewComments({ route }) {
+export default function ViewComments({ route, navigation }) {
 
     const postId = route.params.postId;
     const [users, setUsers] = useState([]);
@@ -108,11 +105,16 @@ export default function ViewComments({ route }) {
 
         const time = FormatTime(item.time);
 
+        const otherProfile = () => {
+            navigation.navigate("OtherProfile", { userId: item.id });
+        }
+
         return (
             <Item
                 time={time}
                 item={item}
                 postId={postId}
+                otherProfile={otherProfile}
             />
         )
     }

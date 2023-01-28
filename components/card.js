@@ -164,18 +164,24 @@ export default function Card({ mood, navigation, postDataRef }) {
 
     const [DATA, setDATA] = useState([]);
     const [postDATA, setPostDATA] = useState([]);
+    const [isPostsAvailable, setIsPostsAvailable] = useState(false);
 
     const getDataBackEnd = () => {
         setRefreshing(true);
 
         get(ref(database, postDataRef)).then((snapshot) => {
-            const data = snapshot.val();
-            const posts = Object.keys(data).map(key => ({
-                id: key,
-                ...data[key]
-            }));
-            setPostDATA(posts.reverse());
-            setRefreshing(false);
+            if (snapshot.exists()) {
+                const data = snapshot.val();
+                const posts = Object.keys(data).map(key => ({
+                    id: key,
+                    ...data[key]
+                }));
+                setPostDATA(posts.reverse());
+                setRefreshing(false);
+                setIsPostsAvailable(true);
+            } else {
+                setIsPostsAvailable(false);
+            }
 
         });
 
@@ -416,16 +422,19 @@ export default function Card({ mood, navigation, postDataRef }) {
 
 
     return (
+        <View>
+            <Text style={{ color: '#1877F2', fontWeight: 'bold', textAlign: 'center' }}>{isPostsAvailable ? '' : 'No Posts Available'}</Text>
+            <FlatList
+                data={postDATA}
+                renderItem={renderItem}
+                keyExtractor={item => item.postId}
+                extraData={selectedId}
+                refreshControl={
+                    <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+                }
+            />
 
-        <FlatList
-            data={postDATA}
-            renderItem={renderItem}
-            keyExtractor={item => item.postId}
-            extraData={selectedId}
-            refreshControl={
-                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-            }
-        />
+        </View>
 
     );
 };
