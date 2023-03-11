@@ -128,7 +128,7 @@ export default function ProfileScreen({ navigation }) {
     setIsLoaderOpen(true);
     GoogleSignin.signOut();
     auth.signOut().then(() => {
-      // navigation.navigate('CheckAuthScreen');
+      navigation.navigate('CheckAuthScreen');
       setIsLoaderOpen(false);
     }).catch((error) => {
       console.log(error);
