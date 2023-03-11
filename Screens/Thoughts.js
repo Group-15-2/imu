@@ -6,11 +6,10 @@ import { thStyles } from '../styles/thstyle';
 export default function Thoughts() {
   return (
     <View>
-      <Text style={thStyles.header}>
-        Thought Space
-      </Text>
-      <View style={thStyles.card}>
         <ScrollView>
+        <Text style={thStyles.header}>
+          Thought Space
+        </Text>
           <Thought />
           <Thought />
           <Thought />
@@ -23,7 +22,6 @@ export default function Thoughts() {
           <Thought />
           <Thought />
         </ScrollView>
-      </View>
     </View>
   );
 }   

@@ -23,7 +23,7 @@ export default function Card({ mood }) {
     //postTextProcessed stores the max characters of the post text
     //TouchableOpacityValue holds the opacity value of TouchableOpacity Element
 
-    var postTextOriginal = "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ffffffffffffffffffffffffffffff";
+    var postTextOriginal = "This is Dummy Text Lorem ipsum dolor sit amet, consectetur adipisicing elit";
     var postTextProcessed;
     var TouchableOpacityValue;
 
@@ -70,7 +70,7 @@ export default function Card({ mood }) {
                         </View>
 
                         <View>
-                            <Text style={cardStyles.name}>Confused Unga Bunga</Text>
+                            <Text style={cardStyles.name}>Test User</Text>
                             <Text style={cardStyles.mood}>Happy</Text>
                         </View>
                     </View>

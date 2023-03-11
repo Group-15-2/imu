@@ -141,6 +141,8 @@ export default function Home({ navigation }) {
 
   return (
     <SafeAreaView>
+      
+      <ScrollView>
       <View style={[styles.topSelector, { display: isHeaderShow }]}>
         <Text style={styles.heading}>
           {selectedMood}
@@ -168,7 +170,6 @@ export default function Home({ navigation }) {
           />
         </View>
       </View>
-      <ScrollView>
         <Card mood={imgLink} />
         <Card mood={imgLink} />
         <Card mood={imgLink} />

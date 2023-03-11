@@ -101,172 +101,166 @@ export default function ProfileScreen({ navigation }) {
 
   return (
     <SafeAreaView >
+      <ScrollView>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
         <Text style={styled.header}>
           Profile
         </Text>
-
+        
         <TouchableOpacity onPress={() => setConfirmModalOpen(true)}>
           <View style={{ flexDirection: 'row', marginRight: 16, paddingTop: 33, }}>
             <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#504F4F', paddingRight: 10 }}>Logout</Text>
             <Image source={require('../assets/logout.png')} style={{ height: 30, width: 30 }} />
           </View>
         </TouchableOpacity>
-
       </View>
-
-      <View style={styled.card}>
-        <ScrollView>
-
-
-          <View style={styled.userinfo}>
-            <View style={{ alignSelf: 'center' }}>
-              <Image source={{ uri: PFP }} style={styled.userimg} />
-              <Image source={imgLink} style={styled.moodlet} />
-            </View>
-
-            <ImagePickerScreen setIsLoaderOpen={setIsLoaderOpen} />
-
-
-
-            <View>
-              <Text style={styled.id}>ID = {UID}</Text>
-            </View>
+        <View style={styled.userinfo}>
+          <View style={{ alignSelf: 'center' }}>
+            <Image source={{ uri: PFP }} style={styled.userimg} />
+            <Image source={imgLink} style={styled.moodlet} />
           </View>
 
+          <ImagePickerScreen setIsLoaderOpen={setIsLoaderOpen} />
 
-          <Divider style={styled.divider} />
 
-          <View style={styled.details}>
-            <Text style={styled.userd}>Your Name</Text>
-            <View style={styled.input}>
-              <Text style={styled.txtint}>{name}</Text>
-              <TouchableOpacity style={styled.editbtn} onPress={() => setNameModalOpen(true)}>
-                <Icon
-                  name='square-edit-outline'
-                  color='#000'
-                  size={18}
-                />
-              </TouchableOpacity>
-            </View>
+
+          <View>
+            <Text style={styled.id}>ID = {UID}</Text>
           </View>
+        </View>
 
-          <View style={styled.details}>
-            <Text style={styled.userd}>Your Email</Text>
-            <View style={styled.input}>
-              <Text style={styled.txtint}>{email}</Text>
-              <TouchableOpacity style={styled.editbtn} onPress={() => setReAuthenticateModalOpenEmail(true)}>
-                <Icon
-                  name='square-edit-outline'
-                  color='#000'
-                  size={18}
-                />
-              </TouchableOpacity>
-            </View>
+
+        <Divider style={styled.divider} />
+
+        <View style={styled.details}>
+          <Text style={styled.userd}>Your Name</Text>
+          <View style={styled.input}>
+            <Text style={styled.txtint}>{name}</Text>
+            <TouchableOpacity style={styled.editbtn} onPress={() => setNameModalOpen(true)}>
+              <Icon
+                name='square-edit-outline'
+                color='#000'
+                size={18}
+              />
+            </TouchableOpacity>
           </View>
+        </View>
 
-          <View style={styled.details}>
-            <Text style={styled.userd}>Phone Number</Text>
-            <View style={styled.input}>
-              <Text style={styled.txtint}>{phoneNo}</Text>
-              <TouchableOpacity style={styled.editbtn} onPress={() => setPhoneModalOpen(true)}>
-                <Icon
-                  name='square-edit-outline'
-                  color='#000'
-                  size={18}
-                />
-              </TouchableOpacity>
-            </View>
+        <View style={styled.details}>
+          <Text style={styled.userd}>Your Email</Text>
+          <View style={styled.input}>
+            <Text style={styled.txtint}>{email}</Text>
+            <TouchableOpacity style={styled.editbtn} onPress={() => setReAuthenticateModalOpenEmail(true)}>
+              <Icon
+                name='square-edit-outline'
+                color='#000'
+                size={18}
+              />
+            </TouchableOpacity>
           </View>
+        </View>
 
-          <Divider style={styled.divider} />
-
-
-          <View style={{ flexDirection: 'row' }}>
-            <Text style={styled.anonymity}>Anonymity</Text>
-            <Switch
-              style={styled.btn}
-              trackColor={{ false: "#767577", true: "#81b0ff" }}
-              thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
-              ios_backgroundColor="#3e3e3e"
-              onValueChange={toggleSwitch}
-              value={isEnabled}
-            />
+        <View style={styled.details}>
+          <Text style={styled.userd}>Phone Number</Text>
+          <View style={styled.input}>
+            <Text style={styled.txtint}>{phoneNo}</Text>
+            <TouchableOpacity style={styled.editbtn} onPress={() => setPhoneModalOpen(true)}>
+              <Icon
+                name='square-edit-outline'
+                color='#000'
+                size={18}
+              />
+            </TouchableOpacity>
           </View>
+        </View>
 
-          <View style={styled.details}>
-            <Text style={styled.userd}>Generated Name</Text>
-            <View style={styled.input}>
-              <Text style={styled.txtint}>{generatedName}</Text>
-              <TouchableOpacity style={styled.editbtn}>
-                <Icon
-                  name='refresh'
-                  color='#000'
-                  size={18}
-                />
-              </TouchableOpacity>
-            </View>
+        <Divider style={styled.divider} />
+
+
+        <View style={{ flexDirection: 'row' }}>
+          <Text style={styled.anonymity}>Anonymity</Text>
+          <Switch
+            style={styled.btn}
+            trackColor={{ false: "#767577", true: "#81b0ff" }}
+            thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={toggleSwitch}
+            value={isEnabled}
+          />
+        </View>
+
+        <View style={styled.details}>
+          <Text style={styled.userd}>Generated Name</Text>
+          <View style={styled.input}>
+            <Text style={styled.txtint}>{generatedName}</Text>
+            <TouchableOpacity style={styled.editbtn}>
+              <Icon
+                name='refresh'
+                color='#000'
+                size={18}
+              />
+            </TouchableOpacity>
           </View>
+        </View>
 
-          <Divider style={styled.divider} />
-
-
-          <TouchableOpacity activeOpacity={.7} style={[inStyle.txtInt, { marginBottom: 40 }]} onPress={() => setReAuthenticateModalOpenPassword(true)}>
-            <Text style={inStyle.txt}>Change Password</Text>
-          </TouchableOpacity>
+        <Divider style={styled.divider} />
 
 
+        <TouchableOpacity activeOpacity={.7} style={[inStyle.txtInt, { marginBottom: 40 }]} onPress={() => setReAuthenticateModalOpenPassword(true)}>
+          <Text style={inStyle.txt}>Change Password</Text>
+        </TouchableOpacity>
 
-          {/* Modals */}
 
-          <ConfirmModal
-            isConfirmModalOpen={isConfirmModalOpen}
-            subject={'Do you really want to Logout?'}
-            setConfirmModalOpen={setConfirmModalOpen}
-            onPress={handleLogOut}
-          />
 
-          <ReAuthenticateModal
-            isReAuthenticateModalOpen={isReAuthenticateModalOpenPassword}
-            setReAuthenticateModalOpen={setReAuthenticateModalOpenPassword}
-            setActionModalOpen={setChangePasswordModalOpen}
-          />
+        {/* Modals */}
 
-          <ReAuthenticateModal
-            isReAuthenticateModalOpen={isReAuthenticateModalOpenEmail}
-            setReAuthenticateModalOpen={setReAuthenticateModalOpenEmail}
-            setActionModalOpen={setEmailChangeModalOpen}
-          />
+        <ConfirmModal
+          isConfirmModalOpen={isConfirmModalOpen}
+          subject={'Do you really want to Logout?'}
+          setConfirmModalOpen={setConfirmModalOpen}
+          onPress={handleLogOut}
+        />
 
-          <ChangePasswordModal
-            isChangePasswordModalOpen={isChangePasswordModalOpen}
-            setChangePasswordModalOpen={setChangePasswordModalOpen}
-          />
+        <ReAuthenticateModal
+          isReAuthenticateModalOpen={isReAuthenticateModalOpenPassword}
+          setReAuthenticateModalOpen={setReAuthenticateModalOpenPassword}
+          setActionModalOpen={setChangePasswordModalOpen}
+        />
 
-          <ChangeEmailModal
-            visibility={isEmailChangeModalOpen}
-            setVisibility={setEmailChangeModalOpen}
-          />
+        <ReAuthenticateModal
+          isReAuthenticateModalOpen={isReAuthenticateModalOpenEmail}
+          setReAuthenticateModalOpen={setReAuthenticateModalOpenEmail}
+          setActionModalOpen={setEmailChangeModalOpen}
+        />
 
-          <EditDetailModal
-            type={'name'}
-            setVisibility={setNameModalOpen}
-            visibility={isNameModalOpen}
-            value={name}
-          />
+        <ChangePasswordModal
+          isChangePasswordModalOpen={isChangePasswordModalOpen}
+          setChangePasswordModalOpen={setChangePasswordModalOpen}
+        />
 
-          <EditDetailModal
-            type={'phone-number'}
-            setVisibility={setPhoneModalOpen}
-            visibility={isPhoneModalOpen}
-            value={phoneNo}
-          />
+        <ChangeEmailModal
+          visibility={isEmailChangeModalOpen}
+          setVisibility={setEmailChangeModalOpen}
+        />
 
-          <LoadingModal visibility={isLoaderOpen} />
+        <EditDetailModal
+          type={'name'}
+          setVisibility={setNameModalOpen}
+          visibility={isNameModalOpen}
+          value={name}
+        />
 
-        </ScrollView>
-      </View>
-    </SafeAreaView >
+        <EditDetailModal
+          type={'phone-number'}
+          setVisibility={setPhoneModalOpen}
+          visibility={isPhoneModalOpen}
+          value={phoneNo}
+        />
+
+        <LoadingModal visibility={isLoaderOpen} />
+
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 

@@ -39,34 +39,32 @@ export default function Messages({ navigation }) {
       <Text style={chatStyles.header}>
         Chats
       </Text>
-      <View style={chatStyles.card}>
-        <View>
-          <FlatList
-            data={MessagesData}
-            keyExtractor={item => item.id}
-            renderItem={({ item }) => (
-              <TouchableOpacity onPress={() => navigation.navigate('ChatBox')}>
-                <View style={{ flexDirection: 'row' }}>
-                  <View style={chatStyles.c1}>
-                    <View style={chatStyles.namePicContainer}>
-                      <View>
-                        <Image style={chatStyles.userimg} source={item.userImg} />
-                        <Image source={item.moodlet} style={chatStyles.moodlet} />
-                      </View>
-                      <View>
-                        <Text>{item.userName}</Text>
-                        <Text style={chatStyles.t}>{item.messageText}</Text>
-                      </View>
+      <View>
+        <FlatList
+          data={MessagesData}
+          keyExtractor={item => item.id}
+          renderItem={({ item }) => (
+            <TouchableOpacity onPress={() => navigation.navigate('ChatBox')}>
+              <View style={{ flexDirection: 'row' }}>
+                <View style={chatStyles.c1}>
+                  <View style={chatStyles.namePicContainer}>
+                    <View>
+                      <Image style={chatStyles.userimg} source={item.userImg} />
+                      <Image source={item.moodlet} style={chatStyles.moodlet} />
+                    </View>
+                    <View>
+                      <Text>{item.userName}</Text>
+                      <Text style={chatStyles.t}>{item.messageText}</Text>
                     </View>
                   </View>
-                  <View style={chatStyles.c2}>
-                    <Text style={chatStyles.txt}>{item.messageTime}</Text>
-                  </View>
                 </View>
-              </TouchableOpacity>
-            )}
-          />
-        </View>
+                <View style={chatStyles.c2}>
+                  <Text style={chatStyles.txt}>{item.messageTime}</Text>
+                </View>
+              </View>
+            </TouchableOpacity>
+          )}
+        />
       </View>
     </View>
   );

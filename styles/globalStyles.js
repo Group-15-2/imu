@@ -2,7 +2,9 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   container: {
-    fontFamily: 'my-custom-font'
+    fontFamily: 'my-custom-font',
+    marginLeft: 16,
+    marginRight:16
   },
 
   topSelector: {
@@ -10,14 +12,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: 32,
+    marginTop: 16,
   },
 
   heading: {
     fontSize: 24,
     fontWeight: 'bold',
     lineHeight: 30.24,
-    marginLeft: 16,
     paddingTop: 10,
     color: '#1877F2'
   },
