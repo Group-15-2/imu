@@ -31,7 +31,7 @@ export default function SignInWithGoogle({ navigation, setError }) {
         await signInWithCredential(auth, googleCredential).then(() => {
             updateBackEndUserData();
             setisLogOut(false);
-            navigation.navigate('Home');
+            // navigation.navigate('Home');
 
 
         }).catch((e) => {

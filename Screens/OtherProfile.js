@@ -1,4 +1,4 @@
-import { View, Text, Image } from 'react-native'
+import { View, Text, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { useEffect, useState } from 'react';
 import { get, onValue, ref } from 'firebase/database';
@@ -6,6 +6,7 @@ import { auth, database } from '../firebaseConfig';
 import { styled } from '../styles/feedStyle';
 import Card from '../components/card';
 import { defaultPFP } from './Profile';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default function OtherProfile({ route, navigation }) {
     const userId = route.params.userId;
@@ -43,7 +44,12 @@ export default function OtherProfile({ route, navigation }) {
 
     return (
         <View>
-            <Text style={[styled.header]}>{userName}</Text>
+            <View style={{ display: 'flex', flexDirection: 'row' }}>
+                <TouchableOpacity activeOpacity={.7} onPress={() => navigation.goBack()} style={{ justifyContent: 'center' }}>
+                    <MaterialCommunityIcons name='chevron-left' size={34} />
+                </TouchableOpacity>
+                <Text style={[styled.header]}>{userName}</Text>
+            </View>
             <View style={styled.userinfo}>
                 <View style={{ alignSelf: 'center' }}>
                     <Image source={{ uri: userImage }} style={styled.userimg} />

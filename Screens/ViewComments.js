@@ -121,9 +121,14 @@ export default function ViewComments({ route, navigation }) {
 
     return (
         <View>
-            <Text style={styled.header}>
-                Comments
-            </Text>
+            <View style={{ display: 'flex', flexDirection: 'row' }}>
+                <TouchableOpacity activeOpacity={.7} onPress={() => navigation.goBack()} style={{ justifyContent: 'center' }}>
+                    <MaterialCommunityIcons name='chevron-left' size={34} />
+                </TouchableOpacity>
+                <Text style={styled.header}>
+                    Comments
+                </Text>
+            </View>
 
             <FlatList
                 data={users}

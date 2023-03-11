@@ -7,6 +7,7 @@ import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AccessToken, LoginManager, } from 'react-native-fbsdk-next';
 import { setisLogOut } from '../Screens/Home';
+import { updateBackEndUserData } from './services/updateBackEndUserData';
 
 export default function SignInWithFB({ navigation, setError }) {
 
@@ -14,7 +15,6 @@ export default function SignInWithFB({ navigation, setError }) {
     const onFBButtonPress = async () => {
         LoginManager.logInWithPermissions(["public_profile", 'email']);
         const data = await AccessToken.getCurrentAccessToken();
-
 
         const facebookCredentials = FacebookAuthProvider.credential(data.accessToken);
         await signInWithCredential(auth, facebookCredentials).then(() => {

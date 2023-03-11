@@ -291,6 +291,7 @@ const ChatScreen = ({ userData, userId, chatRoomId }) => {
       renderInputToolbar={props => customtInputToolbar(props)}
       renderTime={props => time(props)}
       renderAvatar={null}
+
     />
   );
 };
@@ -359,7 +360,7 @@ export default function ChatBox({ navigation, route }) {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.topSelector}>
-        <TouchableOpacity activeOpacity={.7} onPress={() => navigation.navigate('Messages')}>
+        <TouchableOpacity activeOpacity={.7} onPress={() => navigation.goBack()}>
           <MaterialCommunityIcons name='chevron-left' size={34} />
         </TouchableOpacity>
         <View style={styles.c1}>

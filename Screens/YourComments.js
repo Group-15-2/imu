@@ -1,4 +1,4 @@
-import { View, Text, FlatList, SnapshotViewIOS, StyleSheet, Image } from 'react-native'
+import { View, Text, FlatList, SnapshotViewIOS, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { styled } from '../styles/feedStyle'
 import { useEffect } from 'react'
@@ -7,8 +7,9 @@ import { auth, database } from '../firebaseConfig';
 import { useState } from 'react';
 import moment from 'moment';
 import { FormatTime } from '../components/services/FormatTime';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-export default function YourComments({ route }) {
+export default function YourComments({ route, navigation }) {
 
     const postId = route.params.postId;
     const [commentData, setCommentData] = useState([]);
@@ -40,9 +41,14 @@ export default function YourComments({ route }) {
 
     return (
         <View>
-            <Text style={styled.header}>
-                Your Comments
-            </Text>
+            <View style={{ display: 'flex', flexDirection: 'row' }}>
+                <TouchableOpacity activeOpacity={.7} onPress={() => navigation.goBack()} style={{ justifyContent: 'center' }}>
+                    <MaterialCommunityIcons name='chevron-left' size={34} />
+                </TouchableOpacity>
+                <Text style={styled.header}>
+                    Your Comments
+                </Text>
+            </View>
 
             <FlatList
                 data={commentData}

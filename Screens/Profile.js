@@ -116,7 +116,7 @@ export default function ProfileScreen({ navigation }) {
       setGeneratedName(snapshot.val().generatedName);
     })
 
-  }, [auth.currentUser.email, auth.currentUser.phoneNumber, auth.currentUser.displayName, auth.currentUser.photoURL, auth.currentUser.uid, isEnabled]);
+  }, [auth.currentUser.email, auth.currentUser.phoneNumber, auth.currentUser.displayName, auth.currentUser.photoURL, isEnabled]);
 
 
   //logout function
@@ -128,7 +128,7 @@ export default function ProfileScreen({ navigation }) {
     setIsLoaderOpen(true);
     GoogleSignin.signOut();
     auth.signOut().then(() => {
-      navigation.navigate('CheckAuthScreen');
+      // navigation.navigate('CheckAuthScreen');
       setIsLoaderOpen(false);
     }).catch((error) => {
       console.log(error);
