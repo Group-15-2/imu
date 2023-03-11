@@ -6,6 +6,7 @@ import { auth, database } from '../firebaseConfig';
 import { get, onValue, ref, update } from 'firebase/database';
 import moment from 'moment/moment';
 import { FormatTime } from '../components/services/FormatTime';
+import { defaultPFP } from './Profile';
 
 const MessagesData = [
   {
@@ -30,11 +31,58 @@ const MessagesData = [
   },
 ];
 
+const Item = ({ item, msgTime, unreadCount, handlePress }) => {
+
+  const [userData, setUserData] = useState([]);
+  const [userImage, setUserImage] = useState(null);
+  const [userName, setUserName] = useState(null);
+
+  useEffect(() => {
+    onValue(ref(database, 'userData/' + item.senderId), (snapshot) => {
+      const userData = snapshot.val();
+      setUserData(userData);
+      checkAnonimity(snapshot.val());
+    })
+  }, [])
+
+  const checkAnonimity = (data) => {
+    if (data.anonimity) {
+      setUserName(data.generatedName);
+      setUserImage(defaultPFP);
+    } else {
+      setUserName(data.userName);
+      setUserImage(data.userImg);
+    }
+  }
+
+  return (
+    <TouchableOpacity onPress={handlePress}>
+      <View style={{ flexDirection: 'row' }}>
+        <View style={chatStyles.c1}>
+          <View style={chatStyles.namePicContainer}>
+            <View>
+              <Image style={chatStyles.userimg} source={{ uri: userImage }} />
+              <Image source={userData.moodlet} style={chatStyles.moodlet} />
+            </View>
+            <View>
+              <Text>{userName}</Text>
+              <Text style={chatStyles.t}>{item.messageText}</Text>
+            </View>
+          </View>
+        </View>
+        <View style={chatStyles.c2}>
+          <Text style={chatStyles.txt}>{msgTime}</Text>
+          <Text style={chatStyles.txt}>{unreadCount}</Text>
+        </View>
+      </View>
+    </TouchableOpacity>
+  )
+}
+
 export default function Messages({ navigation }) {
 
   const [chatHeaders, setChatHeaders] = useState([]);
-  const [StarterHeaderData, setStarterHeaderData] = useState([]);
-  // setChatHeaders(MessagesData);
+
 
   useEffect(() => {
     const loadData = async () => {
@@ -44,7 +92,7 @@ export default function Messages({ navigation }) {
           id: key,
           ...data[key]
         }))
-        setStarterHeaderData(msgs);
+        setChatHeaders(msgs.reverse());
       }).catch((e) => {
         console.log(e);
       });
@@ -60,36 +108,12 @@ export default function Messages({ navigation }) {
           id: key,
           ...data[key]
         }))
-        setStarterHeaderData(msgs);
+        setChatHeaders(msgs.reverse());
       }
     })
 
 
   }, [])
-
-
-  useEffect(() => {
-    const FD = [];
-
-    Object.values(StarterHeaderData).map(element => {
-
-      // onValue(ref(database, 'userData/' + element.senderId), () => {
-
-      get(ref(database, 'userData/' + element.senderId)).then((snapshot) => {
-        const userData = snapshot.val();
-
-        const lastData = { msgs: element, userName: userData.userName, userImage: userData.userImg, moodlet: userData.moodlet, anonimity: userData.anonimity, generatedName: userData.generatedName };
-        FD.push(lastData);
-
-        setChatHeaders(FD);
-
-        console.log(chatHeaders);
-      })
-      // })
-
-    })
-
-  }, [StarterHeaderData])
 
   // useEffect(() => {
 
@@ -114,56 +138,37 @@ export default function Messages({ navigation }) {
   //   })
   // })
 
-  const handlePress = (item) => {
-
-    update(ref(database, 'messagesGlobal/' + '/chatHead/' + auth.currentUser.uid + '/' + item.msgs.senderId), {
-      unreadCount: 0
-    }).then(() => {
-
-      navigation.navigate('ChatBox', { userId: item.msgs.senderId, chatRoomId: item.msgs.chatRoomId });
-    })
-  }
 
   const renderItem = ({ item }) => {
 
-    var userName, userImage, msgTime, unreadCount;
+    var msgTime, unreadCount;
 
-    if (item.anonimity) {
-      userName = item.generatedName;
-      userImage = "https://firebasestorage.googleapis.com/v0/b/project-imu.appspot.com/o/profile_default%2Fprofile-image.png?alt=media&token=b77c1557-4e43-41e2-ad60-6ca0ecf07475";
-    } else {
-      userName = item.userName;
-      userImage = item.userImage;
-    }
+
 
     //check date and change format
+    msgTime = FormatTime(item.messageTime);
 
-    msgTime = FormatTime(item.msgs.messageTime);
+    unreadCount = item.unreadCount;
 
-    unreadCount = item.msgs.unreadCount;
+    const handlePress = () => {
+
+      update(ref(database, 'messagesGlobal/' + '/chatHead/' + auth.currentUser.uid + '/' + item.senderId), {
+        unreadCount: 0
+      }).then(() => {
+
+        navigation.navigate('ChatBox', { userId: item.senderId, chatRoomId: item.chatRoomId });
+      })
+    }
 
     return (
-      <TouchableOpacity onPress={() => handlePress(item)}>
-        <View style={{ flexDirection: 'row' }}>
-          <View style={chatStyles.c1}>
-            <View style={chatStyles.namePicContainer}>
-              <View>
-                <Image style={chatStyles.userimg} source={{ uri: userImage }} />
-                <Image source={item.moodlet} style={chatStyles.moodlet} />
-              </View>
-              <View>
-                <Text>{userName}</Text>
-                <Text style={chatStyles.t}>{item.msgs.messageText}</Text>
-              </View>
-            </View>
-          </View>
-          <View style={chatStyles.c2}>
-            <Text style={chatStyles.txt}>{msgTime}</Text>
-            <Text style={chatStyles.txt}>{unreadCount}</Text>
-          </View>
-        </View>
-      </TouchableOpacity>
+      <Item
+        item={item}
+        msgTime={msgTime}
+        unreadCount={unreadCount}
+        handlePress={handlePress}
+      />
     )
+
   }
 
   return (
@@ -175,7 +180,7 @@ export default function Messages({ navigation }) {
         <View>
           <FlatList
             data={chatHeaders}
-            keyExtractor={item => item.msgs.chatRoomId}
+            keyExtractor={item => item.chatRoomId}
             renderItem={renderItem}
           />
         </View>

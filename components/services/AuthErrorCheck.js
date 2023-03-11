@@ -69,6 +69,10 @@ export default function AuthErrorCheck({ error }) {
             setErrorMsg('Email already in use');
         }
 
+        if (error === 'auth/network-request-failed') {
+            setErrorMsg('Network error');
+        }
+
         if (error === 'auth/too-many-requests') {
             setErrorMsg('Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later');
         }

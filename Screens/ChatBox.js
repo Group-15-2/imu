@@ -71,27 +71,10 @@ const ChatScreen = ({ userData, userId, chatRoomId }) => {
         });
 
       }
-
-
-      // get(ref(database, 'userData/' + selectedUserID)).then((snapshot) => {
-      //   setUserData(snapshot.val());
-      //   console.log(userData);
-      // }).catch((e) => {
-      //   console.log(e);
-      // });
     }
 
-    // const loadUserData = async () => {
-    //   get(ref(database, 'userData/' + selectedUserID)).then((snapshot) => {
-    //     setUserData(snapshot.val());
-    //     console.log(userData);
-    //   }).catch((e) => {
-    //     console.log(e);
-    //   });
-    // }
-
     loadData();
-    // loadUserData();
+
 
 
     onValue(msgDb, (snapshot) => {
