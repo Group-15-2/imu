@@ -17,6 +17,7 @@ const Item = ({ userDATA, otherProfile, yourComments, postComments, postComments
     const [moodText, setMoodText] = useState(null);
     const [postCommentsVisibilityMain, setPostCommentsVisibilityMain] = useState(postCommentsVisibility);
     const [noCommentsVisibility, setNoCommentsVisibility] = useState('none');
+    const [chatVisibility, setChatVisibility] = useState('flex');
 
     //update real-time isShowing state and fullPost text to show
     const [fullPost, setPostTextProcessed] = useState(postTextProcessed);
@@ -57,6 +58,12 @@ const Item = ({ userDATA, otherProfile, yourComments, postComments, postComments
                 }
             })
         }
+
+        //hide chat icon from current user's posts
+        if (item.uid == auth.currentUser.uid) {
+            setChatVisibility('none');
+        }
+
     }, [])
 
     const viewFullPost = () => {
@@ -99,10 +106,11 @@ const Item = ({ userDATA, otherProfile, yourComments, postComments, postComments
                     </View>
                 </TouchableOpacity>
 
-
-                <TouchableOpacity onPress={() => onChat()}>
-                    <MaterialCommunityIcons name="message-text-outline" color={'#1877F2'} size={42} />
-                </TouchableOpacity>
+                <View style={{display: chatVisibility}}>
+                    <TouchableOpacity onPress={() => onChat()}>
+                        <MaterialCommunityIcons name="message-text-outline" color={'#1877F2'} size={42} />
+                    </TouchableOpacity>
+                </View>
             </View>
 
             <TouchableOpacity activeOpacity={TouchableOpacityValue} onPress={viewFullPost}>
