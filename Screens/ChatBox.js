@@ -10,72 +10,50 @@ import { useRoute } from '@react-navigation/native';
 
 const ChatScreen = ({ userData, userId, chatRoomId }) => {
   const [messages, setMessages] = useState([]);
-
-  // const [userData, setUserData] = useState([]);
-
-  const [selectedUserID, setSelectedUserID] = useState(null);
-  const [selectedChatRoomId, setSelectedchatRoomId] = useState(null);
+  const selectedUserID = userId;
+  const selectedChatRoomId = chatRoomId;
 
   var unreadCount;
 
+  //set unread count to null when online
   useEffect(() => {
+    update(ref(database, 'messagesGlobal/' + '/chatHead/' + auth.currentUser.uid + '/' + userId), {
+        "unreadCount": null
+      })
+  }, [messages])
 
-
-    get(ref(database, 'messagesGlobal/' + '/chatHead/' + userId + '/' + auth.currentUser.uid)).then((snapshot) => {
+  useEffect(() => {
+    get(ref(database, 'messagesGlobal/' + '/chatHead/' + userId + '/' + auth.currentUser.uid + '/unreadCount')).then((snapshot) => {
       if (snapshot.exists()) {
-        unreadCount = snapshot.val().unreadCount;
+        unreadCount = snapshot.val();
       } else {
         unreadCount = 0;
       }
-      // console.log(unreadCount);
     }).catch((e) => {
       console.log(e);
     })
 
-    // onValue(ref(database, 'messagesGlobal/' + '/chatHead/' + userId + '/' + auth.currentUser.uid), (snapshot) => {
-    //   if (snapshot.exists()) {
-    //     unreadCount = snapshot.val().unreadCount;
-    //   } else {
-    //     unreadCount = 0;
-    //   }
-    // })
-
+    onValue(ref(database, 'messagesGlobal/' + '/chatHead/' + userId + '/' + auth.currentUser.uid + '/unreadCount'), (snapshot) => {
+      if (snapshot.exists()) {
+        unreadCount = snapshot.val();
+      } else {
+        unreadCount = 0;
+      }
+    })
   })
 
-  useEffect(
-    () => {
-
-      const getId = async () => {
-
-        setSelectedUserID(userId);
-        setSelectedchatRoomId(chatRoomId);
-
-        // console.log(selectedUserID);
-
-        // getUserData(userData);
-      }
-
-      getId();
-
-    });
-
   useEffect(() => {
-
     const loadData = async () => {
-
       if (selectedChatRoomId !== null) {
         get(ref(database, 'messagesGlobal/' + '/chatRoom/' + selectedChatRoomId + '/messages')).then((snapshot) => {
           setMessages(snapshot.val().reverse());
         }).catch((e) => {
           console.log(e);
         });
-
       }
     }
 
     loadData();
-
-
 
     onValue(msgDb, (snapshot) => {
       if (snapshot.val() !== null) {
@@ -87,12 +65,6 @@ const ChatScreen = ({ userData, userId, chatRoomId }) => {
       //   if (snapshot.val() !== null) {
       //     setSelectedchatRoomId(snapshot.val().chatRoomId);
       //   }
-      // })
-
-      // update(ref(database, 'messagesGlobal/' + '/chatHead/' + auth.currentUser.uid + '/' + userId), {
-      //   unreadCount: 0
-      // }).then(() => {
-      //   unreadCount = 0;
       // })
 
       // console.log(messages);
@@ -127,18 +99,14 @@ const ChatScreen = ({ userData, userId, chatRoomId }) => {
     const checkNull = async () => {
       if (selectedChatRoomId === null) {
         const chatRoomRef = push(ref(database, 'messagesGlobal/chatRoom'));
-        setSelectedchatRoomId(chatRoomRef.key);
-        console.log(selectedChatRoomId);
         return chatRoomRef.key;
       } else {
+        console.log(selectedChatRoomId);
         return selectedChatRoomId;
       }
     }
 
     const key = await checkNull();
-    // setSelectedchatRoomId(key);
-
-    console.log(selectedChatRoomId);
 
 
     const currentChatRoom = await fetchMessages();
@@ -164,26 +132,12 @@ const ChatScreen = ({ userData, userId, chatRoomId }) => {
 
     set(ref(database, 'messagesGlobal/' + '/chatHead/' + auth.currentUser.uid + '/' + selectedUserID),
       {
-        "senderId": userData.id,
+        "senderId": selectedUserID,
         "messageTime": Date(),
         "messageText": messages[0].text,
         "chatRoomId": key
       }
     );
-
-
-
-    // set(ref(database, 'messagesGlobal/' + '/chatRoom/' + selectedChatRoomId + '/chatRoomHeader/' + auth.currentUser.uid), {
-    //   "userName": auth.currentUser.displayName,
-    //   "userImg": auth.currentUser.photoURL,
-    //   "moodlet": ""
-    // });
-
-    // set(ref(database, 'messagesGlobal/' + '/chatRoom/' + selectedChatRoomId + '/chatRoomHeader/' + selectedUserID), {
-    //   "userName": userData.userName,
-    //   "userImg": userData.userImg,
-    //   "moodlet": userData.moodlet
-    // });
 
     update(ref(database, 'messagesGlobal/' + '/chatRoom/' + key),
       {
@@ -305,27 +259,11 @@ export default function ChatBox({ navigation, route }) {
   const [userName, setUserName] = useState(null);
   const [userImage, setUserImage] = useState(null);
 
-  console.log(chatRoomId)
-
-  // const getUserData = (data) => {
-  //   setUserData(data);
-  // }
-
-
-
-  // onValue(ref(database, 'userData/' + userId), (snapshot) => {
-  //   // if (snapshot == null) {
-  //   const updatedUserData = snapshot.val();
-  //   setUserData(updatedUserData);
-  //   // }
-  // })
-
-
   useEffect(() => {
 
     get(ref(database, 'userData/' + userId)).then((snapshot) => {
       setUserData(snapshot.val());
-      console.log(userData);
+      // console.log(userData);
 
       if (userData.anonimity) {
         setUserName(userData.generatedName);
@@ -342,7 +280,7 @@ export default function ChatBox({ navigation, route }) {
     onValue(ref(database, 'userData/' + userId), (snapshot) => {
       if (snapshot.val() !== null) {
         setUserData(snapshot.val());
-        console.log(userData);
+        // console.log(userData);
 
         if (userData.anonimity) {
           setUserName(userData.generatedName);
@@ -363,21 +301,23 @@ export default function ChatBox({ navigation, route }) {
         <TouchableOpacity activeOpacity={.7} onPress={() => navigation.goBack()}>
           <MaterialCommunityIcons name='chevron-left' size={34} />
         </TouchableOpacity>
-        <View style={styles.c1}>
-          <View style={styles.namePicContainer}>
-            <View>
-              <Image source={{ uri: userImage }} style={styles.userimg} />
-              <Image source={userData.moodlet} style={styles.moodlet} />
-            </View>
-            <View>
-              <Text style={styles.text}>{userName}</Text>
-              <Text style={styles.t}>Online</Text>
+        <TouchableOpacity onPress={() => navigation.navigate("OtherProfile", { userId: userData.id })}>
+          <View style={styles.c1}>
+            <View style={styles.namePicContainer}>
+              <View>
+                <Image source={{ uri: userImage }} style={styles.userimg} />
+                <Image source={userData.moodlet} style={styles.moodlet} />
+              </View>
+              <View>
+                <Text style={styles.text}>{userName}</Text>
+                {/* <Text style={styles.t}>Online</Text> */}
+              </View>
             </View>
           </View>
-        </View>
-        <TouchableOpacity activeOpacity={.7} style={styles.dot} onPress={() => navigation.navigate('Messages')}>
-          <MaterialCommunityIcons name='dots-vertical' size={34} />
         </TouchableOpacity>
+        {/* <TouchableOpacity activeOpacity={.7} style={styles.dot} onPress={() => navigation.navigate('Messages')}>
+          <MaterialCommunityIcons name='dots-vertical' size={34} />
+        </TouchableOpacity> */}
       </View>
 
       <ChatScreen

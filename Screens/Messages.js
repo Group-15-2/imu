@@ -153,7 +153,7 @@ export default function Messages({ navigation }) {
     const handlePress = () => {
 
       update(ref(database, 'messagesGlobal/' + '/chatHead/' + auth.currentUser.uid + '/' + item.senderId), {
-        unreadCount: 0
+        "unreadCount": null
       }).then(() => {
 
         navigation.navigate('ChatBox', { userId: item.senderId, chatRoomId: item.chatRoomId });
