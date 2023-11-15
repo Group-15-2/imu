@@ -1,6 +1,6 @@
 import { SAMLAuthProvider, updateProfile } from 'firebase/auth';
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput, FlatList, ScrollView, TouchableWithoutFeedback, RefreshControl, Alert } from "react-native";
+import { StyleSheet, Text, View, Share, Image, TouchableOpacity, TextInput, FlatList, ScrollView, TouchableWithoutFeedback, RefreshControl, Alert } from "react-native";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { auth, database } from '../firebaseConfig';
 import { useFocusEffect } from '@react-navigation/native';
@@ -9,7 +9,8 @@ import { async } from '@firebase/util';
 import { defaultPFP } from '../Screens/Profile';
 import { wordFilter } from './services/WordFilter';
 
-const Item = ({ userDATA, otherProfile, yourComments, postComments, postCommentsVisibility, setCommentText, sendComment, onChat, commentSectionVisibility, item, photoURL, mood, viewCount, postTextOriginal, postTextProcessed, TouchableOpacityValue }) => {
+
+const Item = ({ userDATA, handleShare, otherProfile, yourComments, postComments, postCommentsVisibility, setCommentText, sendComment, onChat, commentSectionVisibility, item, photoURL, mood, viewCount, postTextOriginal, postTextProcessed, TouchableOpacityValue }) => {
     const [text, setText] = useState(null);
 
     const [userData, setUserData] = useState([]);
@@ -88,6 +89,19 @@ const Item = ({ userDATA, otherProfile, yourComments, postComments, postComments
         }
     }
 
+    // const handleShare = async() => {
+    //     console.log("share pressed")
+    //     const shareOptions =  {
+    //         message: postTextOriginal + "\n\nShared from IMU App."
+    //     }
+
+    //     try{
+    //         const shareResponse = await Share.share(shareOptions);
+    //     } catch(error) {
+    //         console.log('Share error -> ',error);
+    //     }
+    // }
+
     return (
 
         <View style={cardStyles.card}>
@@ -118,9 +132,14 @@ const Item = ({ userDATA, otherProfile, yourComments, postComments, postComments
                 <View style={{ backgroundColor: item.color, width: '100%', minHeight: 290 }}>
                     <Text style={cardStyles.post_text}>{fullPost}</Text>
 
-                    <View style={[cardStyles.viewCount, { display: isViewCountShow }]}>
-                        <Image source={require('../assets/view-count.png')} style={{ width: 30, height: 30, marginRight: 5 }} />
-                        <Text style={{ fontWeight: 'bold', fontSize: 15, color: '#fff', textAlignVertical: 'center' }}>{viewCount}</Text>
+                    <View style={[cardStyles.optionContent, { display: isViewCountShow }]}>
+                        <TouchableOpacity onPress={() => handleShare()} style={cardStyles.shareBtn}>
+                            <MaterialCommunityIcons name="share-outline" color={'#1877F2'} size={30}/>
+                        </TouchableOpacity>
+                        {/* <View style={cardStyles.viewCount}>
+                            <Image source={require('../assets/view-count.png')} style={{ width: 30, height: 30, marginRight: 5 }} />
+                            <Text style={{ fontWeight: 'bold', fontSize: 15, color: '#1877F2', textAlignVertical: 'center' }}>20</Text>
+                        </View> */}
                     </View>
                 </View>
             </TouchableOpacity>
@@ -388,6 +407,19 @@ export default function Card({ mood, navigation, postDataRef }) {
             navigation.navigate("OtherProfile", { userId: item.uid });
         }
 
+        const shareOptions =  {
+            message: postTextOriginal + "\n\nShared from IMU App."
+        }
+
+        const handleShare = async() => {
+            console.log("share pressed")
+            try{
+                const shareResponse = await Share.share(shareOptions);
+            } catch(error) {
+                console.log('Share error -> ',error);
+            }
+        }
+
 
         return (
             <Item
@@ -405,6 +437,7 @@ export default function Card({ mood, navigation, postDataRef }) {
                 // userName={userName}
                 // moodText={moodText}
                 onChat={onChatPress}
+                handleShare={handleShare}
                 commentSectionVisibility={commentSectionVisibility}
                 setCommentText={setCommentText}
                 sendComment={sendComment}
@@ -461,11 +494,28 @@ export const cardStyles = StyleSheet.create({
     viewCount: {
         display: 'flex',
         flexDirection: 'row',
+        backgroundColor: '#d9d9d9',
+        borderRadius: 10,
+        paddingHorizontal: 5
+    },
+
+    shareBtn: {
         position: 'absolute',
         bottom: 0,
         right: 0,
-        paddingBottom: 15,
-        paddingRight: 15
+        // marginBottom: 40,
+        backgroundColor: '#d9d9d9',
+        borderRadius: 200,
+    },
+
+    optionContent: {
+        display: 'flex',
+        flexDirection: 'column',
+        position: 'absolute',
+        bottom: 0,
+        right: 0,
+        marginBottom: 15,
+        marginRight: 15
     },
 
     cardHead: {
