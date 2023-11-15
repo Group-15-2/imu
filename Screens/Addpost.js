@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { Dimensions, Text, View, StyleSheet, FlatList, TouchableWithoutFeedback, TextInput, ScrollView, TouchableOpacity, Alert, KeyboardAvoidingView } from 'react-native';
 import { auth, database } from '../firebaseConfig';
 import { addStyles } from '../styles/addstyle';
+import { wordFilter } from '../components/services/WordFilter';
 
 //color picker data
 const DATA = [
@@ -70,8 +71,7 @@ export default function AddPost() {
   };
 
   //update post text
-  const [text, onChangeText] = useState('');
-
+  const [text, setText] = useState('');
 
   const isEmpty = () => {
     if (text.length == 0) {
@@ -83,7 +83,6 @@ export default function AddPost() {
 
   const textColor = isEmpty ? '#EE5757' : '#fff';
   const btnTouchableOpacity = isEmpty ? '1' : '0.6';
-  const btnColor = isEmpty ? '' : '';
 
 
 
@@ -100,11 +99,17 @@ export default function AddPost() {
     } else {
       //Generate new key
       const newKey = push(child(ref(database), 'posts')).key;
+      if (!text.trim()) {
+        alert('Empty Post!')
+        return
+      }
+      const postText = wordFilter(text);
+
 
       set(ref(database, 'postsGlobal/' + newKey), {
         postId: newKey,
         uid: auth.currentUser.uid,
-        post: text,
+        post: postText,
         color: selectedColor,
         colorId: selectedId,
         viewCount: 0
@@ -113,11 +118,12 @@ export default function AddPost() {
         set(ref(database, 'UserPosts/' + auth.currentUser.uid + '/' + newKey), {
           postId: newKey,
           uid: auth.currentUser.uid,
-          post: text,
+          post: postText,
           color: selectedColor,
           colorId: selectedId,
           viewCount: 0
         }).then(() => {
+          setText('');
           Alert.alert(
             "Post Published Successfully!",
             "",
@@ -154,7 +160,7 @@ export default function AddPost() {
         <ScrollView>
           <TextInput
             style={[addStyles.card, { backgroundColor: selectedColor, minHeight: windowHeight }]}
-            onChangeText={onChangeText}
+            onChangeText={setText}
             value={text}
             placeholder="Your Thoughts Here!"
             placeholderTextColor={'#FFFFFF'}
@@ -164,7 +170,7 @@ export default function AddPost() {
 
         <TouchableOpacity onPress={postFunction} activeOpacity={btnTouchableOpacity}>
           <View style={[addStyles.post_btn, { backgroundColor: '#1877F2' }]}>
-            <Text style={[addStyles.post_btn_text, { color: textColor }]}>Post</Text>
+            <Text style={[addStyles.post_btn_text, { color: '#FFFFFF' }]}>Post</Text>
           </View>
         </TouchableOpacity>
 

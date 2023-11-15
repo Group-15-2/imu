@@ -30,21 +30,25 @@ export default function Thought({ navigation }) {
   }, []);
 
   function save() {
-    //Set Data in database
-    set(ref(database, 'notes/' + auth.currentUser.uid + '/' + newKey), {
-      title: title,
-      note: note,
-      time: time,
-      date: date
-    }).then(() => {
-      alert('Note Saved');
-    })
-      .catch((error) => {
-        alert(error)
+    if (title.trim() && note.trim()) {
+      //Set Data in database
+      set(ref(database, 'notes/' + auth.currentUser.uid + '/' + newKey), {
+        title: title,
+        note: note,
+        time: time,
+        date: date
+      }).then(() => {
+        alert('Note Saved');
       })
-    navigation.navigate('Home');
-    setTitle('');
-    setNote('');
+        .catch((error) => {
+          alert(error)
+        })
+      navigation.navigate('Home');
+      setTitle('');
+      setNote('');
+    } else {
+      alert('Note can\'t be empty');
+    }
   };
 
 

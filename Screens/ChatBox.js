@@ -7,6 +7,7 @@ import { auth, database } from '../firebaseConfig';
 import { equalTo, get, off, onValue, orderByChild, orderByValue, push, query, ref, set, update } from 'firebase/database';
 import { useFocusEffect } from '@react-navigation/native';
 import { useRoute } from '@react-navigation/native';
+import { wordFilter } from '../components/services/WordFilter';
 
 const ChatScreen = ({ userData, userId, chatRoomId }) => {
   const [messages, setMessages] = useState([]);
@@ -92,6 +93,9 @@ const ChatScreen = ({ userData, userId, chatRoomId }) => {
   }
 
   const onSend = useCallback(async (messages = []) => {
+    //filter msg
+    messages[0].text = wordFilter(messages[0].text);
+
     setMessages((previousMessages) =>
       GiftedChat.append(previousMessages, messages),
     );
