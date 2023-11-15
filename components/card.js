@@ -7,6 +7,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import { get, onValue, ref, set, update } from 'firebase/database';
 import { async } from '@firebase/util';
 import { defaultPFP } from '../Screens/Profile';
+import { wordFilter } from './services/WordFilter';
 
 const Item = ({ userDATA, otherProfile, yourComments, postComments, postCommentsVisibility, setCommentText, sendComment, onChat, commentSectionVisibility, item, photoURL, mood, viewCount, postTextOriginal, postTextProcessed, TouchableOpacityValue }) => {
     const [text, setText] = useState(null);
@@ -328,9 +329,10 @@ export default function Card({ mood, navigation, postDataRef }) {
         }
 
         const sendComment = () => {
-            if (commentText != '') {
+            if (commentText.trim()) {
 
                 var commentData;
+                commentText = wordFilter(commentText);
                 get(ref(database, 'comments/' + item.postId + '/' + auth.currentUser.uid)).then((snapshot) => {
                     if (snapshot.exists()) {
                         commentData = snapshot.val();
