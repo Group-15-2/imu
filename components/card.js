@@ -121,6 +121,12 @@ const Item = ({ userDATA, handleShare, otherProfile, yourComments, postComments,
                     </View>
                 </TouchableOpacity>
 
+                <View style={{left: 30}}>
+                <TouchableOpacity>
+                    <MaterialCommunityIcons name="plus" color={'#1877F2'} size={42} />
+                </TouchableOpacity>
+                </View>
+
                 <View style={{display: chatVisibility}}>
                     <TouchableOpacity onPress={() => onChat()}>
                         <MaterialCommunityIcons name="message-text-outline" color={'#1877F2'} size={42} />
