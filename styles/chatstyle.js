@@ -30,7 +30,11 @@ const chatStyles = StyleSheet.create({
     },
 
     c1: {
-        width: '85%'
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
     },
 
     c2: {
@@ -64,6 +68,18 @@ const chatStyles = StyleSheet.create({
         fontSize: 10,
         fontWeight: '600',
         color: '#504F4F'
+    },
+
+    mood: {
+        fontSize: 10,
+        fontWeight: '600',
+        color: "#504F4F",
+    },
+
+    userName: {
+        fontSize: 14,
+        fontWeight: '800',
+        color: "#242323",
     }
 })
 

@@ -109,7 +109,8 @@ const Item = ({ userDATA, handleShare, otherProfile, yourComments, postComments,
                     alert(error)
                 });
             }
-        })    
+        })
+    
     }
 
     // const handleShare = async() => {

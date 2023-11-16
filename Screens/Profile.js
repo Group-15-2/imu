@@ -146,6 +146,16 @@ export default function ProfileScreen({ navigation }) {
     });
   }
 
+  // view my posts
+  const myProfile = () => {
+    navigation.navigate("OtherProfile", { userId: auth.currentUser.uid });
+  }
+  
+  // view my posts
+  const myFriends = () => {
+    navigation.navigate("MyFriends");
+  }
+
 
   return (
     <SafeAreaView >
@@ -180,10 +190,21 @@ export default function ProfileScreen({ navigation }) {
             <View>
               <Text style={styled.id}>ID = {UID}</Text>
             </View>
+
+            <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-evenly', paddingTop: 10}}>
+              <TouchableOpacity onPress={() => myProfile()}>
+                <Text style={styled.textButton}>My Posts</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity onPress={() => myFriends()}>
+                <Text style={styled.textButton}>My Friends</Text>
+              </TouchableOpacity>
+            </View>
           </View>
 
 
           <Divider style={styled.divider} />
+
 
           <View style={styled.details}>
             <Text style={styled.userd}>Your Name</Text>

@@ -26,6 +26,7 @@ import CheckAuthScreen from './Screens/CheckAuthScreen';
 import YourComments from './Screens/YourComments';
 import ViewComments from './Screens/ViewComments';
 import OtherProfile from './Screens/OtherProfile';
+import MyFriends from './Screens/MyFriends';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -106,6 +107,7 @@ export default function App() {
         <Stack.Screen name='Thoughts' component={Thoughts} />
         <Stack.Screen name='ChatBox' component={ChatBox} />
         <Stack.Screen name='Thought' component={ThoughtC} />
+        <Stack.Screen name='MyFriends' component={MyFriends} />
       </Stack.Navigator>
     </NavigationContainer>
   );

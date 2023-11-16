@@ -111,7 +111,14 @@ const styled = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: '#ECECEC',
         borderRadius: 16
-    }
+    },
+
+    textButton: {
+        color: '#1877F2',
+        fontSize: 14,
+        fontWeight: '700',
+        textAlign: 'center',
+    },
 })
 
 export { styled }
