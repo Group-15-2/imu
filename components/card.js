@@ -20,6 +20,7 @@ const Item = ({ userDATA, handleShare, otherProfile, yourComments, postComments,
     const [postCommentsVisibilityMain, setPostCommentsVisibilityMain] = useState(postCommentsVisibility);
     const [noCommentsVisibility, setNoCommentsVisibility] = useState('none');
     const [chatVisibility, setChatVisibility] = useState('flex');
+    const [friendIcon, setFriendIcon] = useState('account-heart-outline');
 
     //update real-time isShowing state and fullPost text to show
     const [fullPost, setPostTextProcessed] = useState(postTextProcessed);
@@ -39,6 +40,14 @@ const Item = ({ userDATA, handleShare, otherProfile, yourComments, postComments,
         onValue(ref(database, 'userData/' + item.uid), (snapshot) => {
             setUserData(snapshot.val());
             checkAnonimity(snapshot.val());
+        })
+
+        onValue(ref(database, 'friends/' + auth.currentUser.uid + '/' + item.uid), (snapshot) => {
+            if (snapshot.exists()){
+                setFriendIcon('account-heart');
+            } else {
+                setFriendIcon('account-heart-outline');
+            }
         })
 
         // get(ref(database, 'postsGlobal/' + item.postId)).then((snapshot) => {
@@ -89,6 +98,20 @@ const Item = ({ userDATA, handleShare, otherProfile, yourComments, postComments,
         }
     }
 
+    const addFriend = () => {
+        get(ref(database, 'friends/' + auth.currentUser.uid + '/' + item.uid)).then((snapshot) => {
+            if (snapshot.exists()){
+                set(ref(database, 'friends/' + auth.currentUser.uid + '/' + item.uid), null).catch((error) => {
+                    alert(error)
+                });
+            } else {
+                set(ref(database, 'friends/' + auth.currentUser.uid + '/' + item.uid), item.uid).catch((error) => {
+                    alert(error)
+                });
+            }
+        })    
+    }
+
     // const handleShare = async() => {
     //     console.log("share pressed")
     //     const shareOptions =  {
@@ -121,10 +144,10 @@ const Item = ({ userDATA, handleShare, otherProfile, yourComments, postComments,
                     </View>
                 </TouchableOpacity>
 
-                <View style={{left: 30}}>
-                <TouchableOpacity>
-                    <MaterialCommunityIcons name="plus" color={'#1877F2'} size={42} />
-                </TouchableOpacity>
+                <View style={{left: 30, display: chatVisibility}}>
+                    <TouchableOpacity onPress={() => addFriend()}>
+                        <MaterialCommunityIcons name={friendIcon} color={'#1877F2'} size={42} />
+                    </TouchableOpacity>
                 </View>
 
                 <View style={{display: chatVisibility}}>

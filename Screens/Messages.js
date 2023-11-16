@@ -7,6 +7,7 @@ import { get, onValue, ref, update } from 'firebase/database';
 import moment from 'moment/moment';
 import { FormatTime } from '../components/services/FormatTime';
 import { defaultPFP } from './Profile';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const MessagesData = [
   {
@@ -36,12 +37,21 @@ const Item = ({ item, msgTime, unreadCount, handlePress }) => {
   const [userData, setUserData] = useState([]);
   const [userImage, setUserImage] = useState(null);
   const [userName, setUserName] = useState(null);
+  const [friendIconVisibility, setFriendIconVisibility] = useState('none');
 
   useEffect(() => {
     onValue(ref(database, 'userData/' + item.senderId), (snapshot) => {
       const userData = snapshot.val();
       setUserData(userData);
       checkAnonimity(snapshot.val());
+    })
+
+    onValue(ref(database, 'friends/' + auth.currentUser.uid + '/' + item.senderId), (snapshot) => {
+      if (snapshot.exists()){
+          setFriendIconVisibility('flex');
+      } else {
+          setFriendIconVisibility('none');
+      }
     })
   }, [])
 
@@ -65,7 +75,13 @@ const Item = ({ item, msgTime, unreadCount, handlePress }) => {
               <Image source={userData.moodlet} style={chatStyles.moodlet} />
             </View>
             <View>
-              <Text>{userName}</Text>
+              <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                <Text>{userName}</Text>
+                <View style={{display: friendIconVisibility, paddingLeft: 5}}>
+                  <MaterialCommunityIcons name={'account-heart'} color={'#1877F2'} size={15}/>
+                </View>
+              </View>
+
               <Text style={chatStyles.t}>{item.messageText}</Text>
             </View>
           </View>

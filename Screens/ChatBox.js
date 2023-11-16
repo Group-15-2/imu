@@ -262,6 +262,7 @@ export default function ChatBox({ navigation, route }) {
 
   const [userName, setUserName] = useState(null);
   const [userImage, setUserImage] = useState(null);
+  const [friendIcon, setFriendIcon] = useState('account-heart-outline');
 
   useEffect(() => {
 
@@ -295,9 +296,31 @@ export default function ChatBox({ navigation, route }) {
         }
       }
     })
-
-
   }, [userName])
+
+  useEffect(()=> {
+    onValue(ref(database, 'friends/' + auth.currentUser.uid + '/' + userId), (snapshot) => {
+      if (snapshot.exists()){
+          setFriendIcon('account-heart');
+      } else {
+          setFriendIcon('account-heart-outline');
+      }
+    })
+  })
+
+  const addFriend = () => {
+    get(ref(database, 'friends/' + auth.currentUser.uid + '/' + userId)).then((snapshot) => {
+        if (snapshot.exists()){
+            set(ref(database, 'friends/' + auth.currentUser.uid + '/' + userId), null).catch((error) => {
+                alert(error)
+            });
+        } else {
+            set(ref(database, 'friends/' + auth.currentUser.uid + '/' + userId), userId).catch((error) => {
+                alert(error)
+            });
+        }
+    })    
+}
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -319,6 +342,12 @@ export default function ChatBox({ navigation, route }) {
             </View>
           </View>
         </TouchableOpacity>
+        <View style={{left: 30}}>
+            <TouchableOpacity onPress={() => addFriend()}>
+                <MaterialCommunityIcons name={friendIcon} color={'#1877F2'} size={42} />
+            </TouchableOpacity>
+        </View>
+
         {/* <TouchableOpacity activeOpacity={.7} style={styles.dot} onPress={() => navigation.navigate('Messages')}>
           <MaterialCommunityIcons name='dots-vertical' size={34} />
         </TouchableOpacity> */}
