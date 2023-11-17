@@ -41,13 +41,13 @@ export default function Thoughts({ navigation }) {
         </Text>
         <TouchableOpacity onPress={() => navigation.navigate('Thought')}>
           <View style={{ flexDirection: 'row', marginRight: 16, marginTop: 12 }}>
-            <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#504F4F', }}>Add Thought</Text>
-            <MaterialCommunityIcons name='plus' size={22} color={'#504F4F'} />
+            {/* <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#504F4F', }}>Add Thought</Text> */}
+            <MaterialCommunityIcons name='plus-circle' size={25} color={'#504F4F'} />
           </View>
         </TouchableOpacity>
       </View>
       <View style={thStyles.card}>
-        <View>
+        <View style={{maxHeight: '100%', paddingBottom: 100}}>
           <FlatList
             data={noteData}
             keyExtractor={item => item.id}

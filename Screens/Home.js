@@ -205,7 +205,7 @@ export default function Home({ navigation }) {
         </View>
       </View>
 
-      <Card mood={imgLink} navigation={navigation} postDataRef={'postsGlobal'} />
+        <Card mood={imgLink} navigation={navigation} postDataRef={'postsGlobal'} />
 
     </SafeAreaView>
 

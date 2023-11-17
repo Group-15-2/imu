@@ -36,17 +36,13 @@ export function MyTabs({ navigation }) {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         headerShown: false,
-        screenOption: {
-          labelStyle: {
-            fontSize: 12,
-          },
-          tabStyle: {
-            width: 100,
-          },
-          style: {
-            paddingTop: 50,
-            backgroundColor: 'red',
-          },
+        tabBarStyle: {
+          position: 'relative',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          elevation: 0, // for Android
+          height: 60, // Set the height of the tab bar
         },
         tabBarShowLabel: false,
         tabBarIcon: ({ focused, color, size }) => {

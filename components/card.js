@@ -148,7 +148,7 @@ const Item = ({ userDATA, handleShare, otherProfile, yourComments, postComments,
 
                 <View style={{ flexDirection:'row',display: chatVisibility}}>
                     <TouchableOpacity onPress={() => addFriend()}>
-                        <MaterialCommunityIcons name={friendIcon} color={'#1877F2'} size={42} style={{}} />
+                        <MaterialCommunityIcons name={friendIcon} color={'#1877F2'} size={42} style={{right:10}} />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => onChat()}>
                         <MaterialCommunityIcons name="message-text-outline" color={'#1877F2'} size={42} />
@@ -493,7 +493,7 @@ export default function Card({ mood, navigation, postDataRef }) {
 
 
     return (
-        <View>
+        <View style={{maxHeight: '100%', paddingBottom: 60}}>
             <Text style={{ color: '#1877F2', fontWeight: 'bold', textAlign: 'center' }}>{isPostsAvailable ? '' : 'No Posts Available'}</Text>
             <FlatList
                 data={postDATA}

@@ -159,7 +159,7 @@ export default function AddPost() {
 
         <ScrollView>
           <TextInput
-            style={[addStyles.card, { backgroundColor: selectedColor, minHeight: windowHeight }]}
+            style={[addStyles.card, { backgroundColor: selectedColor, maxHeight: windowHeight, minHeight: windowHeight }]}
             onChangeText={setText}
             value={text}
             placeholder="Your Thoughts Here!"
