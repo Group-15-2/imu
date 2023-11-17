@@ -105,13 +105,10 @@ const Item = ({ item, navigation }) => {
                     <Text style={chatStyles.mood}>{moodText}</Text>
                 </View>
             </View>
-            <View style={{left: 30}}>
+            <View style={{ flexDirection: 'row' }}>
                 <TouchableOpacity onPress={() => addFriend(userName)}>
-                    <MaterialCommunityIcons name={friendIcon} color={'#1877F2'} size={42} />
+                    <MaterialCommunityIcons name={friendIcon} color={'#1877F2'} size={42} style={{right:10}}/>
                 </TouchableOpacity>
-            </View>
-
-            <View>
                 <TouchableOpacity onPress={() => onChat()}>
                     <MaterialCommunityIcons name="message-text-outline" color={'#1877F2'} size={42} />
                 </TouchableOpacity>

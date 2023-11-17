@@ -8,6 +8,7 @@ import { equalTo, get, off, onValue, orderByChild, orderByValue, push, query, re
 import { useFocusEffect } from '@react-navigation/native';
 import { useRoute } from '@react-navigation/native';
 import { wordFilter } from '../components/services/WordFilter';
+import { styles } from '../styles/chatboxstyle';
 
 const ChatScreen = ({ userData, userId, chatRoomId }) => {
   const [messages, setMessages] = useState([]);
@@ -163,8 +164,8 @@ const ChatScreen = ({ userData, userId, chatRoomId }) => {
           <MaterialCommunityIcons
             name="send"
             style={styles.input}
-            size={36}
-            color="#fff"
+            size={42}
+            color="#1877F2"
           />
         </View>
       </Send>
@@ -179,12 +180,12 @@ const ChatScreen = ({ userData, userId, chatRoomId }) => {
           right: {
             backgroundColor: '#afeeee',
             borderBottomRightRadius: 0,
-            marginBottom: 3
+            marginBottom: 7
           },
           left: {
             backgroundColor: '#fff',
             borderBottomLeftRadius: 0,
-            marginBottom: 3
+            marginBottom: 7
           },
         }}
         textStyle={{
@@ -201,11 +202,11 @@ const ChatScreen = ({ userData, userId, chatRoomId }) => {
       <InputToolbar
         {...props}
         containerStyle={{
-          backgroundColor: "white",
+          backgroundColor: "#fff",
           borderWidth: 2,
-          borderColor: "#FFF",
+          borderColor: "#fff",
           borderRadius: 20,
-          paddingBottom: 2
+          marginBottom: 5,
         }}
       />
     );
@@ -361,62 +362,3 @@ export default function ChatBox({ navigation, route }) {
   );
 }
 
-const styles = StyleSheet.create({
-  input: {
-    backgroundColor: '#1877F2',
-    paddingLeft: 7,
-    paddingRight: 7,
-    margin: 1,
-    borderBottomRightRadius: 20,
-    borderTopRightRadius: 20
-  },
-  topSelector: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    height: 60
-  },
-  heading: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginLeft: 16,
-    paddingTop: 10,
-    color: '#1877F2'
-  },
-  namePicContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    margin: 10
-  },
-  userimg: {
-    width: 40,
-    height: 40,
-    borderRadius: 30,
-    marginRight: 13
-  },
-
-  moodlet: {
-    right: -32,
-    bottom: 13,
-    width: 15,
-    height: 15,
-    marginBottom: -20
-  },
-
-  text: {
-    fontWeight: '800',
-    width: 150,
-    fontSize: 16,
-    color: '#1877F2'
-  },
-
-  t: {
-    fontSize: 12,
-    fontWeight: '700',
-    color: "#009E54",
-  },
-  dot: {
-    left: 20
-  }
-})

@@ -19,7 +19,7 @@ const styled = StyleSheet.create({
         backgroundColor: "#fff",
         margin: 8,
         borderRadius: 10,
-        height: 450,
+        height: 550,
     },
 
     userinfo: {

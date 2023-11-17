@@ -146,13 +146,10 @@ const Item = ({ userDATA, handleShare, otherProfile, yourComments, postComments,
                     </View>
                 </TouchableOpacity>
 
-                <View style={{ display: chatVisibility}}>
+                <View style={{ flexDirection:'row',display: chatVisibility}}>
                     <TouchableOpacity onPress={() => addFriend()}>
-                        <MaterialCommunityIcons name={friendIcon} color={'#1877F2'} size={42} />
+                        <MaterialCommunityIcons name={friendIcon} color={'#1877F2'} size={42} style={{}} />
                     </TouchableOpacity>
-                </View>
-
-                <View style={{display: chatVisibility}}>
                     <TouchableOpacity onPress={() => onChat()}>
                         <MaterialCommunityIcons name="message-text-outline" color={'#1877F2'} size={42} />
                     </TouchableOpacity>
