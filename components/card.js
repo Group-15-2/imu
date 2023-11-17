@@ -493,7 +493,7 @@ export default function Card({ mood, navigation, postDataRef }) {
 
 
     return (
-        <View style={{maxHeight: '100%', paddingBottom: 60}}>
+        <View style={{maxHeight: '100%'}}>
             <Text style={{ color: '#1877F2', fontWeight: 'bold', textAlign: 'center' }}>{isPostsAvailable ? '' : 'No Posts Available'}</Text>
             <FlatList
                 data={postDATA}

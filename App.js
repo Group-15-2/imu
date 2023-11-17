@@ -37,7 +37,7 @@ export function MyTabs({ navigation }) {
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarStyle: {
-          position: 'relative',
+          position: 'absolute',
           bottom: 0,
           left: 0,
           right: 0,

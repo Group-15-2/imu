@@ -47,7 +47,7 @@ export default function Thoughts({ navigation }) {
         </TouchableOpacity>
       </View>
       <View style={thStyles.card}>
-        <View style={{maxHeight: '100%', paddingBottom: 100}}>
+        <View style={{maxHeight: '100%', paddingBottom: 160}}>
           <FlatList
             data={noteData}
             keyExtractor={item => item.id}

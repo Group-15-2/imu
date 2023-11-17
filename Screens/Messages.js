@@ -173,7 +173,7 @@ export default function Messages({ navigation }) {
         Chats
       </Text>
       <View style={chatStyles.card}>
-        <View style={{maxHeight: '100%', paddingBottom: 60}}>
+        <View style={{maxHeight: '100%', paddingBottom: 160}}>
           <Text style={{ color: '#1877F2', fontWeight: 'bold', textAlign: 'center', display: errorVisibility }}>No Chats Available</Text>
           <FlatList
             data={chatHeaders}

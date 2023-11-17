@@ -59,7 +59,7 @@ export default function OtherProfile({ route, navigation }) {
                     <Text style={styled.id}>ID = {userData.id}</Text>
                 </View>
             </View>
-            <View style={{maxHeight: '100%', paddingBottom: 120}}>
+            <View style={{maxHeight: '100%', paddingBottom: 180}}>
                 <Card mood={myMoodlet} navigation={navigation} postDataRef={'UserPosts/' + userId} />
             </View>
         </View>

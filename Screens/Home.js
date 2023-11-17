@@ -205,7 +205,9 @@ export default function Home({ navigation }) {
         </View>
       </View>
 
+      <View style={{maxHeight: '87.5%'}}>
         <Card mood={imgLink} navigation={navigation} postDataRef={'postsGlobal'} />
+      </View>
 
     </SafeAreaView>
 

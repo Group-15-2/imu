@@ -127,6 +127,7 @@ export default function ProfileScreen({ navigation }) {
 
     setIsLoaderOpen(true);
     GoogleSignin.signOut();
+    LoginManager.logOut();
     auth.signOut().then(() => {
       navigation.navigate('CheckAuthScreen');
       setIsLoaderOpen(false);
@@ -134,7 +135,6 @@ export default function ProfileScreen({ navigation }) {
       console.log(error);
       setIsLoaderOpen(false);
     })
-    LoginManager.logOut();
   }
 
   //fake name generator
