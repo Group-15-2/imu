@@ -151,30 +151,6 @@ export default function MyFriends({ navigation }) {
         }
     }, [Friends])
 
-  // useEffect(() => {
-
-  //   const FD = [];
-
-  //   Object.values(StarterHeaderData).map(element => {
-
-  //     onValue(ref(database, 'userData/' + element.senderId), (snapshot) => {
-  //       // setChatHeaders([]);
-  //       if (snapshot.val() !== null) {
-
-  //         const userData = snapshot.val();
-
-  //         const lastData = { msgs: element, userName: userData.userName, userImage: userData.userImg, moodlet: userData.moodlet, anonimity: userData.anonimity, generatedName: userData.generatedName };
-  //         FD.push(lastData);
-
-  //         setChatHeaders(FD);
-
-  //         console.log(chatHeaders);
-  //       }
-  //     })
-  //   })
-  // })
-
-
   const renderItem = ({ item }) => {
     return (
       <Item

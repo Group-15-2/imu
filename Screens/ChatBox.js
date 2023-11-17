@@ -12,7 +12,7 @@ import { wordFilter } from '../components/services/WordFilter';
 const ChatScreen = ({ userData, userId, chatRoomId }) => {
   const [messages, setMessages] = useState([]);
   const selectedUserID = userId;
-  const selectedChatRoomId = chatRoomId;
+  var selectedChatRoomId = chatRoomId;
 
   var unreadCount;
 
@@ -41,6 +41,12 @@ const ChatScreen = ({ userData, userId, chatRoomId }) => {
         unreadCount = 0;
       }
     })
+
+    onValue(ref(database, 'messagesGlobal/' + '/chatHead/' + auth.currentUser.uid + '/' + selectedUserID), (snapshot) => {
+      if (snapshot.val() !== null) {
+        selectedChatRoomId = snapshot.val().chatRoomId;
+      }
+    })
   })
 
   useEffect(() => {
@@ -61,14 +67,6 @@ const ChatScreen = ({ userData, userId, chatRoomId }) => {
         const msgData = snapshot.val().reverse();
         setMessages(msgData);
       }
-
-      // onValue(ref(database, 'messagesGlobal/' + '/chatHead/' + auth.currentUser.uid + '/' + selectedUserID), (snapshot) => {
-      //   if (snapshot.val() !== null) {
-      //     setSelectedchatRoomId(snapshot.val().chatRoomId);
-      //   }
-      // })
-
-      // console.log(messages);
     })
 
     return () => {
@@ -78,19 +76,13 @@ const ChatScreen = ({ userData, userId, chatRoomId }) => {
   }, [userData]);
 
   const msgDb = ref(database, 'messagesGlobal/' + '/chatRoom/' + selectedChatRoomId + '/messages');
-  const userDb = ref(database, 'userData/' + selectedUserID);
+  // const userDb = ref(database, 'userData/' + selectedUserID);
 
-  const fetchMessages = async () => {
-    const snapshot = await get(msgDb);
-    const data = snapshot.val();
-    return data;
-  }
-
-  const fetchChatHeaders = async (id) => {
-    const snapshot = await get(ref(database, 'messagesGlobal/chatHead/' + id));
-    const data = snapshot.val();
-    return data;
-  }
+  // const fetchChatHeaders = async (id) => {
+  //   const snapshot = await get(ref(database, 'messagesGlobal/chatHead/' + id));
+  //   const data = snapshot.val();
+  //   return data;
+  // }
 
   const onSend = useCallback(async (messages = []) => {
     //filter msg
@@ -110,17 +102,24 @@ const ChatScreen = ({ userData, userId, chatRoomId }) => {
       }
     }
 
+    const fetchMessages = async () => {
+      const snapshot = await get(ref(database, 'messagesGlobal/' + '/chatRoom/' + selectedChatRoomId + '/messages'));
+      const data = snapshot.val();
+      return data;
+    }
+
     const key = await checkNull();
 
 
     const currentChatRoom = await fetchMessages();
     const lastMessages = currentChatRoom || [];
+    console.log(currentChatRoom);
 
-    const currentChatHeadersOfUser = await fetchChatHeaders(auth.currentUser.uid);
-    const currentChatHeadersOfSender = await fetchChatHeaders(selectedUserID);
+    // const currentChatHeadersOfUser = await fetchChatHeaders(auth.currentUser.uid);
+    // const currentChatHeadersOfSender = await fetchChatHeaders(selectedUserID);
 
-    const oldChatHeadersOfUser = currentChatHeadersOfUser || [];
-    const oldChatHeadersOfSender = currentChatHeadersOfSender || [];
+    // const oldChatHeadersOfUser = currentChatHeadersOfUser || [];
+    // const oldChatHeadersOfSender = currentChatHeadersOfSender || [];
 
     unreadCount = unreadCount + 1;
 

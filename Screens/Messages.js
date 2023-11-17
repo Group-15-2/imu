@@ -98,23 +98,23 @@ const Item = ({ item, msgTime, unreadCount, handlePress }) => {
 export default function Messages({ navigation }) {
 
   const [chatHeaders, setChatHeaders] = useState([]);
-
+  const [errorVisibility, setErrorVisibility] = useState('none');
 
   useEffect(() => {
-    const loadData = async () => {
-      get(ref(database, 'messagesGlobal/chatHead/' + auth.currentUser.uid)).then((snapshot) => {
-        const data = snapshot.val();
-        const msgs = Object.keys(data).map((key) => ({
-          id: key,
-          ...data[key]
-        }))
-        setChatHeaders(msgs.reverse());
-      }).catch((e) => {
-        console.log(e);
-      });
-    }
+    // const loadData = async () => {
+    //   get(ref(database, 'messagesGlobal/chatHead/' + auth.currentUser.uid)).then((snapshot) => {
+    //     const data = snapshot.val();
+    //     const msgs = Object.keys(data).map((key) => ({
+    //       id: key,
+    //       ...data[key]
+    //     }))
+    //     setChatHeaders(msgs.reverse());
+    //   }).catch((e) => {
+    //     console.log(e);
+    //   });
+    // }
 
-    loadData();
+    // loadData();
 
 
     onValue(ref(database, 'messagesGlobal/chatHead/' + auth.currentUser.uid), (snapshot) => {
@@ -125,42 +125,22 @@ export default function Messages({ navigation }) {
           ...data[key]
         }))
         setChatHeaders(msgs.reverse());
+      } else {
+        setChatHeaders(null);
       }
     })
-
-
   }, [])
 
-  // useEffect(() => {
-
-  //   const FD = [];
-
-  //   Object.values(StarterHeaderData).map(element => {
-
-  //     onValue(ref(database, 'userData/' + element.senderId), (snapshot) => {
-  //       // setChatHeaders([]);
-  //       if (snapshot.val() !== null) {
-
-  //         const userData = snapshot.val();
-
-  //         const lastData = { msgs: element, userName: userData.userName, userImage: userData.userImg, moodlet: userData.moodlet, anonimity: userData.anonimity, generatedName: userData.generatedName };
-  //         FD.push(lastData);
-
-  //         setChatHeaders(FD);
-
-  //         console.log(chatHeaders);
-  //       }
-  //     })
-  //   })
-  // })
-
+  useEffect(() => {
+    if (chatHeaders) {
+        setErrorVisibility('none');
+    } else {
+        setErrorVisibility('flex');
+    }
+  }, [chatHeaders])
 
   const renderItem = ({ item }) => {
-
     var msgTime, unreadCount;
-
-
-
     //check date and change format
     msgTime = FormatTime(item.messageTime);
 
@@ -194,6 +174,7 @@ export default function Messages({ navigation }) {
       </Text>
       <View style={chatStyles.card}>
         <View>
+          <Text style={{ color: '#1877F2', fontWeight: 'bold', textAlign: 'center', display: errorVisibility }}>No Chats Available</Text>
           <FlatList
             data={chatHeaders}
             keyExtractor={item => item.chatRoomId}
