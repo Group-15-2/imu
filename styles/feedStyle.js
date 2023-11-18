@@ -19,7 +19,7 @@ const styled = StyleSheet.create({
         backgroundColor: "#fff",
         margin: 8,
         borderRadius: 10,
-        height: '93%',
+        height: '86%',
     },
 
     userinfo: {
