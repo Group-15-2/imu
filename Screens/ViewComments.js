@@ -1,8 +1,8 @@
-import { View, Text, FlatList, SnapshotViewIOS, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native'
+import { View, Text, FlatList, Alert, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native'
 import React from 'react'
 import { styled } from '../styles/feedStyle'
 import { useEffect } from 'react'
-import { get, onValue, ref } from 'firebase/database';
+import { get, onValue, ref, set } from 'firebase/database';
 import { auth, database } from '../firebaseConfig';
 import { useState } from 'react';
 import moment from 'moment';
@@ -17,6 +17,8 @@ const Item = ({item, postId, navigation}) => {
     const [userData, setUserData] = useState([]);
     const [userImage, setUserImage] = useState(null);
     const [userName, setUserName] = useState(null);
+    const [friendIcon, setFriendIcon] = useState('account-heart-outline');
+    const [chatRoomId, setChatRoomId] = useState(null);
 
     useEffect(() => {
         get(ref(database, 'comments/' + postId + '/' + item.id)).then((snapshot) => {
@@ -32,10 +34,26 @@ const Item = ({item, postId, navigation}) => {
             checkAnonimity(snapshot.val());
         })
 
+        onValue(ref(database, 'friends/' + auth.currentUser.uid + '/' + item.id), (snapshot) => {
+            if (snapshot.exists()){
+                setFriendIcon('account-heart');
+            } else {
+                setFriendIcon('account-heart-outline');
+            }
+        })
+
+        onValue(ref(database, 'messagesGlobal/chatHead/' + auth.currentUser.uid + '/' + item.id), (snapshot) => {
+            if (snapshot.val() !== null) {
+              const data = snapshot.val();
+              setChatRoomId(data.chatRoomId);
+            }
+          })
+
     }, [])
 
     const otherProfile = () => {
-        navigation.navigate("OtherProfile", { userId: item.id });
+        // navigation.navigate("OtherProfile", { userId: item.id });
+        return
     }
 
     const checkAnonimity = (data) => {
@@ -48,6 +66,33 @@ const Item = ({item, postId, navigation}) => {
             setUserName(data.userName);
         }
     }
+
+    const onChat = () => {
+        navigation.navigate('ChatBox', { userId: item.id, chatRoomId: chatRoomId });
+        }
+
+    const addFriend = (userName) => {
+        get(ref(database, 'friends/' + auth.currentUser.uid + '/' + item.id)).then((snapshot) => {
+            if (snapshot.exists()){
+                Alert.alert(
+                    "Do you really want to remove " + userName + " from friends?",
+                    "",
+                    [
+                      { text: "Yes", onPress: () => {
+                        set(ref(database, 'friends/' + auth.currentUser.uid + '/' + item.id), null).catch((error) => {
+                            alert(error)
+                        });
+                      } },
+                      { text: "No", onPress: () => console.log("Cancel Pressed") },
+                    ]
+                  );
+            } else {
+                set(ref(database, 'friends/' + auth.currentUser.uid + '/' + item.id), item.id).catch((error) => {
+                    alert(error)
+                });
+            }
+        })    
+      }
 
 
 
@@ -67,7 +112,14 @@ const Item = ({item, postId, navigation}) => {
                         </View>
                     </View>
                 </TouchableOpacity>
-
+                <View style={{ flexDirection: 'row' }}>
+                    <TouchableOpacity onPress={() => addFriend(userName)}>
+                        <MaterialCommunityIcons name={friendIcon} color={'#1877F2'} size={42} style={{right:10}}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => onChat()}>
+                        <MaterialCommunityIcons name="message-text-outline" color={'#1877F2'} size={42} />
+                    </TouchableOpacity>
+                </View>
             </View>
 
             <View style={styles.cardBottom}>

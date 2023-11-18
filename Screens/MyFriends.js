@@ -87,7 +87,7 @@ const Item = ({ item, navigation }) => {
             });
         }
     })    
-}
+  }
 
   return (
     <TouchableOpacity onPress={viewProfile}>
