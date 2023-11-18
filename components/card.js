@@ -291,6 +291,7 @@ export default function Card({ mood, navigation, postDataRef }) {
 
     //update display property of the view count to show and hide
     const [isViewCountShow, setViewCountShow] = useState('flex');
+    const [commentText, setCommentText] = useState('');
 
 
 
@@ -327,7 +328,8 @@ export default function Card({ mood, navigation, postDataRef }) {
         }
 
 
-        var commentSectionVisibility, commentText, postCommentsVisibility;
+        var commentSectionVisibility, postCommentsVisibility;
+        
 
         // if (item.userData.anonimity) {
         //     userName = item.userData.generatedName;
@@ -371,15 +373,16 @@ export default function Card({ mood, navigation, postDataRef }) {
             })
         }
 
-        const setCommentText = (value) => {
-            commentText = value;
-        }
+        // const setCommentText = (value) => {
+        //     commentText = value;
+        // }
 
         const sendComment = () => {
             if (commentText.trim()) {
 
                 var commentData;
-                commentText = wordFilter(commentText);
+                const commentTextFiltered = wordFilter(commentText);
+                setCommentText('');
                 get(ref(database, 'comments/' + item.postId + '/' + auth.currentUser.uid)).then((snapshot) => {
                     if (snapshot.exists()) {
                         commentData = snapshot.val();
@@ -391,7 +394,7 @@ export default function Card({ mood, navigation, postDataRef }) {
                         ...commentData,
                         {
                             userId: auth.currentUser.uid,
-                            comment: commentText,
+                            comment: commentTextFiltered,
                             time: Date()
                         }
                     ])
