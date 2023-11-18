@@ -1,5 +1,5 @@
 import { View, Image, ActivityIndicator } from 'react-native'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebaseConfig';
 import { isAnotherEmailHandled } from './VerifyEmail';
@@ -7,32 +7,36 @@ import { isAnotherEmailHandled } from './VerifyEmail';
 export let isExpired = false;
 
 export default function CheckAuthScreen({ navigation }) {
+    const [status, setStatus] = useState(false);
 
     //desable go back
     useEffect(() => {
         navigation.addListener('beforeRemove', (e) => {
             e.preventDefault();
 
-            // if (status) {
-            //     navigation.dispatch(e.data.action);
-            // }
+            if (status) {
+                navigation.dispatch(e.data.action);
+            }
         });
     });
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             console.log('runned!');
+            // console.log(user);
             if (user) {
-                if (auth.currentUser.emailVerified) {
+                // if (auth.currentUser.emailVerified) {
+                    setStatus(false);
                     isExpired = false;
                     navigation.navigate('Home');
-                    console.log(user);
-                }
+                    console.log('automatically logged in');
+                // }
             } else {
                 if (isAnotherEmailHandled == false) {
+                    setStatus(true);
                     isExpired = true;
                     navigation.navigate('SignIn');
-                    console.log(user);
+                    console.log('Not logged in');
                 }
             }
         });
