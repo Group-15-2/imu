@@ -195,7 +195,7 @@ const Item = ({ userDATA, handleShare, otherProfile, yourComments, postComments,
                         />
 
                         <TouchableOpacity onPress={() => { sendComment(); setText(''); }}>
-                            <MaterialCommunityIcons name="send" color={'#1877F2'} size={25} />
+                            <MaterialCommunityIcons name="send" color={'#1877F2'} size={35} />
                         </TouchableOpacity>
                     </View>
                 </View>
