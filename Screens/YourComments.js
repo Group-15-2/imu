@@ -50,11 +50,13 @@ export default function YourComments({ route, navigation }) {
                 </Text>
             </View>
 
-            <FlatList
-                data={commentData}
-                renderItem={renderItem}
-            // keyExtractor={item => item.postId}
-            />
+            <View style={{maxHeight: '95%'}}>
+                <FlatList
+                    data={commentData}
+                    renderItem={renderItem}
+                // keyExtractor={item => item.postId}
+                />
+            </View>
         </View>
     )
 }

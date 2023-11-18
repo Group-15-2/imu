@@ -87,6 +87,9 @@ const ChatScreen = ({ userData, userId, chatRoomId }) => {
 
   const onSend = useCallback(async (messages = []) => {
     //filter msg
+    if (!messages[0].text.trim()) {
+      return;
+    }
     messages[0].text = wordFilter(messages[0].text);
 
     setMessages((previousMessages) =>

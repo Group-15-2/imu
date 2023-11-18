@@ -70,6 +70,12 @@ const chatStyles = StyleSheet.create({
         color: '#504F4F'
     },
 
+    txt2: {
+        justifyContent: 'center',
+        fontWeight: '600',
+        color: '#1877F2'
+    },
+
     mood: {
         fontSize: 10,
         fontWeight: '600',

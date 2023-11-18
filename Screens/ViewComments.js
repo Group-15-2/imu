@@ -7,11 +7,11 @@ import { auth, database } from '../firebaseConfig';
 import { useState } from 'react';
 import moment from 'moment';
 import { FormatTime } from '../components/services/FormatTime';
-import { cardStyles } from '../components/card';
+import { cardStyles } from '../styles/cardstyle';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { defaultPFP } from './Profile';
 
-const Item = ({ time, item, postId, otherProfile }) => {
+const Item = ({item, postId, navigation}) => {
 
     const [comments, setComments] = useState([]);
     const [userData, setUserData] = useState([]);
@@ -33,6 +33,10 @@ const Item = ({ time, item, postId, otherProfile }) => {
         })
 
     }, [])
+
+    const otherProfile = () => {
+        navigation.navigate("OtherProfile", { userId: item.id });
+    }
 
     const checkAnonimity = (data) => {
         if (data.anonimity) {
@@ -73,7 +77,7 @@ const Item = ({ time, item, postId, otherProfile }) => {
                         renderItem={({ item }) => (
                             <View>
                                 <Text style={styles.commentText}>{item.comment}</Text>
-                                <Text style={{ fontSize: 10 }}>{time}</Text>
+                                <Text style={{ fontSize: 10 }}>{FormatTime(item.time)}</Text>
                             </View>
                         )}
                     />
@@ -103,18 +107,11 @@ export default function ViewComments({ route, navigation }) {
 
     const renderItem = ({ item }) => {
 
-        const time = FormatTime(item.time);
-
-        const otherProfile = () => {
-            navigation.navigate("OtherProfile", { userId: item.id });
-        }
-
         return (
             <Item
-                time={time}
                 item={item}
                 postId={postId}
-                otherProfile={otherProfile}
+                navigation={navigation}
             />
         )
     }
@@ -130,11 +127,14 @@ export default function ViewComments({ route, navigation }) {
                 </Text>
             </View>
 
-            <FlatList
-                data={users}
-                renderItem={renderItem}
-                keyExtractor={item => item.id}
-            />
+            <View style={{maxHeight: '95%'}}>
+                <FlatList
+                    data={users}
+                    renderItem={renderItem}
+                    keyExtractor={item => item.id}
+                />
+            </View>
+
         </View>
     )
 }

@@ -68,7 +68,7 @@ const Item = ({ item, msgTime, unreadCount, handlePress }) => {
   return (
     <TouchableOpacity onPress={handlePress}>
       <View style={{ flexDirection: 'row' }}>
-        <View style={chatStyles.c1}>
+        <View style={{width: '85%'}}>
           <View style={chatStyles.namePicContainer}>
             <View>
               <Image style={chatStyles.userimg} source={{ uri: userImage }} />
@@ -88,7 +88,7 @@ const Item = ({ item, msgTime, unreadCount, handlePress }) => {
         </View>
         <View style={chatStyles.c2}>
           <Text style={chatStyles.txt}>{msgTime}</Text>
-          <Text style={chatStyles.txt}>{unreadCount}</Text>
+          <Text style={chatStyles.txt2}>{unreadCount}</Text>
         </View>
       </View>
     </TouchableOpacity>
