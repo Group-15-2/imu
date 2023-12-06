@@ -156,6 +156,17 @@ export default function ProfileScreen({ navigation }) {
     navigation.navigate("MyFriends");
   }
 
+  const updateAuth = () => {
+    let interval = setInterval(async () => {
+      if (auth.currentUser != null) {
+        await auth.currentUser.reload();
+      } else {
+        clearInterval(interval);
+      }
+      console.log('interval on work')
+  }, 2000)
+  }
+
 
   return (
     <SafeAreaView >
@@ -319,6 +330,7 @@ export default function ProfileScreen({ navigation }) {
           <ChangeEmailModal
             visibility={isEmailChangeModalOpen}
             setVisibility={setEmailChangeModalOpen}
+            updateAuth={updateAuth}
           />
 
           <EditDetailModal

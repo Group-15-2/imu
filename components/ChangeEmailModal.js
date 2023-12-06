@@ -12,7 +12,7 @@ import ConfirmModal from './ConfirmModal';
 import InButtonLoader from './InButtonLoader';
 
 
-export default function ChangeEmailModal({ visibility, setVisibility }) {
+export default function ChangeEmailModal({ visibility, setVisibility, updateAuth }) {
 
 
     //getters and setters for in-button loader display states
@@ -92,6 +92,7 @@ export default function ChangeEmailModal({ visibility, setVisibility }) {
     const handleYes = () => {
         setConfirmModalOpen(false);
         changeEmail();
+        updateAuth();
     }
 
     const handleResendEmail = () => {
@@ -192,6 +193,7 @@ export default function ChangeEmailModal({ visibility, setVisibility }) {
 
                         <Text style={modalStyle.header}>Verify Email</Text>
                         <Text style={styled.userd}>We've sent a verification email to {email}</Text>
+                        <Text style={styled.userd}>You have to log in again!</Text>
 
                         <Text style={[styled.userd, { color: 'white', fontSize: 15, fontWeight: 'bold', paddingTop: 10 }]}>Go to your email and verify it to update your new email</Text>
 
