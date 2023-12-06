@@ -54,6 +54,8 @@ export default function SignIn({ navigation }) {
 
                     console.log('User signed in!');
                     setisLogOut(false);
+                    setPassword('');
+                    setEmail('');
                     navigation.navigate('Home');
                 } else {
                     auth.currentUser.delete();

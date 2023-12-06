@@ -125,9 +125,9 @@ export default function VerifyEmail({ navigation }) {
                     <Text style={inStyle.txt}>Use Another Email</Text>
                 </TouchableOpacity>
 
-                <View>
+                {/* <View>
                     <Text style={{ textAlign: 'center' }}>{time}s</Text>
-                </View>
+                </View> */}
 
                 <View style={{ paddingTop: 20 }}>
                     <Text style={inStyle.txt3}>Haven’t Received it yet?</Text>

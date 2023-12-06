@@ -22,6 +22,13 @@ const styled = StyleSheet.create({
         height: '86%',
     },
 
+    profileCard: {
+        backgroundColor: "#fff",
+        margin: 8,
+        borderRadius: 10,
+        height: '100%'
+    },
+
     userinfo: {
         // justifyContent: 'flex-start',
         marginVertical: 10,

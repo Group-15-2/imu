@@ -25,12 +25,12 @@ export default function CheckAuthScreen({ navigation }) {
             console.log('runned!');
             // console.log(user);
             if (user) {
-                // if (auth.currentUser.emailVerified) {
+                if (auth.currentUser.emailVerified) {
                     setStatus(false);
                     isExpired = false;
                     navigation.navigate('Home');
                     console.log('automatically logged in');
-                // }
+                }
             } else {
                 if (isAnotherEmailHandled == false) {
                     setStatus(true);

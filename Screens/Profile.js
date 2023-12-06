@@ -173,7 +173,7 @@ export default function ProfileScreen({ navigation }) {
 
       </View>
 
-      <View style={styled.card}>
+      <View style={styled.profileCard}>
         <ScrollView>
 
 
@@ -282,6 +282,10 @@ export default function ProfileScreen({ navigation }) {
 
           <TouchableOpacity activeOpacity={.7} style={[inStyle.txtInt, { marginBottom: 40 }]} onPress={() => setReAuthenticateModalOpenPassword(true)}>
             <Text style={inStyle.txt}>Change Password</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => myProfile()}>
+            <Text style={styled.textButton}>About Us</Text>
           </TouchableOpacity>
 
 
