@@ -156,6 +156,11 @@ export default function ProfileScreen({ navigation }) {
     navigation.navigate("MyFriends");
   }
 
+  // view my posts
+  const aboutUs = () => {
+    navigation.navigate("AboutUs");
+  }
+
   const updateAuth = () => {
     let interval = setInterval(async () => {
       if (auth.currentUser != null) {
@@ -295,7 +300,7 @@ export default function ProfileScreen({ navigation }) {
             <Text style={inStyle.txt}>Change Password</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => myProfile()}>
+          <TouchableOpacity onPress={() => aboutUs()}>
             <Text style={styled.textButton}>About Us</Text>
           </TouchableOpacity>
 
