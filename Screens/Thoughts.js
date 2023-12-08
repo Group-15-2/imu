@@ -61,10 +61,8 @@ export default function Thoughts({ navigation }) {
                       {text: 'Cancel', onPress: () => console.log('OK Pressed')}
                     ],
                     )}>
-                <View style={thStyles.content}>
-                  <Text style={thStyles.date}>{item.date}</Text>
-                </View>
-                <View style={{ flexDirection: 'row' }}>
+
+                <View style={thStyles.mainContainer}>
                   <View style={thStyles.c1}>
                     <View style={thStyles.nameContainer}>
                       <View>
@@ -74,6 +72,7 @@ export default function Thoughts({ navigation }) {
                     </View>
                   </View>
                   <View style={thStyles.c2}>
+                    <Text style={thStyles.txt}>{item.date}</Text>
                     <Text style={thStyles.txt}>{item.time}</Text>
                   </View>
                 </View>

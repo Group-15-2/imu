@@ -35,12 +35,18 @@ const thStyles = StyleSheet.create({
         width: '15%'
     },
 
+    mainContainer: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        margin: 8,
+    },
+
     nameContainer: {
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        marginLeft: 10,
-        marginTop: 10
+        margin: 8,
     },
 
     t: {
@@ -52,7 +58,6 @@ const thStyles = StyleSheet.create({
 
     txt: {
         justifyContent: 'center',
-        marginTop: 25,
         fontSize: 10,
         fontWeight: '600',
         color:'#504F4F'
@@ -60,6 +65,7 @@ const thStyles = StyleSheet.create({
 
     thought: {
         fontSize: 16,
+        fontWeight: '600',
     },
     txtinput: {
         height:'75%',

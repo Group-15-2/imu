@@ -25,7 +25,8 @@ const chatStyles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        margin: 10
+        margin: 10,
+        marginTop: 16,
     },
 
     c1: {
@@ -41,22 +42,22 @@ const chatStyles = StyleSheet.create({
     },
 
     userimg: {
-        width: 60,
-        height: 60,
+        width: 50,
+        height: 50,
         borderRadius: 30,
         marginRight: 13
     },
 
     moodlet: {
-        right: -45,
-        bottom: 15,
+        right: -35,
+        bottom: 18,
         width: 20,
         height: 20,
         marginBottom: -20
     },
 
-    t: {
-        fontSize: 12,
+    text: {
+        fontSize: 13,
         fontWeight: '300',
         color: "#504F4F",
     },
