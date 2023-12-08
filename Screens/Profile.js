@@ -201,8 +201,6 @@ export default function ProfileScreen({ navigation }) {
 
             <ImagePickerScreen setIsLoaderOpen={setIsLoaderOpen} />
 
-
-
             <View>
               <Text style={styled.id}>ID = {UID}</Text>
             </View>

@@ -139,14 +139,14 @@ export default function ImagePickerScreen({ setIsLoaderOpen }) {
                     <View style={modalStyle.container}>
 
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                            <Text style={modalStyle.header}>Upload Profile Photo</Text>
+                            <Text style={modalStyle.header}>Change Profile Picture</Text>
 
                             <TouchableOpacity onPress={() => { setIsConfirmModalOpen(true); setSelectModalOpen(false); }}>
                                 <Icon
                                     name='delete'
                                     color='#D9D9D9'
                                     size={30}
-                                    style={{ bottom: 5 }}
+                                    style={{ bottom: 2 }}
                                 />
                             </TouchableOpacity>
 
@@ -204,7 +204,7 @@ export default function ImagePickerScreen({ setIsLoaderOpen }) {
 
 
             <TouchableOpacity onPress={handleUploadImage}>
-                <Text style={inStyle.txt2}>Upload Profile Picture</Text>
+                <Text style={inStyle.txt2}>Change Profile Picture</Text>
             </TouchableOpacity>
 
             <ConfirmModal

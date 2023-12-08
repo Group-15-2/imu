@@ -38,7 +38,7 @@ const styled = StyleSheet.create({
         height: 100,
         borderRadius: 90,
         borderColor: '#1877F2',
-        borderWidth: 1
+        borderWidth: 4
     },
 
     name: {
