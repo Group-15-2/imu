@@ -50,10 +50,10 @@ const thStyles = StyleSheet.create({
     },
 
     t: {
-        fontSize: 12,
-        fontWeight: '300',
+        fontSize: 14,
+        fontWeight: '400',
         color: "#504F4F",
-        marginTop: 5,
+        marginTop: 2,
     },
 
     txt: {
@@ -64,8 +64,9 @@ const thStyles = StyleSheet.create({
     },
 
     thought: {
-        fontSize: 16,
+        fontSize: 18,
         fontWeight: '600',
+        color:'#1877F2'
     },
     txtinput: {
         height:'75%',
