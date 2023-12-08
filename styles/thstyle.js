@@ -49,7 +49,7 @@ const thStyles = StyleSheet.create({
         margin: 8,
     },
 
-    t: {
+    thoughtContent: {
         fontSize: 14,
         fontWeight: '400',
         color: "#504F4F",

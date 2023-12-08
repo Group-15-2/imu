@@ -67,7 +67,7 @@ export default function Thoughts({ navigation }) {
                     <View style={thStyles.nameContainer}>
                       <View>
                         <Text style={thStyles.thought}>{item.title}</Text>
-                        <Text numberOfLines={1} ellipsizeMode="tail" style={thStyles.t}>{item.note}</Text>
+                        <Text numberOfLines={1} ellipsizeMode="tail" style={thStyles.thoughtContent}>{item.note}</Text>
                       </View>
                     </View>
                   </View>
