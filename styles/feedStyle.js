@@ -98,7 +98,6 @@ const styled = StyleSheet.create({
     txtint: {
         height: 40,
         width: '90%',
-        // borderRadius: 30,
         paddingLeft: 10,
         fontWeight: '400',
         fontSize: 14,
