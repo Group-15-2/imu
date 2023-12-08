@@ -100,7 +100,8 @@ const styled = StyleSheet.create({
         width: '90%',
         // borderRadius: 30,
         paddingLeft: 10,
-        fontWeight: 'bold',
+        fontWeight: '400',
+        fontSize: 14,
         color: '#242323',
         textAlignVertical: 'center'
 
@@ -119,6 +120,7 @@ const styled = StyleSheet.create({
         padding: 6,
         borderRadius: 10,
         marginTop: 4,
+        
     },
 
     textButton: {
