@@ -16,8 +16,8 @@ export default function SignInWithFB({ navigation, setError }) {
         LoginManager.logInWithPermissions(["public_profile", 'email']);
         const data = await AccessToken.getCurrentAccessToken();
 
-        const facebookCredentials = FacebookAuthProvider.credential(data.accessToken);
-        await signInWithCredential(auth, facebookCredentials).then(() => {
+        const fbCredentials = FacebookAuthProvider.credential(data.accessToken);
+        await signInWithCredential(auth, fbCredentials).then(() => {
             updateBackEndUserData();
             setisLogOut(false);
             navigation.navigate('Home');

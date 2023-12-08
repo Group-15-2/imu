@@ -11,7 +11,7 @@ export default function AuthErrorCheck({ error }) {
     //getter and setter for error massage
     const [errorMsg, setErrorMsg] = useState('');
 
-    //re run every tim errorMsg changes
+    //re run every time errorMsg changes
     useEffect(() => {
         if (error === 'auth/user-disabled') {
             setErrorMsg(' Email has been disabled');

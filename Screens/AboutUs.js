@@ -113,12 +113,9 @@ export default function AboutUs({ navigation }) {
             </Text>
 
             <Text style={styles.heading1}>
-Thank You!
+              Thank You!
             </Text>
           </View>
-          {/* <TouchableOpacity onPress={() => openURL(data.link)} style={{display: linkVisibility}}>
-                <Text style={{ color: '#1877F2', fontWeight: 'bold', textAlign: 'center'}}>View Project Documentation</Text>
-            </TouchableOpacity> */}
         </View>
       </View>
     </SafeAreaView>

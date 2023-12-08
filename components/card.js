@@ -51,15 +51,6 @@ const Item = ({ userDATA, handleShare, otherProfile, yourComments, postComments,
             }
         })
 
-        // get(ref(database, 'postsGlobal/' + item.postId)).then((snapshot) => {
-        //     if (snapshot.exists()) {
-        //         setNoCommentsVisibility('none');
-        //     } else {
-        //         setNoCommentsVisibility('flex');
-        //         setPostCommentsVisibilityMain('none');
-        //     }
-        // })
-
         if (commentSectionVisibility == 'none') {
             onValue(ref(database, 'comments/' + item.postId), (snapshot) => {
                 if (snapshot.exists()) {
@@ -114,19 +105,6 @@ const Item = ({ userDATA, handleShare, otherProfile, yourComments, postComments,
     
     }
 
-    // const handleShare = async() => {
-    //     console.log("share pressed")
-    //     const shareOptions =  {
-    //         message: postTextOriginal + "\n\nShared from IMU App."
-    //     }
-
-    //     try{
-    //         const shareResponse = await Share.share(shareOptions);
-    //     } catch(error) {
-    //         console.log('Share error -> ',error);
-    //     }
-    // }
-
     return (
 
         <View style={cardStyles.card}>
@@ -164,10 +142,6 @@ const Item = ({ userDATA, handleShare, otherProfile, yourComments, postComments,
                         <TouchableOpacity onPress={() => handleShare()} style={cardStyles.shareBtn}>
                             <MaterialCommunityIcons name="share-variant-outline" color={'#1877F2'} size={18}/>
                         </TouchableOpacity>
-                        {/* <View style={cardStyles.viewCount}>
-                            <Image source={require('../assets/view-count.png')} style={{ width: 30, height: 30, marginRight: 5 }} />
-                            <Text style={{ fontWeight: 'bold', fontSize: 15, color: '#1877F2', textAlignVertical: 'center' }}>20</Text>
-                        </View> */}
                     </View>
                 </View>
             </TouchableOpacity>
@@ -246,30 +220,6 @@ export default function Card({ mood, navigation, postDataRef }) {
     useEffect(() => {
         getDataBackEnd();
     }, [])
-
-
-
-    // useEffect(() => {
-    //     const FD = [];
-
-    //     Object.values(postDATA).map(element => {
-    //         get(ref(database, 'userData/' + element.uid)).then((snapshot) => {
-    //             const userData = snapshot.val();
-
-    //             const lastData = { element, userData, isShowing: false };
-    //             FD.push(lastData)
-
-    //             setDATA(FD);
-
-    //             setRefreshing(false);
-    //         })
-    //     });
-
-    // }, [postDATA])
-
-    // console.log(DATA);
-
-
 
     //setter and getter for profile image url
     const [photoURL, setPhotoURL] = useState(null);

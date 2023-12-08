@@ -116,7 +116,7 @@ export default function Home({ navigation }) {
 
   const renderItem = ({ item }) => {
 
-    //check the item id and selectedId, if they match background color get changed
+    //check the item id and selectedId, if they match change bg colour
     const backgroundColor = item.id === selectedId ? '#9EB8CF' : 'rgba(195, 226, 255, 0)';
 
     //selects an item from the flatlist on press

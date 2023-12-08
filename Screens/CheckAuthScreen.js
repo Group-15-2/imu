@@ -9,7 +9,7 @@ export let isExpired = false;
 export default function CheckAuthScreen({ navigation }) {
     const [status, setStatus] = useState(false);
 
-    //desable go back
+    //disable go back
     useEffect(() => {
         navigation.addListener('beforeRemove', (e) => {
             e.preventDefault();
