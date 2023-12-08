@@ -16,14 +16,12 @@ const styled = StyleSheet.create({
     },
 
     card: {
-        backgroundColor: "#fff",
         margin: 8,
         borderRadius: 10,
         height: '86%',
     },
 
     profileCard: {
-        backgroundColor: "#fff",
         margin: 8,
         borderRadius: 10,
         height: '100%'
@@ -117,7 +115,10 @@ const styled = StyleSheet.create({
     input: {
         flexDirection: 'row',
         backgroundColor: '#ECECEC',
-        borderRadius: 16
+        color: '#242323',
+        padding: 6,
+        borderRadius: 10,
+        marginTop: 4,
     },
 
     textButton: {

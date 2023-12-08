@@ -79,8 +79,8 @@ export default function AboutUs({ navigation }) {
         </Text>
         <View style={{ alignItems: "center", padding: 10 }}>
           <Image
-            source={require("../assets/icon1.png")}
-            style={{ width: 100, height: 100 }}
+            source={require("../assets/imuLogo.png")}
+            style={{ width: 100, height: 100, resizeMode: 'contain' }}
           />
           <View style={styles.container}>
             <Text style={styles.heading1}>Welcome to Imu!</Text>

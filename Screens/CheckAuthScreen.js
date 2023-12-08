@@ -22,7 +22,7 @@ export default function CheckAuthScreen({ navigation }) {
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
-            console.log('runned!');
+            console.log('Executed');
             // console.log(user);
             if (user) {
                 if (auth.currentUser.emailVerified) {

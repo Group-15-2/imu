@@ -4,8 +4,8 @@ const cardStyles = StyleSheet.create({
     commentBox: {
         flex: 1,
         backgroundColor: '#ECECEC',
-        padding: 5,
-        borderRadius: 50
+        padding: 8,
+        borderRadius: 10
     },
 
     viewCount: {
@@ -20,9 +20,13 @@ const cardStyles = StyleSheet.create({
         position: 'absolute',
         bottom: 0,
         right: 0,
-        // marginBottom: 40,
-        backgroundColor: '#d9d9d9',
+        padding: 10,
+        backgroundColor: '#fff',
         borderRadius: 200,
+    },
+
+    sendBtn: {
+        paddingLeft: 8,
     },
 
     optionContent: {
@@ -45,6 +49,7 @@ const cardStyles = StyleSheet.create({
 
     cardBottom: {
         padding: 8,
+        paddingBottom: 12,
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',

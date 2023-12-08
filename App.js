@@ -1,6 +1,6 @@
 import 'expo-dev-client';
 import React, { useEffect } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -84,30 +84,33 @@ export function MyTabs({ navigation }) {
   );
 }
 
+
 export default function App() {
   return (
-    <NavigationContainer >
-      <Stack.Navigator initialRouteName='FirstScreen' screenOptions={({ route }) => ({ headerShown: false })}>
-        <Stack.Screen name='FirstScreen' component={FirstScreen} />
-        <Stack.Screen name='Onboard' component={onboard} />
-        <Stack.Screen name='CheckAuthScreen' component={CheckAuthScreen} />
-        <Stack.Screen name='Home' component={MyTabs} />
-        <Stack.Screen name='YourComments' component={YourComments} />
-        <Stack.Screen name='ViewComments' component={ViewComments} />
-        <Stack.Screen name='OtherProfile' component={OtherProfile} />
-        <Stack.Screen name='SignIn' component={SignIn} />
-        <Stack.Screen name='PasswordResetVerify' component={PasswordResetVerify} />
-        <Stack.Screen name='SignUp' component={Register} />
-        <Stack.Screen name='VerifyEmail' component={VerifyEmail} />
-        <Stack.Screen name='SignUp1' component={Register1} />
-        <Stack.Screen name='SignUp2' component={Register2} />
-        <Stack.Screen name='Thoughts' component={Thoughts} />
-        <Stack.Screen name='ChatBox' component={ChatBox} />
-        <Stack.Screen name='Thought' component={ThoughtC} />
-        <Stack.Screen name='MyFriends' component={MyFriends} />
-        <Stack.Screen name='AboutUs' component={AboutUs} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <><View>
+      <StatusBar backgroundColor="#f2f2f2" barStyle="dark-content" />
+    </View><NavigationContainer>
+        <Stack.Navigator initialRouteName='FirstScreen' screenOptions={({ route }) => ({ headerShown: false })}>
+          <Stack.Screen name='FirstScreen' component={FirstScreen} />
+          <Stack.Screen name='Onboard' component={onboard} />
+          <Stack.Screen name='CheckAuthScreen' component={CheckAuthScreen} />
+          <Stack.Screen name='Home' component={MyTabs} />
+          <Stack.Screen name='YourComments' component={YourComments} />
+          <Stack.Screen name='ViewComments' component={ViewComments} />
+          <Stack.Screen name='OtherProfile' component={OtherProfile} />
+          <Stack.Screen name='SignIn' component={SignIn} />
+          <Stack.Screen name='PasswordResetVerify' component={PasswordResetVerify} />
+          <Stack.Screen name='SignUp' component={Register} />
+          <Stack.Screen name='VerifyEmail' component={VerifyEmail} />
+          <Stack.Screen name='SignUp1' component={Register1} />
+          <Stack.Screen name='SignUp2' component={Register2} />
+          <Stack.Screen name='Thoughts' component={Thoughts} />
+          <Stack.Screen name='ChatBox' component={ChatBox} />
+          <Stack.Screen name='Thought' component={ThoughtC} />
+          <Stack.Screen name='MyFriends' component={MyFriends} />
+          <Stack.Screen name='AboutUs' component={AboutUs} />
+        </Stack.Navigator>
+      </NavigationContainer></>
   );
 };
 

@@ -9,7 +9,6 @@ const chatStyles = StyleSheet.create({
     },
 
     card: {
-        backgroundColor: "#fff",
         margin: 8,
         borderRadius: 10,
         height: '100%',

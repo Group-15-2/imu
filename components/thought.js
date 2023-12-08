@@ -56,12 +56,12 @@ export default function Thought({ navigation }) {
     <SafeAreaView>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
         <Text style={thStyles.header}>
-          Your Title Here
+          Your Thought
         </Text>
         <TouchableOpacity onPress={save}>
-          <View style={{ flexDirection: 'row', marginRight: 16, marginTop: 12 }}>
-            <Text style={{ fontSize: 19, fontWeight: 'bold', color: '#504F4F', }}>Save</Text>
-            <MaterialCommunityIcons name='content-save-outline' size={25} color={'#504F4F'} />
+        <View style={{ flexDirection: 'row', marginRight: 16, marginTop: 12, alignItems: 'center', }}>
+        <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#504F4F', }}>Save</Text>
+            <MaterialCommunityIcons name='content-save-outline' size={18} color={'#504F4F'} />
           </View>
         </TouchableOpacity>
       </View>

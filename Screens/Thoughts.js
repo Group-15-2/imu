@@ -40,9 +40,9 @@ export default function Thoughts({ navigation }) {
           Thought Space
         </Text>
         <TouchableOpacity onPress={() => navigation.navigate('Thought')}>
-          <View style={{ flexDirection: 'row', marginRight: 16, marginTop: 12 }}>
-            {/* <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#504F4F', }}>Add Thought</Text> */}
-            <MaterialCommunityIcons name='plus-circle' size={25} color={'#504F4F'} />
+          <View style={{ flexDirection: 'row', marginRight: 16, marginTop: 12, alignItems: 'center', }}>
+            <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#504F4F', }}>Add Thought</Text>
+            <MaterialCommunityIcons name='plus-circle' size={18} color={'#504F4F'} />
           </View>
         </TouchableOpacity>
       </View>

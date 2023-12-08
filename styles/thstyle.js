@@ -10,7 +10,6 @@ const thStyles = StyleSheet.create({
     },
 
     card: {
-        backgroundColor: "#fff",
         margin: 8,
         borderRadius: 10,
         height: "100%",
@@ -70,7 +69,7 @@ const thStyles = StyleSheet.create({
         textAlignVertical:'top', 
         borderRadius: 10,
         borderWidth:2,
-        borderColor: '#6C6C6C'
+        borderColor: '#9A9A9A'
     },
     txtinput1: {
         margin:5,
@@ -78,7 +77,7 @@ const thStyles = StyleSheet.create({
         fontSize:16,  
         borderRadius: 10,
         borderWidth:2,
-        borderColor: '#6C6C6C'
+        borderColor: '#9A9A9A'
     }
     
 })

@@ -147,11 +147,11 @@ const Item = ({ userDATA, handleShare, otherProfile, yourComments, postComments,
                 </TouchableOpacity>
 
                 <View style={{ flexDirection:'row',display: chatVisibility}}>
-                    <TouchableOpacity onPress={() => addFriend()}>
-                        <MaterialCommunityIcons name={friendIcon} color={'#1877F2'} size={42} style={{right:10}} />
+                    <TouchableOpacity onPress={() => addFriend()} style={{marginRight:12 }}>
+                        <MaterialCommunityIcons name={friendIcon} color={'#1877F2'} size={32}  />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => onChat()}>
-                        <MaterialCommunityIcons name="message-text-outline" color={'#1877F2'} size={42} />
+                        <MaterialCommunityIcons name="message-text-outline" color={'#1877F2'} size={32} />
                     </TouchableOpacity>
                 </View>
             </View>
@@ -162,7 +162,7 @@ const Item = ({ userDATA, handleShare, otherProfile, yourComments, postComments,
 
                     <View style={[cardStyles.optionContent, { display: isViewCountShow }]}>
                         <TouchableOpacity onPress={() => handleShare()} style={cardStyles.shareBtn}>
-                            <MaterialCommunityIcons name="share-outline" color={'#1877F2'} size={30}/>
+                            <MaterialCommunityIcons name="share-variant-outline" color={'#1877F2'} size={18}/>
                         </TouchableOpacity>
                         {/* <View style={cardStyles.viewCount}>
                             <Image source={require('../assets/view-count.png')} style={{ width: 30, height: 30, marginRight: 5 }} />
@@ -194,8 +194,8 @@ const Item = ({ userDATA, handleShare, otherProfile, yourComments, postComments,
                             value={text}
                         />
 
-                        <TouchableOpacity onPress={() => { sendComment(); setText(''); }}>
-                            <MaterialCommunityIcons name="send" color={'#1877F2'} size={35} />
+                        <TouchableOpacity style={cardStyles.sendBtn} onPress={() => { sendComment(); setText(''); }}>
+                            <MaterialCommunityIcons name="send" color={'#1877F2'} size={32} />
                         </TouchableOpacity>
                     </View>
                 </View>
