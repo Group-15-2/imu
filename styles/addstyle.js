@@ -46,14 +46,14 @@ const addStyles = StyleSheet.create({
 
     post_btn: {
         alignSelf: 'center',
-        borderRadius: 5,
-        width: '25%',
+        borderRadius: 10,
+        width: '40%',
         marginTop: 10,
         paddingVertical: 10
     },
 
     post_btn_text: {
-        fontSize: 26,
+        fontSize: 20,
         fontWeight: 'bold',
         textAlign: 'center'
     }

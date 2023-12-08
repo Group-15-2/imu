@@ -64,7 +64,7 @@ const styled = StyleSheet.create({
     },
 
     anonymity: {
-        fontSize: 22,
+        fontSize: 18,
         fontWeight: 'bold',
         color: "#504F4F",
         padding: 10
@@ -126,6 +126,14 @@ const styled = StyleSheet.create({
         fontWeight: '700',
         textAlign: 'center',
     },
+
+    aboutButton: {
+        color: '#1877F2',
+        fontSize: 14,
+        fontWeight: '700',
+        textAlign: 'center',
+        marginBottom: 60,
+    }
 })
 
 export { styled }

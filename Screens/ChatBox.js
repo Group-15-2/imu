@@ -167,7 +167,7 @@ const ChatScreen = ({ userData, userId, chatRoomId }) => {
           <MaterialCommunityIcons
             name="send"
             style={styles.input}
-            size={42}
+            size={32}
             color="#1877F2"
           />
         </View>
@@ -328,7 +328,8 @@ export default function ChatBox({ navigation, route }) {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.topSelector}>
-        <TouchableOpacity activeOpacity={.7} onPress={() => navigation.goBack()}>
+        <View style={styles.backUser}>
+          <TouchableOpacity activeOpacity={.7} onPress={() => navigation.goBack()}>
           <MaterialCommunityIcons name='chevron-left' size={34} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("OtherProfile", { userId: userData.id })}>
@@ -345,15 +346,12 @@ export default function ChatBox({ navigation, route }) {
             </View>
           </View>
         </TouchableOpacity>
-        <View style={{left: 30}}>
-            <TouchableOpacity onPress={() => addFriend()}>
-                <MaterialCommunityIcons name={friendIcon} color={'#1877F2'} size={42} />
-            </TouchableOpacity>
         </View>
-
-        {/* <TouchableOpacity activeOpacity={.7} style={styles.dot} onPress={() => navigation.navigate('Messages')}>
-          <MaterialCommunityIcons name='dots-vertical' size={34} />
-        </TouchableOpacity> */}
+        <View style={styles.friendIcon}>
+        <TouchableOpacity  onPress={() => addFriend()}>
+            <MaterialCommunityIcons name={friendIcon} color={'#1877F2'} size={36} />
+        </TouchableOpacity>
+        </View>
       </View>
 
       <ChatScreen

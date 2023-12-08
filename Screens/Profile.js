@@ -17,7 +17,7 @@ import ChangeEmailModal from '../components/ChangeEmailModal';
 import LoadingModal from '../components/LoadingModal';
 import { updateProfile } from 'firebase/auth';
 import { LoginManager } from 'react-native-fbsdk-next';
-import { faker } from '@faker-js/faker';
+import { faker} from '@faker-js/faker';
 import { get, onValue, ref, set, update } from 'firebase/database';
 
 //default profile pic link from firebase storage
@@ -175,6 +175,7 @@ export default function ProfileScreen({ navigation }) {
 
   return (
     <SafeAreaView >
+              <ScrollView>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
         <Text style={styled.header}>
           Profile
@@ -182,15 +183,14 @@ export default function ProfileScreen({ navigation }) {
 
         <TouchableOpacity onPress={() => setConfirmModalOpen(true)}>
           <View style={{ flexDirection: 'row', marginRight: 16, paddingTop: 8, }}>
-            <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#504F4F', paddingRight: 10 }}>Logout</Text>
-            <Image source={require('../assets/logout.png')} style={{ height: 30, width: 30 }} />
+            <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#504F4F', paddingRight: 10 }}>Logout</Text>
+            <Image source={require('../assets/logout.png')} style={{ height: 24, width: 24 }} />
           </View>
         </TouchableOpacity>
 
       </View>
 
       <View style={styled.profileCard}>
-        <ScrollView>
 
 
           <View style={styled.userinfo}>
@@ -270,10 +270,8 @@ export default function ProfileScreen({ navigation }) {
           <View style={{ flexDirection: 'row' }}>
             <Text style={styled.anonymity}>Anonymity</Text>
             <Switch
-              style={styled.btn}
               trackColor={{ false: "#767577", true: "#81b0ff" }}
               thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
-              ios_backgroundColor="#3e3e3e"
               onValueChange={toggleSwitch}
               value={isEnabled}
             />
@@ -301,10 +299,8 @@ export default function ProfileScreen({ navigation }) {
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => aboutUs()}>
-            <Text style={styled.textButton}>About Us</Text>
+            <Text style={styled.aboutButton}>About Us</Text>
           </TouchableOpacity>
-
-
 
           {/* Modals */}
 
@@ -354,8 +350,9 @@ export default function ProfileScreen({ navigation }) {
 
           <LoadingModal visibility={isLoaderOpen} />
 
-        </ScrollView>
+        
       </View>
+      </ScrollView>
     </SafeAreaView >
   );
 }

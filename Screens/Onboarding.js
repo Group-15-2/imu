@@ -87,11 +87,11 @@ const OnboardingScreen = ({ navigation }) => {
                     backgroundColor: '#fff',
                     image: <Image source={require('../assets/3.png')} />,
                     title: 'We are here to help.',
-                    subtitle: "Whatever it maybe we can help you! Just relax and talk.",
+                    subtitle: "Help is here! Just relax and talk.",
                 },
             ]}
-            imageContainerStyles={{ height: 300, marginBottom: 250, width: '100%' }}
-            titleStyles={{ color: '#000' }}
+            imageContainerStyles={{ height: 300, marginBottom: 250}}
+            titleStyles={{ color: '#1877F2', fontWeight: 'bold' }}
             subTitleStyles={{ marginBottom: 280, fontSize: 18 }}
         />
     );

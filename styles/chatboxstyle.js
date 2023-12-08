@@ -5,17 +5,24 @@ const styles = StyleSheet.create({
       backgroundColor: '#fff',
       paddingLeft: 7,
       paddingRight: 7,
-      margin: 1,
-      borderBottomRightRadius: 20,
-      borderTopRightRadius: 20
     },
     topSelector: {
+      display: 'flex',
+      backgroundColor:'#fff',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      height: 60
+    },
+
+    backUser: {
       display: 'flex',
       backgroundColor:'#fff',
       flexDirection: 'row',
       alignItems: 'center',
       height: 60
     },
+
     heading: {
       fontSize: 24,
       fontWeight: 'bold',
@@ -58,6 +65,9 @@ const styles = StyleSheet.create({
     },
     dot: {
       left: 20
+    },
+    friendIcon: {
+      marginRight: 13
     }
   });
 
