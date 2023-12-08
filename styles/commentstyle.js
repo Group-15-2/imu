@@ -15,7 +15,7 @@ const commentStyles = StyleSheet.create({
         marginBottom: -20
     },
     yourComments: {
-        padding: 5,
+        padding: 8,
         color: '#1877F2',
         fontWeight: 'bold'
     },

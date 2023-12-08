@@ -27,17 +27,17 @@ const moodletDATA = [
   {
     id: 3,
     link: require('../assets/moodlets/pensive.png'),
-    mood: 'Feeling Pensive!'
+    mood: 'Feeling Contemplative!'
   },
   {
     id: 4,
     link: require('../assets/moodlets/anguish.png'),
-    mood: 'Feeling Anguish!'
+    mood: 'Feeling Regret!'
   },
   {
     id: 5,
     link: require('../assets/moodlets/not-good.png'),
-    mood: 'Feeling Not Good!'
+    mood: 'Not Feeling Good!'
   },
   {
     id: 6,

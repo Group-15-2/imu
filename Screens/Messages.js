@@ -75,7 +75,7 @@ const Item = ({ item, msgTime, unreadCount, handlePress }) => {
               <Image source={userData.moodlet} style={chatStyles.moodlet} />
             </View>
             <View>
-              <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+              <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', fontWeight: 'bold'}}>
                 <Text>{userName}</Text>
                 <View style={{display: friendIconVisibility, paddingLeft: 5}}>
                   <MaterialCommunityIcons name={'account-heart'} color={'#1877F2'} size={15}/>
